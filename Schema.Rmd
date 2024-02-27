@@ -74,7 +74,6 @@ CREATE TABLE CATEGORY(
 ```
 
 
-
 ### SUPPLIER
 ```{sql connection = my_db}
 CREATE TABLE SUPPLIER (
