@@ -1,0 +1,97 @@
+"","CATEGORY","GENDER","AGE_GROUP","CATEGORY_ID"
+"1","Shirts","Male","Kids",10001
+"2","Inner_wear","Male","Kids",10002
+"3","Activewear","Male","Kids",10003
+"4","Shoes","Male","Kids",10004
+"5","Jackets","Male","Kids",10005
+"6","Gloves","Male","Kids",10006
+"7","Thermals","Male","Kids",10007
+"8","Pants","Male","Kids",10008
+"9","Jeans","Male","Kids",10009
+"10","Trousers","Male","Kids",10010
+"11","Formal_Wear","Male","Kids",10011
+"12","Casuals","Male","Kids",10012
+"13","Shirts","Female","Kids",10013
+"14","Inner_wear","Female","Kids",10014
+"15","Activewear","Female","Kids",10015
+"16","Shoes","Female","Kids",10016
+"17","Jackets","Female","Kids",10017
+"18","Gloves","Female","Kids",10018
+"19","Thermals","Female","Kids",10019
+"20","Pants","Female","Kids",10020
+"21","Jeans","Female","Kids",10021
+"22","Trousers","Female","Kids",10022
+"23","Formal_Wear","Female","Kids",10023
+"24","Casuals","Female","Kids",10024
+"25","Shirts","Male","Pre-Teens",10025
+"26","Inner_wear","Male","Pre-Teens",10026
+"27","Activewear","Male","Pre-Teens",10027
+"28","Shoes","Male","Pre-Teens",10028
+"29","Jackets","Male","Pre-Teens",10029
+"30","Gloves","Male","Pre-Teens",10030
+"31","Thermals","Male","Pre-Teens",10031
+"32","Pants","Male","Pre-Teens",10032
+"33","Jeans","Male","Pre-Teens",10033
+"34","Trousers","Male","Pre-Teens",10034
+"35","Formal_Wear","Male","Pre-Teens",10035
+"36","Casuals","Male","Pre-Teens",10036
+"37","Shirts","Female","Pre-Teens",10037
+"38","Inner_wear","Female","Pre-Teens",10038
+"39","Activewear","Female","Pre-Teens",10039
+"40","Shoes","Female","Pre-Teens",10040
+"41","Jackets","Female","Pre-Teens",10041
+"42","Gloves","Female","Pre-Teens",10042
+"43","Thermals","Female","Pre-Teens",10043
+"44","Pants","Female","Pre-Teens",10044
+"45","Jeans","Female","Pre-Teens",10045
+"46","Trousers","Female","Pre-Teens",10046
+"47","Formal_Wear","Female","Pre-Teens",10047
+"48","Casuals","Female","Pre-Teens",10048
+"49","Shirts","Male","Young Adults",10049
+"50","Inner_wear","Male","Young Adults",10050
+"51","Activewear","Male","Young Adults",10051
+"52","Shoes","Male","Young Adults",10052
+"53","Jackets","Male","Young Adults",10053
+"54","Gloves","Male","Young Adults",10054
+"55","Thermals","Male","Young Adults",10055
+"56","Pants","Male","Young Adults",10056
+"57","Jeans","Male","Young Adults",10057
+"58","Trousers","Male","Young Adults",10058
+"59","Formal_Wear","Male","Young Adults",10059
+"60","Casuals","Male","Young Adults",10060
+"61","Shirts","Female","Young Adults",10061
+"62","Inner_wear","Female","Young Adults",10062
+"63","Activewear","Female","Young Adults",10063
+"64","Shoes","Female","Young Adults",10064
+"65","Jackets","Female","Young Adults",10065
+"66","Gloves","Female","Young Adults",10066
+"67","Thermals","Female","Young Adults",10067
+"68","Pants","Female","Young Adults",10068
+"69","Jeans","Female","Young Adults",10069
+"70","Trousers","Female","Young Adults",10070
+"71","Formal_Wear","Female","Young Adults",10071
+"72","Casuals","Female","Young Adults",10072
+"73","Shirts","Male","Adults",10073
+"74","Inner_wear","Male","Adults",10074
+"75","Activewear","Male","Adults",10075
+"76","Shoes","Male","Adults",10076
+"77","Jackets","Male","Adults",10077
+"78","Gloves","Male","Adults",10078
+"79","Thermals","Male","Adults",10079
+"80","Pants","Male","Adults",10080
+"81","Jeans","Male","Adults",10081
+"82","Trousers","Male","Adults",10082
+"83","Formal_Wear","Male","Adults",10083
+"84","Casuals","Male","Adults",10084
+"85","Shirts","Female","Adults",10085
+"86","Inner_wear","Female","Adults",10086
+"87","Activewear","Female","Adults",10087
+"88","Shoes","Female","Adults",10088
+"89","Jackets","Female","Adults",10089
+"90","Gloves","Female","Adults",10090
+"91","Thermals","Female","Adults",10091
+"92","Pants","Female","Adults",10092
+"93","Jeans","Female","Adults",10093
+"94","Trousers","Female","Adults",10094
+"95","Formal_Wear","Female","Adults",10095
+"96","Casuals","Female","Adults",10096

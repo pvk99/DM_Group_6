@@ -152,5 +152,25 @@ CREATE TABLE RETURNS(
 
 ## Synthetic Data Generation
 
+```{r}
+# Define vectors for categories, genders, and age groups
+CATEGORY_NAME <- c('Shirts', 'Inner_wear', 'Activewear', 'Shoes', 'Jackets', 'Gloves', 'Thermals', 'Pants', 'Jeans', 'Trousers', 'Formal_Wear', 'Casuals')
+GENDER <- c("Male", "Female")
+AGE_GROUP <- c('Kids', 'Pre-Teens', 'Young Adults', 'Adults')
+CATEGORY_ID <- 10001:10096
+
+# Generate all combinations
+CATEGORY <- expand.grid(CATEGORY_NAME, GENDER, AGE_GROUP)
+CATEGORY$CATEGORY_ID <- CATEGORY_ID
+
+# Rename columns
+names(CATEGORY) <- c("CATEGORY", "GENDER", "AGE_GROUP", "CATEGORY_ID")
+
+# View the first few combinations
+head(CATEGORY)
+write.csv(CATEGORY,"Category.csv")
+```
+
+
 ## Data Import and Quality Assurance
 
