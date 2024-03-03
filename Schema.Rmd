@@ -151,6 +151,11 @@ CREATE TABLE RETURNS(
 
 
 ## Synthetic Data Generation
+```{r}
+# Set the seed for randomness
+set.seed(123) 
+```
+
 ### Create CATEGORY entity
 ```{r}
 # Define categories, genders, and age groups
@@ -238,20 +243,14 @@ SKU$SUPPLIER_ID <- sample(SUPPLIER$SUPPLIER_ID, size = nrow(SKU), replace = TRUE
 ```{r}
 # Create ORDER dataframe
 ORDER <- data.frame(
-  PRODUCT_ID = character(1000),
+  ORDER_ID = paste0("OD", seq_len(1000) + 10000),
   stringsAsFactors = TRUE
 )
 
-# Sampling products from SKU 
-ORDER$PRODUCT_ID <- sample(SKU$PRODUCT_ID, size = 1000, replace = TRUE)
-
-# Add ORDER_QUANTITY
-ORDER$ORDER_QUANTITY <-round(runif(nrow(ORDER),min=1,max=5),2)
-
 # Add ORDER_STATUS:
-status <- c("Order placed","In transit","Delivered","Cancelled","Returned")
-probabilities <- c(0.1, 0.35, 0.5, 0.025, 0.025)
-ORDER$ORDER_STATUS <- as.factor(sample(status, size = nrow(ORDER), replace = TRUE,prob = probabilities))
+order_status <- c("Order placed","In transit","Delivered","Cancelled","Returned")
+probabilities_order <- c(0.1, 0.35, 0.5, 0.025, 0.025)
+ORDER$ORDER_STATUS <- as.factor(sample(order_status, size = nrow(ORDER), replace = TRUE,prob = probabilities_order))
 
 
 # Add ORDER_DATE
@@ -259,8 +258,63 @@ start_date <- as.Date("2023-01-01")
 end_date <- as.Date("2023-12-31")
 ORDER$ORDER_DATE <- sample(seq(start_date, end_date, by = "day"), nrow(ORDER), replace = TRUE)
 
-# Add ORDER_ID column
-ORDER$ORDER_ID <- paste0("OD", seq_len(nrow(ORDER)) + 10000)
+# Create an empty dataframe to store order-product mappings
+order_product_mapping <- data.frame(ORDER_ID = character(), PRODUCT_ID = character(), stringsAsFactors = FALSE)
+
+# Define the number of products per order
+products_per_order <- round(runif(nrow(ORDER), min = 1, max = 10))
+
+# Loop through each order ID and sample products
+for (i in 1:nrow(ORDER)) {
+  order_id <- ORDER$ORDER_ID[i]
+  product_ids <- sample(SKU$PRODUCT_ID, size = products_per_order[i], replace = FALSE)
+  order_product_mapping <- rbind(order_product_mapping, data.frame(ORDER_ID = rep(order_id, length(product_ids)), PRODUCT_ID = product_ids))
+}
+
+# Merge order_product_mapping with ORDER dataframe to retain other order details
+ORDER <- merge(ORDER, order_product_mapping, by = "ORDER_ID", all.x = TRUE)
+
+# Add ORDER_QUANTITY
+ORDER$ORDER_QUANTITY <-round(runif(nrow(ORDER),min=1,max=5),0)
+
+# Get summary of ORDER
+summary(ORDER)
+```
+
+### Create TRANSACTION table
+
+```{r}
+# Create TRANSACTION dataframe
+TRANSACTION <- data.frame(
+  ORDER_ID = ORDER$ORDER_ID,
+  stringsAsFactors = TRUE
+)
+
+# Add PAYMENT_METHOD
+payment_method <- c("Credit card","Debit card","Paypal","Gift Card")
+probabilities_payment_method <- c(0.45, 0.35, 0.175, 0.025)
+TRANSACTION$PAYMENT_METHOD <- as.factor(sample(payment_method, size = nrow(TRANSACTION), replace = TRUE,prob = probabilities_payment_method))
+
+# Add TRANSACTION_VALUE
+## Define discount percents
+discount_percent = runif(nrow(TRANSACTION), min = 0, max = 0.2)
+## Match ORDER_ID between TRANSACTION and SKU dataframes
+mapping <- ORDER%>% left_join(select(SKU, PRODUCT_ID, PRODUCT_SELLING_PRICE), by = "PRODUCT_ID")
+mapping %>%
+  group_by(ORDER_ID) %>%
+  summarise(GMV = sum(ORDER_QUANTITY *PRODUCT_SELLING_PRICE )) <- mapping$GMV
+
+# Calculate TRANSACTION_VALUE with discount
+TRANSACTION%>%
+  left_join(select(mapping,GMV),by='ORDER_ID')%>%
+  summarise(TRANSACTION_VALUE=GMV*(1-discount_percent))
+
+
+
+# Add PAYMENT_STATUS
+payment_status <- c("Succesful","Declined")
+probabilities_payment_status <- c(0.95, 0.05)
+TRANSACTION$PAYMENT_STATUS <- as.factor(sample(payment_status, size = nrow(TRANSACTION), replace = TRUE,prob = probabilities_payment_status))
 ```
 
 
