@@ -215,17 +215,22 @@ SKU <- do.call(rbind, sku_list)
 # Rename columns
 names(SKU) <- c("COLOR", "SIZE", "GENDER", "AGE_GROUP", "PRODUCT_NAME", "CATEGORY")
 
-# Add SKU_ID column
-SKU$SKU_ID <- seq_len(nrow(SKU)) + 10000
-
 # Remove unrealistic cases
 SKU <- SKU[!(SKU$CATEGORY == 'Dress' & SKU$GENDER == 'Male'), ]
 SKU <- SKU[!(SKU$PRODUCT_NAME == 'Bra' & SKU$GENDER == 'Male'), ]
 
-SKU$PRODUCT_SELLING_PRICE <- round(runif(nrow(SKU),min=20,max=100),2)
-SKU$PRODUCT_SELLING_PRICE[SKU$CATEGORY == "Accessories"] <- round(runif(sum(SKU$CATEGORY == "Accessories"), min = 5, max = 20), 2)
+# Add SKU_ID column
+SKU$SKU_ID <- paste0("SKU", seq_len(nrow(SKU)) + 10000)
+
+# Add selling and purchasing price
+SKU$PRODUCT_PURCHASING_PRICE <- round(runif(nrow(SKU),min=20,max=100),2)
+SKU$PRODUCT_PURCHASING_PRICE[SKU$CATEGORY == "Accessories"] <- round(runif(sum(SKU$CATEGORY == "Accessories"), min = 5, max = 20), 2)
 markup <- runif(nrow(SKU), min = 0.1, max = 0.3)
-SKU$PRODUCT_PURCHASING_PRICE <- round(SKU$PRODUCT_SELLING_PRICE /(1 + markup), 2)
+SKU$PRODUCT_SELLING_PRICE <- round(SKU$PRODUCT_PURCHASING_PRICE *(1 + markup), 2)
+
+# Add SUPPLIER_ID
+SKU$SUPPLIER_ID <- sample(SUPPLIER$SUPPLIER_ID, size = nrow(SKU), replace = TRUE)
+
 ```
 
 
