@@ -170,7 +170,7 @@ CATEGORY <- CATEGORY[!(CATEGORY$CATEGORY_NAME == 'Dress' & CATEGORY$GENDER == 'M
   
 ```
 
-### Create SKU table
+### Create SKU data
 ```{r}
 ## Define colors, size, gender, age groups,
 colors <- c("black", "white", "blue", "gray", "navy", "red", "green", "brown", "beige", "pink", "purple", "yellow", "orange", "burgundy", "teal")
@@ -183,7 +183,7 @@ combinations <- expand.grid(colors = colors,
                             size = sizes,
                             gender = genders,
                             age_group = age_groups,
-                            stringsAsFactors = FALSE)
+                            stringsAsFactors = TRUE)
 
 # Define product names for each category
 product_names <- list(
@@ -220,7 +220,7 @@ SKU <- SKU[!(SKU$CATEGORY == 'Dress' & SKU$GENDER == 'Male'), ]
 SKU <- SKU[!(SKU$PRODUCT_NAME == 'Bra' & SKU$GENDER == 'Male'), ]
 
 # Add SKU_ID column
-SKU$SKU_ID <- paste0("SKU", seq_len(nrow(SKU)) + 10000)
+SKU$PRODUCT_ID <- paste0("SKU", seq_len(nrow(SKU)) + 10000)
 
 # Add selling and purchasing price
 SKU$PRODUCT_PURCHASING_PRICE <- round(runif(nrow(SKU),min=20,max=100),2)
@@ -231,6 +231,36 @@ SKU$PRODUCT_SELLING_PRICE <- round(SKU$PRODUCT_PURCHASING_PRICE *(1 + markup), 2
 # Add SUPPLIER_ID
 SKU$SUPPLIER_ID <- sample(SUPPLIER$SUPPLIER_ID, size = nrow(SKU), replace = TRUE)
 
+```
+
+### Create ORDER data
+
+```{r}
+# Create ORDER dataframe
+ORDER <- data.frame(
+  PRODUCT_ID = character(1000),
+  stringsAsFactors = TRUE
+)
+
+# Sampling products from SKU 
+ORDER$PRODUCT_ID <- sample(SKU$PRODUCT_ID, size = 1000, replace = TRUE)
+
+# Add ORDER_QUANTITY
+ORDER$ORDER_QUANTITY <-round(runif(nrow(ORDER),min=1,max=5),2)
+
+# Add ORDER_STATUS:
+status <- c("Order placed","In transit","Delivered","Cancelled","Returned")
+probabilities <- c(0.1, 0.35, 0.5, 0.025, 0.025)
+ORDER$ORDER_STATUS <- as.factor(sample(status, size = nrow(ORDER), replace = TRUE,prob = probabilities))
+
+
+# Add ORDER_DATE
+start_date <- as.Date("2023-01-01")
+end_date <- as.Date("2023-12-31")
+ORDER$ORDER_DATE <- sample(seq(start_date, end_date, by = "day"), nrow(ORDER), replace = TRUE)
+
+# Add ORDER_ID column
+ORDER$ORDER_ID <- paste0("OD", seq_len(nrow(ORDER)) + 10000)
 ```
 
 
