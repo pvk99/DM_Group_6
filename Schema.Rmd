@@ -151,24 +151,81 @@ CREATE TABLE RETURNS(
 
 
 ## Synthetic Data Generation
-
+### Create CATEGORY entity
 ```{r}
-# Define vectors for categories, genders, and age groups
-CATEGORY_NAME <- c('Shirts', 'Inner_wear', 'Activewear', 'Shoes', 'Jackets', 'Gloves', 'Thermals', 'Pants', 'Jeans', 'Trousers', 'Formal_Wear', 'Casuals')
-GENDER <- c("Male", "Female")
-AGE_GROUP <- c('Kids', 'Pre-Teens', 'Young Adults', 'Adults')
-CATEGORY_ID <- 10001:10096
+# Define categories, genders, and age groups
+
+CATEGORY_ID <- 10001:10080
 
 # Generate all combinations
 CATEGORY <- expand.grid(CATEGORY_NAME, GENDER, AGE_GROUP)
 CATEGORY$CATEGORY_ID <- CATEGORY_ID
 
 # Rename columns
-names(CATEGORY) <- c("CATEGORY", "GENDER", "AGE_GROUP", "CATEGORY_ID")
+names(CATEGORY) <- c("CATEGORY_NAME", "GENDER", "AGE_GROUP", "CATEGORY_ID")
 
-# View the first few combinations
-head(CATEGORY)
-write.csv(CATEGORY,"Category.csv")
+# Remove unrealistic cases
+CATEGORY <- CATEGORY[!(CATEGORY$CATEGORY_NAME == 'Dress' & CATEGORY$GENDER == 'Male'), ]
+
+  
+```
+
+### Create SKU table
+```{r}
+## Define colors, size, gender, age groups,
+colors <- c("black", "white", "blue", "gray", "navy", "red", "green", "brown", "beige", "pink", "purple", "yellow", "orange", "burgundy", "teal")
+sizes <- c("XS", "S", "M", "L", "XL")
+genders <- c("Male", "Female")
+age_groups <- c("Kids", "Pre-Teens", "Young Adults", "Adults")
+
+# Create a dataframe to store all combinations
+combinations <- expand.grid(colors = colors,
+                            size = sizes,
+                            gender = genders,
+                            age_group = age_groups,
+                            stringsAsFactors = FALSE)
+
+# Define product names for each category
+product_names <- list(
+  Shirts = c("T-shirt", "Polo shirt", "Button-up shirt", "Blouse", "Sweater"),
+  Innerwear = c("Underwear", "Bra"),
+  Activewear = c("Hoodie", "Track pants", "Sports tights", "Running shorts"),
+  Shoes = c("Sneakers", "Boots", "Sandals"),
+  Jackets = c("Coat", "Denim Jacket", "Leather Jacket", "Puffer Jacket"),
+  Accessories = c("Gloves", "Necklaces", "Scarf", "Hat", "Ring"),
+  Thermals = c("Thermal top", "Thermal bottoms"),
+  Pants = c("Joggers", "Cargo Pants", "Chinos", "Sweatpants"),
+  Jeans = c("Skinny Jeans", "Straight Leg Jeans", "Flare Jeans"),
+  Dress = c("Summer Dress", "Spring Dress", "Winter Dress", "Cocktail Dress")
+)
+
+# Create a list to store SKU data
+sku_list <- list()
+
+# Iterate over each category and combine with combinations dataframe
+for (category in names(product_names)) {
+  product_df <- expand.grid(PRODUCT_NAME = product_names[[category]], stringsAsFactors = FALSE)
+  product_df$CATEGORY <- category
+  sku_list[[category]] <- merge(combinations, product_df, by = NULL)
+}
+
+# Combine all SKU dataframes into one dataframe
+SKU <- do.call(rbind, sku_list)
+
+# Rename columns
+names(SKU) <- c("COLOR", "SIZE", "GENDER", "AGE_GROUP", "PRODUCT_NAME", "CATEGORY")
+
+# Add SKU_ID column
+SKU$SKU_ID <- seq_len(nrow(SKU)) + 10000
+
+# Remove unrealistic cases
+SKU <- SKU[!(SKU$CATEGORY == 'Dress' & SKU$GENDER == 'Male'), ]
+SKU <- SKU[!(SKU$PRODUCT_NAME == 'Bra' & SKU$GENDER == 'Male'), ]
+
+SKU$PRODUCT_SELLING_PRICE <- round(runif(nrow(SKU),min=20,max=100),2)
+SKU$PRODUCT_SELLING_PRICE[SKU$CATEGORY == "Accessories"] <- round(runif(sum(SKU$CATEGORY == "Accessories"), min = 5, max = 20), 2)
+markup <- runif(nrow(SKU), min = 0.1, max = 0.3)
+SKU$PRODUCT_PURCHASING_PRICE <- round(SKU$PRODUCT_SELLING_PRICE /(1 + markup), 2)
 ```
 
 
