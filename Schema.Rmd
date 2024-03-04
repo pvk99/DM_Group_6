@@ -175,6 +175,81 @@ CATEGORY <- CATEGORY[!(CATEGORY$CATEGORY_NAME == 'Dress' & CATEGORY$GENDER == 'M
   
 ```
 
+### Create SUPPLIER data
+
+```{r}
+# Define the list of legal entity names with a focus on clothes manufacturers
+supplier_names <- c(
+  "Vogue Apparel Co",
+  "Elite Fashions Inc",
+  "Chic Designs Ltd",
+  "Trendy Textiles Group",
+  "Fashion Forward Creations LLC",
+  "StyleMakers International",
+  "Elegance Garments Ltd.",
+  "Modern Threads Co",
+  "Urban Couture Enterprises",
+  "Glamour Wear Inc",
+  "Fashionista Industries Ltd",
+  "Couture Creations LLC",
+  "Trendsetter Textiles Inc.",
+  "Classic Styles Group",
+  "Designer Denim Co.",
+  "Boutique Brands Ltd",
+  "Luxury Labels International",
+  "Chic Couture Creations",
+  "Trendy Tailors Inc",
+  "Fancy Fabrics Group"
+)
+
+# Create SUPPLIER dataframe
+SUPPLIER <- data.frame(SUPPLIER_NAME=supplier_names, stringsAsFactors = TRUE)
+
+#Add SUPPLIER_EMAIL
+generate_email <- function(company_name) {
+  # Convert company name to lowercase and remove spaces
+  company_name <- gsub(" ", "", tolower(company_name))
+  # Generate email domain based on company name
+  domain <- paste0(company_name, ".com")
+  # Generate email address
+  email <- paste0("customer_service@", domain)
+  return(email)
+}
+
+SUPPLIER$SUPPLIER_EMAIL <- sapply(supplier_names, generate_email)
+
+### Create random phone number
+SUPPLIER$SUPPLIER_PHONE <- paste0("+44", round(runif(nrow(SUPPLIER), min = 10*10, max = 9999999999)))
+
+### Add SUPPLIER_POST_CODE
+SUPPLIER$SUPPLIER_POST_CODE <- c(
+  "SW1A 1AA",
+  "EC1A 1BB",
+  "W1A 1HQ",
+  "N1C 4AG",
+  "SE1 7PB",
+  "NW1W 0NY",
+  "SW1A 0AA",
+  "EC1A 1BB",
+  "W1A 1HQ",
+  "N1C 4AG",
+  "SE1 7PB",
+  "NW1W 0NY",
+  "SW1A 0AA",
+  "EC1A 1BB",
+  "W1A 1HQ",
+  "N1C 4AG",
+  "SE1 7PB",
+  "NW1W 0NY",
+  "SW1A 0AA",
+  "EC1A 1BB"
+)
+
+## Add SUPPLIER_ID
+SUPPLIER$SUPPLIER_ID = paste0("SP", seq_len(nrow(SUPPLIER)) + 10000)
+```
+
+
 ### Create SKU data
 ```{r}
 ## Define colors, size, gender, age groups,
@@ -286,7 +361,7 @@ summary(ORDER)
 ```{r}
 # Create TRANSACTION dataframe
 TRANSACTION <- data.frame(
-  ORDER_ID = ORDER$ORDER_ID,
+  ORDER_ID = unique(ORDER$ORDER_ID),
   stringsAsFactors = TRUE
 )
 
@@ -296,25 +371,29 @@ probabilities_payment_method <- c(0.45, 0.35, 0.175, 0.025)
 TRANSACTION$PAYMENT_METHOD <- as.factor(sample(payment_method, size = nrow(TRANSACTION), replace = TRUE,prob = probabilities_payment_method))
 
 # Add TRANSACTION_VALUE
-## Define discount percents
-discount_percent = runif(nrow(TRANSACTION), min = 0, max = 0.2)
 ## Match ORDER_ID between TRANSACTION and SKU dataframes
 mapping <- ORDER%>% left_join(select(SKU, PRODUCT_ID, PRODUCT_SELLING_PRICE), by = "PRODUCT_ID")
-mapping %>%
+## Define discount percents
+mapping$discount_percent = runif(nrow(mapping), min = 0, max = 0.2)
+## Calculate transaction value
+mapping$net_revenue <- mapping$ORDER_QUANTITY*mapping$PRODUCT_SELLING_PRICE*(1-mapping$discount_percent)
+transaction_value<- mapping %>%
   group_by(ORDER_ID) %>%
-  summarise(GMV = sum(ORDER_QUANTITY *PRODUCT_SELLING_PRICE )) <- mapping$GMV
-
-# Calculate TRANSACTION_VALUE with discount
-TRANSACTION%>%
-  left_join(select(mapping,GMV),by='ORDER_ID')%>%
-  summarise(TRANSACTION_VALUE=GMV*(1-discount_percent))
-
-
+  summarise(TRANSACTION_VALUE = sum(net_revenue))
+## Map TRANSACTION_VALUE to TRANSACTION table
+TRANSACTION <- left_join(TRANSACTION, transaction_value, by = "ORDER_ID")
 
 # Add PAYMENT_STATUS
-payment_status <- c("Succesful","Declined")
-probabilities_payment_status <- c(0.95, 0.05)
-TRANSACTION$PAYMENT_STATUS <- as.factor(sample(payment_status, size = nrow(TRANSACTION), replace = TRUE,prob = probabilities_payment_status))
+## All current order has to have a successful transaction
+TRANSACTION$TRANSACTION_STATUS <- "Successful"
+## Assume there are 5% of transactions declined
+indices_to_duplicate <- sample(1:nrow(TRANSACTION), size = 0.05*nrow(TRANSACTION))
+duplicated_failed_transactions <- TRANSACTION[indices_to_duplicate, ]
+duplicated_failed_transactions$TRANSACTION_STATUS <- "Declined"
+TRANSACTION <- rbind(TRANSACTION, duplicated_failed_transactions)
+
+## Assign TRANSACTION_ID
+TRANSACTION$TRANSACTION_ID <- paste0("TR", seq_len(nrow(TRANSACTION)) + 10000)
 ```
 
 
