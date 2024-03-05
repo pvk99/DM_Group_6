@@ -1,0 +1,41 @@
+---
+title: "Group 6"
+format: pdf
+editor: visual
+---
+
+## Quarto
+
+**OUTLINE**
+
+1.  Introduction (RAMYA)
+
+2.  ER Diagram (ANKIT + RAMYA)
+
+    2.1 Assumption
+
+    2.2 Entity and Relationship:
+
+    -   Explain relationship and relationship set
+
+    -   Normalisation explanation
+
+3.  SQL Schema: logical schema (put as table as Gong report) (GONG)
+
+4.  Data generation (HA)
+
+5.  Data pipeline generation (DYLAN)
+
+6.  Data analysis (VARUN + POR)
+
+    6.1 Question 1 - Sales and profit performance
+
+    6.2 Question 2 - Customer analysis
+
+    6.3 Question 3 - Promotion analysis
+
+7.  Conclusion (HA)
+
+Appendix
+
+1.  Data Dictionary (GONG)

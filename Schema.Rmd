@@ -159,11 +159,13 @@ set.seed(123)
 ### Create CATEGORY entity
 ```{r}
 # Define categories, genders, and age groups
-
+genders <- c("Male", "Female")
+age_groups <- c("Kids", "Pre-Teens", "Young Adults", "Adults")
+category_names <- c("Shirts","Innerwear", "Activewear","Shoes","Jackets","Accessories","Thermals","Pants","Jeans","Dress" )
 CATEGORY_ID <- 10001:10080
 
 # Generate all combinations
-CATEGORY <- expand.grid(CATEGORY_NAME, GENDER, AGE_GROUP)
+CATEGORY <- expand.grid(category_names, genders, age_groups)
 CATEGORY$CATEGORY_ID <- CATEGORY_ID
 
 # Rename columns
@@ -172,6 +174,8 @@ names(CATEGORY) <- c("CATEGORY_NAME", "GENDER", "AGE_GROUP", "CATEGORY_ID")
 # Remove unrealistic cases
 CATEGORY <- CATEGORY[!(CATEGORY$CATEGORY_NAME == 'Dress' & CATEGORY$GENDER == 'Male'), ]
 
+#Save to csv file
+write.csv(CATEGORY, file = "CATEGORY.csv", row.names = FALSE)
   
 ```
 
@@ -247,6 +251,9 @@ SUPPLIER$SUPPLIER_POST_CODE <- c(
 
 ## Add SUPPLIER_ID
 SUPPLIER$SUPPLIER_ID = paste0("SP", seq_len(nrow(SUPPLIER)) + 10000)
+
+#Save to csv 
+write.csv(SUPPLIER, file = "SUPPLIER.csv", row.names = FALSE)
 ```
 
 
@@ -311,6 +318,11 @@ SKU$PRODUCT_SELLING_PRICE <- round(SKU$PRODUCT_PURCHASING_PRICE *(1 + markup), 2
 # Add SUPPLIER_ID
 SKU$SUPPLIER_ID <- sample(SUPPLIER$SUPPLIER_ID, size = nrow(SKU), replace = TRUE)
 
+# Map the CATEGORY_ID
+
+
+#Save to csv 
+write.csv(SKU, file = "SKU.csv", row.names = FALSE)
 ```
 
 ### Create ORDER data
@@ -354,6 +366,9 @@ ORDER$ORDER_QUANTITY <-round(runif(nrow(ORDER),min=1,max=5),0)
 
 # Get summary of ORDER
 summary(ORDER)
+
+# Save to csv file
+write.csv(ORDER, file = "ORDER.csv", row.names = FALSE)
 ```
 
 ### Create TRANSACTION table
@@ -394,6 +409,32 @@ TRANSACTION <- rbind(TRANSACTION, duplicated_failed_transactions)
 
 ## Assign TRANSACTION_ID
 TRANSACTION$TRANSACTION_ID <- paste0("TR", seq_len(nrow(TRANSACTION)) + 10000)
+
+#Save to csv 
+write.csv(TRANSACTION, file = "TRANSACTION.csv", row.names = FALSE)
+```
+
+
+### Create data for CUSTOMER table
+```{r}
+# Create ORDER dataframe
+CUSTOMER <- data.frame(
+  CUSTOMER_ID = paste0("C", seq_len(200)),
+  stringsAsFactors = TRUE
+)
+# Create acquisition type
+acquisition_type <- c("Organic", "Paid", "Referral")
+probabilities_acquisition <- c(0.5, 0.4, 0.1)
+
+# Assuming CUSTOMER is your dataframe containing customer data
+CUSTOMER$ACQUISITION_TYPE <- as.factor(sample(acquisition_type, size = nrow(CUSTOMER), replace = TRUE, prob = probabilities_acquisition))
+
+# If you want to set the first 5 rows to specific values, you can do it like this:
+CUSTOMER$ACQUISITION_TYPE[1:5] <- sample(c("Paid", "Organic"), size = 5, replace = TRUE)
+
+
+# Create reference ID
+CUSTOMER$REFERENCE_ID <- ifelse(CUSTOMER$ACQUISITION_TYPE=="Referral",paste0("C", (seq_len(200)-sample(10))),"")
 ```
 
 
