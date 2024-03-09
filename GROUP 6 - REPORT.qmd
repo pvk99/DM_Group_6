@@ -8,9 +8,9 @@ editor: visual
 
 **OUTLINE**
 
-1.  Introduction (RAMYA)
+1.  Introduction (RAMYA) (50 words)
 
-2.  ER Diagram (ANKIT + RAMYA)
+2.  ER Diagram (ANKIT + RAMYA) (400 words)
 
     2.1 Assumption
 
@@ -22,11 +22,11 @@ editor: visual
 
 3.  SQL Schema: logical schema (put as table as Gong report) (GONG)
 
-4.  Data generation (HA)
+4.  Data generation (HA) (200 words)
 
-5.  Data pipeline generation (DYLAN)
+5.  Data pipeline generation (DYLAN + GONG) (200 words)
 
-6.  Data analysis (VARUN + POR)
+6.  Data analysis (VARUN + POR) (500 words)
 
     6.1 Question 1 - Sales and profit performance
 
@@ -34,7 +34,7 @@ editor: visual
 
     6.3 Question 3 - Promotion analysis
 
-7.  Conclusion (HA)
+7.  Conclusion (HA) (50 words)
 
 Appendix
 
