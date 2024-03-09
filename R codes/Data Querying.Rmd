@@ -1,0 +1,53 @@
+---
+title: "Sample"
+output: html_document
+date: "2024-03-09"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+rm(list=ls())
+library(readr)
+library(RSQLite)
+library(dplyr)
+```
+
+# Establishing the connection to db
+```{r connect}
+my_db <- RSQLite::dbConnect(RSQLite::SQLite(),"/cloud/project/ecommerce.db")
+```
+
+# Reading the Generated Data
+```{r}
+ads <- readr::read_csv('/cloud/project/Data/ADS.csv')
+category <- readr::read_csv('/cloud/project/Data/CATEGORY.csv')
+customers <- readr::read_csv('/cloud/project/Data/CUSTOMERS.csv')
+order_shipment <- readr::read_csv('/cloud/project/Data/ORDER_SHIPMENT.csv')
+orders <- readr::read_csv('/cloud/project/Data/ORDERS.csv')
+promotion <- readr::read_csv('/cloud/project/Data/PROMOTION.csv')
+sku <- readr::read_csv('/cloud/project/Data/SKU.csv')
+supplier <- readr::read_csv('/cloud/project/Data/SUPPLIER.csv')
+transactions <- readr::read_csv('/cloud/project/Data/TRANSACTIONS.csv')
+```
+
+# Writing the files to e-commerce DB
+```{r}
+RSQLite::dbWriteTable(my_db,"ADS",ads,overwrite=FALSE,append=TRUE)
+RSQLite::dbWriteTable(my_db,"CATEGORY",category,overwrite=FALSE,append=TRUE)
+RSQLite::dbWriteTable(my_db,"CUSTOMERS",customers,overwrite=FALSE,append=TRUE)
+RSQLite::dbWriteTable(my_db,"ORDER_SHIPMENT",order_shipment,overwrite=FALSE,append=TRUE)
+RSQLite::dbWriteTable(my_db,"ORDERS",orders,overwrite=FALSE,append=TRUE)
+RSQLite::dbWriteTable(my_db,"PROMOTION",promotion,overwrite=FALSE,append=TRUE)
+RSQLite::dbWriteTable(my_db,"SKU",sku,overwrite=FALSE,append=TRUE)
+RSQLite::dbWriteTable(my_db,"SUPPLIER",supplier,overwrite=FALSE,append=TRUE)
+RSQLite::dbWriteTable(my_db,"TRANSACTIONS",transactions,overwrite=FALSE,append=TRUE)
+```
+
+# Querying data from customers table
+```{sql connection = my_db}
+SELECT *
+FROM TRANSACTIONS
+LIMIT 20
+```
+
