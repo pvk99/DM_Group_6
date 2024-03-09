@@ -1,51 +1,51 @@
 "AD_ID","PLATFORM","AD_TITLE","AD_TYPE","AD_START_DATE","AD_END_DATE","COST_PER_CLICK","CLICK_THROUGH_RATE","NUMBER_OF_CLICK"
-"AD1001","Instagram","New Arrivals: Fall Fashion Must-Haves","Display",2023-01-07,2023-01-09,8.23,0.27,5206
-"AD1002","X","Accessorize Your Look with Our Latest Accessories","Email",2023-01-09,2023-01-15,2.62,0.71,2038
-"AD1003","Google Ads","Casual Chic: Everyday Wear for Every Occasion","Email",2023-01-15,2023-01-19,3.21,0.79,2144
-"AD1004","X","Trendy Summer Dresses at Unbeatable Prices","Display",2023-01-19,2023-01-25,5.65,0.26,1370
-"AD1005","X","Limited Edition Designer Pieces Now Available","Influencer",2023-01-25,2023-01-26,4.69,0.96,5264
-"AD1006","Facebook","Stay Stylish with Our Athleisure Collection","Influencer",2023-01-26,2023-02-03,8.68,0.35,9629
-"AD1007","Facebook","Limited Edition Designer Pieces Now Available","Display",2023-01-28,2023-02-04,4.26,0.99,9909
-"AD1008","Facebook","Elevate Your Wardrobe with Luxe Essentials","Display",2023-02-04,2023-02-12,3.57,0.01,837
-"AD1009","TikTok","Limited Edition Designer Pieces Now Available","Display",2023-02-04,2023-02-11,9.43,0.6,4945
-"AD1010","TikTok","New Arrivals: Fall Fashion Must-Haves","Video",2023-02-05,2023-02-06,1.43,0.09,3042
-"AD1011","TikTok","Elevate Your Wardrobe with Luxe Essentials","Email",2023-02-09,2023-02-17,0.58,0.55,372
-"AD1012","X","Limited Edition Designer Pieces Now Available","Search Ads",2023-02-28,2023-03-05,6.91,0.31,4531
-"AD1013","Instagram","Elevate Your Wardrobe with Luxe Essentials","Display",2023-03-04,2023-03-05,4.78,0.09,6334
-"AD1014","Instagram","Spring Sale: Up to 50% Off on All Styles","Display",2023-03-25,2023-04-01,3.65,0.94,6308
-"AD1015","Instagram","Trendy Summer Dresses at Unbeatable Prices","Search Ads",2023-03-27,2023-04-06,2.78,0.72,3803
-"AD1016","TikTok","Spring Sale: Up to 50% Off on All Styles","Search Ads",2023-04-02,2023-04-09,5.16,0.7,8704
-"AD1017","Google Ads","Accessorize Your Look with Our Latest Accessories","Email",2023-04-04,2023-04-11,4.62,0.05,9899
-"AD1018","Google Ads","Stay Stylish with Our Athleisure Collection","Video",2023-04-09,2023-04-13,5.89,0.6,7489
-"AD1019","Instagram","Stay Stylish with Our Athleisure Collection","Video",2023-04-12,2023-04-17,7.92,0.99,1017
-"AD1020","Facebook","Dress to Impress: Formal Wear for Special Events","Email",2023-04-12,2023-04-18,4.69,0.91,1676
-"AD1021","Instagram","New Arrivals: Fall Fashion Must-Haves","Search Ads",2023-04-21,2023-04-27,2.52,0.3,6139
-"AD1022","Facebook","Elevate Your Wardrobe with Luxe Essentials","Search Ads",2023-04-23,2023-04-28,1.03,0.56,3184
-"AD1023","X","New Arrivals: Fall Fashion Must-Haves","Video",2023-04-24,2023-04-26,8.43,0.96,8638
-"AD1024","Google Ads","Spring Sale: Up to 50% Off on All Styles","Search Ads",2023-04-30,2023-05-02,9.18,0.47,5249
-"AD1025","TikTok","Accessorize Your Look with Our Latest Accessories","Search Ads",2023-05-15,2023-05-25,3.54,0.74,4899
-"AD1026","X","Limited Edition Designer Pieces Now Available","Display",2023-05-15,2023-05-16,5.11,0.69,7137
-"AD1027","Instagram","Limited Edition Designer Pieces Now Available","Video",2023-05-18,2023-05-27,6.61,0.23,4319
-"AD1028","Google Ads","Spring Sale: Up to 50% Off on All Styles","Display",2023-05-28,2023-06-03,0.15,0.02,3285
-"AD1029","Facebook","Elevate Your Wardrobe with Luxe Essentials","Email",2023-06-03,2023-06-06,3.06,0.53,4623
-"AD1030","Facebook","Limited Edition Designer Pieces Now Available","Email",2023-06-09,2023-06-15,6.48,0.74,1460
-"AD1031","Google Ads","New Arrivals: Fall Fashion Must-Haves","Display",2023-06-13,2023-06-23,8.84,0.41,3828
-"AD1032","Google Ads","Stay Stylish with Our Athleisure Collection","Influencer",2023-06-21,2023-06-28,3.43,0.58,1843
-"AD1033","X","Spring Sale: Up to 50% Off on All Styles","Display",2023-06-28,2023-07-01,2,0.77,3842
-"AD1034","Instagram","Stay Stylish with Our Athleisure Collection","Video",2023-07-11,2023-07-17,9.81,0.54,4072
-"AD1035","X","New Arrivals: Fall Fashion Must-Haves","Influencer",2023-07-11,2023-07-18,0.97,0.41,1171
-"AD1036","X","Limited Edition Designer Pieces Now Available","Email",2023-07-23,2023-07-30,4.1,0.96,6890
-"AD1037","Google Ads","Accessorize Your Look with Our Latest Accessories","Search Ads",2023-08-18,2023-08-21,6.76,0.28,663
-"AD1038","TikTok","Stay Stylish with Our Athleisure Collection","Search Ads",2023-08-29,2023-09-06,1.38,0.59,2679
-"AD1039","Instagram","New Arrivals: Fall Fashion Must-Haves","Influencer",2023-09-24,2023-09-28,4.55,0.78,2508
-"AD1040","Facebook","Get Cozy with Our Winter Collection","Influencer",2023-10-01,2023-10-10,1.95,0.23,6357
-"AD1041","Google Ads","Elevate Your Wardrobe with Luxe Essentials","Search Ads",2023-10-04,2023-10-12,6.32,0.2,2226
-"AD1042","Instagram","Stay Stylish with Our Athleisure Collection","Video",2023-10-16,2023-10-19,8.04,0.61,1112
-"AD1043","Google Ads","New Arrivals: Fall Fashion Must-Haves","Influencer",2023-10-17,2023-10-27,4.63,0.62,8091
-"AD1044","Google Ads","Trendy Summer Dresses at Unbeatable Prices","Video",2023-11-18,2023-11-25,8.52,0.01,6026
-"AD1045","Facebook","Elevate Your Wardrobe with Luxe Essentials","Influencer",2023-11-20,2023-11-21,7.68,0.21,8251
-"AD1046","Instagram","Elevate Your Wardrobe with Luxe Essentials","Search Ads",2023-11-27,2023-12-05,6.13,0.86,7639
-"AD1047","Facebook","Dress to Impress: Formal Wear for Special Events","Email",2023-12-02,2023-12-05,3.05,0.95,422
-"AD1048","Instagram","Limited Edition Designer Pieces Now Available","Video",2023-12-04,2023-12-13,1.32,0.79,7910
-"AD1049","TikTok","Spring Sale: Up to 50% Off on All Styles","Search Ads",2023-12-21,2023-12-29,0.24,0.5,8747
-"AD1050","Facebook","Trendy Summer Dresses at Unbeatable Prices","Display",2023-12-29,2024-01-07,5.9,0.06,1885
+"AD1001","TikTok","Dress to Impress: Formal Wear for Special Events","Search Ads","2023-01-23","2023-02-01",4.36,0.49,6054
+"AD1002","Facebook","New Arrivals: Fall Fashion Must-Haves","Search Ads","2023-01-27","2023-01-31",9.34,0.23,6072
+"AD1003","Facebook","Get Cozy with Our Winter Collection","Email","2023-02-15","2023-02-21",3.12,0.72,3350
+"AD1004","TikTok","Elevate Your Wardrobe with Luxe Essentials","Influencer","2023-02-18","2023-02-22",6.91,0.43,2772
+"AD1005","Facebook","Dress to Impress: Formal Wear for Special Events","Email","2023-03-02","2023-03-09",3.91,0.82,1129
+"AD1006","TikTok","Elevate Your Wardrobe with Luxe Essentials","Influencer","2023-03-02","2023-03-07",8.56,0.09,5433
+"AD1007","Google Ads","Dress to Impress: Formal Wear for Special Events","Display","2023-03-14","2023-03-18",1.99,0.53,8601
+"AD1008","TikTok","Get Cozy with Our Winter Collection","Email","2023-03-26","2023-04-02",5.89,0.54,9184
+"AD1009","X","Dress to Impress: Formal Wear for Special Events","Video","2023-03-30","2023-04-09",3.46,0.99,2921
+"AD1010","Google Ads","Spring Sale: Up to 50% Off on All Styles","Video","2023-03-31","2023-04-04",5.66,0.87,5708
+"AD1011","X","Casual Chic: Everyday Wear for Every Occasion","Video","2023-04-04","2023-04-12",1.18,0.38,6949
+"AD1012","Facebook","Trendy Summer Dresses at Unbeatable Prices","Display","2023-04-07","2023-04-13",7.15,0.09,7859
+"AD1013","TikTok","Limited Edition Designer Pieces Now Available","Email","2023-04-07","2023-04-08",1.31,0.78,7450
+"AD1014","Instagram","Stay Stylish with Our Athleisure Collection","Email","2023-04-10","2023-04-11",9.49,0.42,1135
+"AD1015","Instagram","Dress to Impress: Formal Wear for Special Events","Video","2023-04-20","2023-04-22",2.96,0.59,3160
+"AD1016","TikTok","Dress to Impress: Formal Wear for Special Events","Video","2023-04-25","2023-05-05",2.19,0.4,4629
+"AD1017","Facebook","Trendy Summer Dresses at Unbeatable Prices","Influencer","2023-05-09","2023-05-14",6.71,0.06,712
+"AD1018","Facebook","Elevate Your Wardrobe with Luxe Essentials","Email","2023-05-11","2023-05-15",9.65,0.03,9508
+"AD1019","X","Stay Stylish with Our Athleisure Collection","Email","2023-05-13","2023-05-16",8.4,0.54,8756
+"AD1020","TikTok","New Arrivals: Fall Fashion Must-Haves","Display","2023-05-15","2023-05-19",9.62,0.1,6529
+"AD1021","Instagram","Trendy Summer Dresses at Unbeatable Prices","Display","2023-06-01","2023-06-02",2.3,0.51,1492
+"AD1022","TikTok","Dress to Impress: Formal Wear for Special Events","Email","2023-06-02","2023-06-09",0.12,0.34,4397
+"AD1023","Instagram","Elevate Your Wardrobe with Luxe Essentials","Search Ads","2023-06-04","2023-06-09",6.52,0.02,6465
+"AD1024","TikTok","Stay Stylish with Our Athleisure Collection","Video","2023-06-06","2023-06-08",2.52,0.68,845
+"AD1025","Google Ads","Casual Chic: Everyday Wear for Every Occasion","Display","2023-06-10","2023-06-18",7.32,0.85,6778
+"AD1026","TikTok","Dress to Impress: Formal Wear for Special Events","Video","2023-06-18","2023-06-20",2,0.37,1240
+"AD1027","Facebook","New Arrivals: Fall Fashion Must-Haves","Video","2023-06-24","2023-07-03",0.89,0.54,757
+"AD1028","Instagram","Accessorize Your Look with Our Latest Accessories","Search Ads","2023-06-29","2023-07-07",0.86,0.4,7805
+"AD1029","Facebook","Get Cozy with Our Winter Collection","Influencer","2023-07-09","2023-07-14",6.55,0.17,1456
+"AD1030","X","Trendy Summer Dresses at Unbeatable Prices","Video","2023-07-17","2023-07-25",4.53,0.53,7741
+"AD1031","Google Ads","Dress to Impress: Formal Wear for Special Events","Influencer","2023-07-30","2023-08-02",4.63,0.81,1508
+"AD1032","Facebook","Elevate Your Wardrobe with Luxe Essentials","Influencer","2023-08-02","2023-08-06",0.34,0.4,9022
+"AD1033","X","Get Cozy with Our Winter Collection","Email","2023-08-10","2023-08-13",4.93,0.76,6321
+"AD1034","Instagram","Stay Stylish with Our Athleisure Collection","Email","2023-08-12","2023-08-13",2.77,0.17,4959
+"AD1035","Google Ads","Accessorize Your Look with Our Latest Accessories","Search Ads","2023-08-21","2023-08-31",4.53,0.3,8567
+"AD1036","Instagram","Casual Chic: Everyday Wear for Every Occasion","Video","2023-08-28","2023-09-07",5.71,0.39,5100
+"AD1037","Instagram","Casual Chic: Everyday Wear for Every Occasion","Video","2023-09-05","2023-09-10",6.84,0.75,484
+"AD1038","Facebook","New Arrivals: Fall Fashion Must-Haves","Search Ads","2023-09-08","2023-09-18",7.89,0.22,3357
+"AD1039","Instagram","New Arrivals: Fall Fashion Must-Haves","Video","2023-09-12","2023-09-14",2.67,0.4,3816
+"AD1040","Facebook","Trendy Summer Dresses at Unbeatable Prices","Display","2023-09-13","2023-09-14",0.5,0.39,8125
+"AD1041","Facebook","Spring Sale: Up to 50% Off on All Styles","Video","2023-09-21","2023-09-28",9.78,0.48,5307
+"AD1042","Google Ads","Stay Stylish with Our Athleisure Collection","Video","2023-09-25","2023-10-01",2.64,0.14,7396
+"AD1043","TikTok","New Arrivals: Fall Fashion Must-Haves","Search Ads","2023-10-03","2023-10-09",4.14,0.03,9649
+"AD1044","Instagram","Dress to Impress: Formal Wear for Special Events","Email","2023-10-14","2023-10-21",7.54,0.8,6718
+"AD1045","TikTok","Trendy Summer Dresses at Unbeatable Prices","Search Ads","2023-10-16","2023-10-17",1.26,0.05,6026
+"AD1046","Facebook","Stay Stylish with Our Athleisure Collection","Search Ads","2023-10-19","2023-10-23",1.38,0.38,3127
+"AD1047","Google Ads","Casual Chic: Everyday Wear for Every Occasion","Display","2023-10-24","2023-10-27",6.15,0.62,92
+"AD1048","Facebook","Elevate Your Wardrobe with Luxe Essentials","Video","2023-11-18","2023-11-19",7.34,0.87,5151
+"AD1049","Facebook","Accessorize Your Look with Our Latest Accessories","Influencer","2023-11-21","2023-12-01",7.17,0.53,4487
+"AD1050","TikTok","Accessorize Your Look with Our Latest Accessories","Display","2023-11-27","2023-12-03",7.31,0.53,1489
