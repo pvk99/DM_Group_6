@@ -213,8 +213,7 @@ write.csv(PROMOTION, file = file.path("/cloud/project/Data","PROMOTION.csv"), ro
 ```{r}
 # Create AD dataframe
 ADS <- data.frame(
-  AD_ID = paste0("AD", seq_len(50) + 1000),
-  stringsAsFactors = TRUE
+  AD_ID = paste0("AD", seq_len(50) + 1000)
 )
 
 # Create PLATFORM
@@ -232,8 +231,8 @@ ADS$AD_TYPE = sample(ad_type, nrow(ADS),replace = TRUE)
 # Create AD_START_DATE
 ad_start <- as.Date("2023-01-01")
 ad_end <- as.Date("2023-12-31")
-ADS$AD_START_DATE <- sort(sample(seq(ad_start, ad_end, by = "day"), nrow(ADS), replace = TRUE))
-ADS$AD_END_DATE <- ADS$AD_START_DATE + sample(10,nrow(ADS),replace=TRUE)
+ADS$AD_START_DATE <- as.Date(sort(sample(seq(ad_start, ad_end, by = "day"), nrow(ADS), replace = TRUE)))
+ADS$AD_END_DATE <- as.Date(ADS$AD_START_DATE + sample(10,nrow(ADS),replace=TRUE))
 
 # Create COST_PER_CLICK
 ADS$COST_PER_CLICK <- round(runif(nrow(ADS), min = 0, max = 10),2)
@@ -310,12 +309,10 @@ CUSTOMER$CUSTOMER_EMAIL <- sapply(paste(CUSTOMER$FIRST_NAME,CUSTOMER$LAST_NAME,s
 CUSTOMER$POST_CODE <- sapply(1:nrow(CUSTOMER), function(x) random_postcode()$postcode)
 
 # CREATE HOUSE_NUMBER
-CUSTOMER$HOUSE_NUMBER <- round(runif(nrow(CUSTOMER), min = 1, max = 50),0)
+CUSTOMER$HOUSE_NUMBER <- as.character(round(runif(nrow(CUSTOMER), min = 1, max = 50),0))
 
 # CREATE AD_ID
-CUSTOMER$AD_ID_1 <- sample(ADS$AD_ID, size = nrow(CUSTOMER), replace = TRUE)
-CUSTOMER$AD_ID <- ifelse(CUSTOMER$ACQUISITION_TYPE=="Paid",CUSTOMER$AD_ID_1,"")
-CUSTOMER$AD_ID_1 <- NULL
+CUSTOMER$AD_ID <- ifelse(CUSTOMER$ACQUISITION_TYPE=="Paid", sample(ADS$AD_ID, size = nrow(CUSTOMER), replace = TRUE),"")
 #Save to csv 
 write.csv(CUSTOMER, file = file.path("/cloud/project/Data","CUSTOMERS.csv"), row.names = FALSE)
 ```
