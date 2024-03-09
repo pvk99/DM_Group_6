@@ -265,7 +265,7 @@ probabilities_acquisition <- c(0.5, 0.4, 0.1)
 CUSTOMER$ACQUISITION_TYPE <- as.factor(sample(acquisition_type, size = nrow(CUSTOMER), replace = TRUE, prob = probabilities_acquisition))
 
 # If you want to set the first 5 rows to specific values, you can do it like this:
-CUSTOMER$ACQUISITION_TYPE[1:5] <- sample(c("Paid", "Organic"), size = 5, replace = TRUE)
+CUSTOMER$ACQUISITION_TYPE[1:10] <- sample(c("Paid", "Organic"), size = 10, replace = TRUE)
 
 
 # Create reference ID
