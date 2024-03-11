@@ -100,7 +100,7 @@ generate_email <- function(company_name) {
 SUPPLIER$SUPPLIER_EMAIL <- sapply(supplier_names, generate_email)
 
 ### Create random phone number
-SUPPLIER$SUPPLIER_PHONE <- paste0("+44", round(runif(nrow(SUPPLIER), min = 10*10, max = 9999999999)))
+SUPPLIER$SUPPLIER_PHONE <- paste0(round(runif(nrow(SUPPLIER), min = 1000000000, max = 9999999999)))
 
 ### Add SUPPLIER_POST_CODE
 SUPPLIER$POST_CODE <- sapply(1:nrow(SUPPLIER), function(x) random_postcode()$postcode)
@@ -311,7 +311,7 @@ CUSTOMER$CUSTOMER_EMAIL <- sapply(paste(CUSTOMER$FIRST_NAME,CUSTOMER$LAST_NAME,s
 CUSTOMER$POST_CODE <- sapply(1:nrow(CUSTOMER), function(x) random_postcode()$postcode)
 
 # CREATE HOUSE_NUMBER
-CUSTOMER$HOUSE_NUMBER <- as.character(round(runif(nrow(CUSTOMER), min = 1, max = 50),0))
+CUSTOMER$HOUSE_NUMBER <- as.character(sample(1:50, size=nrow(CUSTOMER),replace=TRUE))
 
 # CREATE AD_ID
 CUSTOMER$AD_ID <- ifelse(CUSTOMER$ACQUISITION_TYPE=="Paid", sample(ADS$AD_ID, size = nrow(CUSTOMER), replace = TRUE),"")
