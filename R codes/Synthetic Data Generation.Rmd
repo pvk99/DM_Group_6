@@ -233,8 +233,8 @@ ad_start <- as.Date("2023-01-01")
 ad_end <- as.Date("2023-12-31")
 ADS$AD_START_DATE <- sort(sample(seq(ad_start, ad_end, by = "day"), nrow(ADS), replace = TRUE))
 ADS$AD_END_DATE <- ADS$AD_START_DATE + sample(10,nrow(ADS),replace=TRUE)
-ADS$AD_START_DATE <- as.character(ADS$AD_START_DATE)
-ADS$AD_END_DATE <- as.character(ADS$AD_END_DATE)
+ADS$AD_START_DATE <- (ADS$AD_START_DATE)
+ADS$AD_END_DATE <- (ADS$AD_END_DATE)
 
 # Create COST_PER_CLICK
 ADS$COST_PER_CLICK <- round(runif(nrow(ADS), min = 0, max = 10),2)
@@ -280,7 +280,7 @@ CUSTOMER$CUSTOMER_GENDER <- sample(genders, size = nrow(CUSTOMER), replace = TRU
 # Create DOB
 start_DOB <- as.Date("1980-01-01")
 end_DOB <- as.Date("2006-12-31")
-CUSTOMER$DATE_OF_BIRTH <- as.character(sample(seq(start_DOB, end_DOB, by = "day"), nrow(CUSTOMER), replace = TRUE))
+CUSTOMER$DATE_OF_BIRTH <- sample(seq(start_DOB, end_DOB, by = "day"), nrow(CUSTOMER), replace = TRUE)
 
 # Create name
 ## Generate random full names
