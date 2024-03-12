@@ -34,7 +34,6 @@ jobs:
         run: |
           git config --global user.email "Teng-Yi.Chen@warwick.ac.uk"
           git config --global user.name "DylanCTY"
-          git add --all figures/
       - name: Commit files
         run: |
           git commit -m "Update database"
