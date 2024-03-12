@@ -6,6 +6,7 @@ library(dplyr)
 my_db <- RSQLite::dbConnect(RSQLite::SQLite(),"ecommerce.db")
 
 # Reading the Generated Data
+transactions <- readr::read_csv('Data/TRANSACTIONS.csv')
 ads <- readr::read_csv('Data/ADS.csv')
 ads$AD_START_DATE <- as.character(ads$AD_START_DATE)
 ads$AD_END_DATE <- as.character(ads$AD_START_DATE)
@@ -30,7 +31,7 @@ sku <- readr::read_csv('Data/SKU.csv')
 
 supplier <- readr::read_csv('Data/SUPPLIER.csv')
 
-transactions <- readr::read_csv('Data/TRANSACTIONS.csv')
+
 
 
 # Writing the files to e-commerce DB
