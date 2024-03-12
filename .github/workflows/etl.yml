@@ -1,0 +1,45 @@
+name: ETL workflow
+
+on:
+#  schedule:
+#    - cron: '0 */12 * * *' # Run every 12 hours
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Setup R environment
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.2.0'
+      - name: Cache R packages
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-r-${{ hashFiles('**/lockfile') }}
+          restore-keys: |
+            ${{ runner.os }}-r-
+      - name: Install packages
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          Rscript -e 'install.packages(c("ggplot2", "dplyr", "readr", "RSQLite", "randomNames", "PostcodesioR"))'
+      - name: Execute R script
+        run: |
+          Rscript R/load_data.R
+      - name: Add files
+        run: |
+          git config --global user.email "Teng-Yi.Chen@warwick.ac.uk"
+          git config --global user.name "DylanCTY"
+          git add --all figures/
+      - name: Commit files
+        run: |
+          git commit -m "Add regression plot figure"
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            branch: main
