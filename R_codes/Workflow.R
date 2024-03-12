@@ -3,34 +3,34 @@ library(RSQLite)
 library(dplyr)
 
 # Establishing the connection to db
-my_db <- RSQLite::dbConnect(RSQLite::SQLite(),"/cloud/project/ecommerce.db")
+my_db <- RSQLite::dbConnect(RSQLite::SQLite(),"ecommerce.db")
 
 # Reading the Generated Data
-ads <- readr::read_csv('/cloud/project/Data/ADS.csv')
+ads <- readr::read_csv('Data/ADS.csv')
 ads$AD_START_DATE <- as.character(ads$AD_START_DATE)
 ads$AD_END_DATE <- as.character(ads$AD_START_DATE)
 
-category <- readr::read_csv('/cloud/project/Data/CATEGORY.csv')
+category <- readr::read_csv('Data/CATEGORY.csv')
 
-customers <- readr::read_csv('/cloud/project/Data/CUSTOMERS.csv')
+customers <- readr::read_csv('Data/CUSTOMERS.csv')
 customers$DATE_OF_BIRTH <- as.character(customers$DATE_OF_BIRTH)
 
-order_shipment <- readr::read_csv('/cloud/project/Data/ORDER_SHIPMENT.csv')
+order_shipment <- readr::read_csv('Data/ORDER_SHIPMENT.csv')
 
-orders <- readr::read_csv('/cloud/project/Data/ORDERS.csv')
+orders <- readr::read_csv('Data/ORDERS.csv')
 orders$ORDER_DATE <- as.character(orders$ORDER_DATE)
 orders$DELIVERY_DATE <- as.character(orders$DELIVERY_DATE)
 orders$RETURN_DATE <- as.character(orders$RETURN_DATE)
 
-promotion <- readr::read_csv('/cloud/project/Data/PROMOTION.csv')
+promotion <- readr::read_csv('Data/PROMOTION.csv')
 promotion$PROMOTION_START_DATE <- as.character(promotion$PROMOTION_START_DATE)
 promotion$PROMOTION_END_DATE <- as.character(promotion$PROMOTION_END_DATE)
 
-sku <- readr::read_csv('/cloud/project/Data/SKU.csv')
+sku <- readr::read_csv('Data/SKU.csv')
 
-supplier <- readr::read_csv('/cloud/project/Data/SUPPLIER.csv')
+supplier <- readr::read_csv('Data/SUPPLIER.csv')
 
-transactions <- readr::read_csv('/cloud/project/Data/TRANSACTIONS.csv')
+transactions <- readr::read_csv('Data/TRANSACTIONS.csv')
 
 
 # Writing the files to e-commerce DB
