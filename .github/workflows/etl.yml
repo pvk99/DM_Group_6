@@ -36,6 +36,7 @@ jobs:
           git config --global user.name "DylanCTY"
       - name: Commit files
         run: |
+          git add ecommerce.db
           git commit -m "Update database"
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
