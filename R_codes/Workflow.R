@@ -31,9 +31,6 @@ sku <- readr::read_csv('Data/SKU.csv')
 
 supplier <- readr::read_csv('Data/SUPPLIER.csv')
 
-
-
-
 # Writing the files to e-commerce DB
 
 RSQLite::dbWriteTable(my_db,"ADS",ads,overwrite=FALSE,append=TRUE)
