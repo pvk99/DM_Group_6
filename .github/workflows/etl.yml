@@ -29,7 +29,7 @@ jobs:
           Rscript -e 'install.packages(c("ggplot2", "dplyr", "readr", "RSQLite", "randomNames", "PostcodesioR"))'
       - name: Execute R script
         run: |
-          Rscript R/load_data.R
+          Rscript R codes/Workflow.R
       - name: Add files
         run: |
           git config --global user.email "Teng-Yi.Chen@warwick.ac.uk"
