@@ -29,7 +29,7 @@ jobs:
           Rscript -e 'install.packages(c("ggplot2", "dplyr", "readr", "RSQLite", "randomNames", "PostcodesioR"))'
       - name: Execute R script
         run: |
-          Rscript R codes/Workflow.R
+          Rscript R_codes/Workflow.R
       - name: Add files
         run: |
           git config --global user.email "Teng-Yi.Chen@warwick.ac.uk"
@@ -37,7 +37,7 @@ jobs:
           git add --all figures/
       - name: Commit files
         run: |
-          git commit -m "Add regression plot figure"
+          git commit -m "Update database"
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
