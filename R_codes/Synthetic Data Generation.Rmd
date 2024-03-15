@@ -42,8 +42,9 @@ CATEGORY <- CATEGORY[!(CATEGORY$CATEGORY_NAME == 'Dress' & CATEGORY$GENDER == 'M
 # Generate CATEGORY_ID
 CATEGORY$CATEGORY_ID <- paste0("CAT", seq_len(nrow(CATEGORY)) + 10000)
 
-#Save to csv file
-write.csv(CATEGORY, file = file.path("/cloud/project/Data","CATEGORY.csv"), row.names = FALSE)
+#Save to 2 csv files
+write.csv(CATEGORY[1:15,], file = file.path("/cloud/project/Data","CATEGORY.1.csv"), row.names = FALSE)
+write.csv(CATEGORY[16:nrow(CATEGORY),], file = file.path("/cloud/project/Data","CATEGORY.2.csv"), row.names = FALSE)
 ```
 
 # Create SUPPLIER data
@@ -109,7 +110,8 @@ SUPPLIER$POST_CODE <- sapply(1:nrow(SUPPLIER), function(x) random_postcode()$pos
 SUPPLIER$SUPPLIER_ID = paste0("SP", seq_len(nrow(SUPPLIER)) + 10000)
 
 #Save to csv 
-write.csv(SUPPLIER, file = file.path("/cloud/project/Data","SUPPLIER.csv"), row.names = FALSE)
+write.csv(SUPPLIER[1:15,], file = file.path("/cloud/project/Data","SUPPLIER.1.csv"), row.names = FALSE)
+write.csv(SUPPLIER[16:nrow(SUPPLIER),], file = file.path("/cloud/project/Data","SUPPLIER.2.csv"), row.names = FALSE)
 ```
 
 
@@ -178,7 +180,8 @@ SKU$AGE_GROUP <- NULL
 SKU$CATEGORY_NAME <- NULL
 
 #Save to csv 
-write.csv(SKU, file = file.path("/cloud/project/Data","SKU.csv"), row.names = FALSE)
+write.csv(SKU[1:15,], file = file.path("/cloud/project/Data","SKU.1.csv"), row.names = FALSE)
+write.csv(SKU[16:nrow(SKU),], file = file.path("/cloud/project/Data","SKU.2.csv"), row.names = FALSE)
 ```
 
 # Create data for PROMOTION
@@ -206,7 +209,8 @@ PROMOTION$MINIMUM_PURCHASE_AMOUNT <- sample(20:50,nrow(PROMOTION),replace=TRUE)
 PROMOTION$PRODUCT_ID <- sample(SKU$PRODUCT_ID,nrow(PROMOTION),replace = TRUE)
 
 #Save to csv file
-write.csv(PROMOTION, file = file.path("/cloud/project/Data","PROMOTION.csv"), row.names = FALSE)
+write.csv(PROMOTION[1:15,], file = file.path("/cloud/project/Data","PROMOTION.1.csv"), row.names = FALSE)
+write.csv(PROMOTION[16:nrow(PROMOTION),], file = file.path("/cloud/project/Data","PROMOTION.2.csv"), row.names = FALSE)
 ```
 
 # Create data for ADS table
@@ -246,7 +250,8 @@ ADS$CLICK_THROUGH_RATE <- round(runif(nrow(ADS), min = 0, max = 1),2)
 ADS$NUMBER_OF_CLICK <- round(runif(nrow(ADS), min = 1, max = 10000),0)
 
 #Save to csv 
-write.csv(ADS, file = file.path("/cloud/project/Data","ADS.csv"), row.names = FALSE)
+write.csv(ADS[1:15,], file = file.path("/cloud/project/Data","ADS.1.csv"), row.names = FALSE)
+write.csv(ADS[16:nrow(ADS),], file = file.path("/cloud/project/Data","ADS.2.csv"), row.names = FALSE)
 ```
 
 
@@ -315,8 +320,10 @@ CUSTOMER$HOUSE_NUMBER <- as.character(sample(1:50, size=nrow(CUSTOMER),replace=T
 
 # CREATE AD_ID
 CUSTOMER$AD_ID <- ifelse(CUSTOMER$ACQUISITION_TYPE=="Paid", sample(ADS$AD_ID, size = nrow(CUSTOMER), replace = TRUE),"")
+
 #Save to csv 
-write.csv(CUSTOMER, file = file.path("/cloud/project/Data","CUSTOMERS.csv"), row.names = FALSE)
+write.csv(CUSTOMER[1:15,], file = file.path("/cloud/project/Data","CUSTOMERS.1.csv"), row.names = FALSE)
+write.csv(CUSTOMER[16:nrow(CUSTOMER),], file = file.path("/cloud/project/Data","CUSTOMERS.2.csv"), row.names = FALSE)
 ```
 
 # Create ORDER_SHIPMENT data
@@ -335,7 +342,8 @@ carrier <- c("UPS","FedEx", "DHL","Royal Mail", "Evri")
 ORDER_SHIPMENT$CARRIER <- sample(carrier, nrow(ORDER_SHIPMENT),replace=TRUE)
 
 #Save to csv 
-write.csv(ORDER_SHIPMENT, file = file.path("/cloud/project/Data","ORDER_SHIPMENT.csv"), row.names = FALSE)
+write.csv(ORDER_SHIPMENT[1:15,], file = file.path("/cloud/project/Data","ORDER_SHIPMENT.1.csv"), row.names = FALSE)
+write.csv(ORDER_SHIPMENT[16:nrow(ORDER_SHIPMENT),], file = file.path("/cloud/project/Data","ORDER_SHIPMENT.2.csv"), row.names = FALSE)
 ```
 
 # Create data for TRANSACTION table
@@ -367,7 +375,8 @@ shuffled_status <- sample(status_vector)
 TRANSACTION$TRANSACTION_STATUS <- as.factor(shuffled_status)
 
 #Save to csv 
-write.csv(TRANSACTION, file = file.path("/cloud/project/Data","TRANSACTIONS.csv"), row.names = FALSE)
+write.csv(TRANSACTION[1:15,], file = file.path("/cloud/project/Data","TRANSACTIONS.1.csv"), row.names = FALSE)
+write.csv(TRANSACTION[16:nrow(TRANSACTION),], file = file.path("/cloud/project/Data","TRANSACTIONS.2.csv"), row.names = FALSE)
 ```
 
 
@@ -432,6 +441,7 @@ ORDER$RETURN_DATE <- ORDER$ORDER_DATE + sample(9:30,nrow(ORDER),replace=TRUE)
 ORDER$RETURN_DATE[ORDER$ORDER_STATUS != "Returned"] <- ""
 
 #Save to csv 
-write.csv(ORDER, file = file.path("/cloud/project/Data","ORDERS.csv"), row.names = FALSE)
+write.csv(ORDER[1:15,], file = file.path("/cloud/project/Data","ORDERS.1.csv"), row.names = FALSE)
+write.csv(ORDER[16:nrow(ORDER),], file = file.path("/cloud/project/Data","ORDERS.2.csv"), row.names = FALSE)
 ```
 
