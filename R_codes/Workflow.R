@@ -4,7 +4,7 @@ library(dplyr)
 library(DBI)
 
 # Establishing the connection to db
-my_db <- RSQLite::dbConnect(RSQLite::SQLite(),"ecommerce.db")
+my_db <- RSQLite::dbConnect(RSQLite::SQLite(), "ecommerce.db")
 
 file_paths <- list(
   "ADS" = list.files(path = "Data", pattern = "ADS.*\\.csv$", full.names = TRUE),
@@ -30,20 +30,26 @@ tables <- list(
   "ORDERS" = c("ORDER_ID", "PRODUCT_ID", "CUSTOMER_ID")
 )
 
-for (i in seq_along(table_data)) {
-  new_record <- table_data[i, ]
-  pk_columns <- tables[[table_name]]
-  pk_values <- new_record[pk_columns]
-  conditions <- paste(pk_columns, "=", paste0("'", pk_values, "'"), collapse = " AND ")
-  
-  key_exists <- dbGetQuery(my_db, paste("SELECT COUNT(*) FROM", table_name, "WHERE", conditions))
-  
-  if (key_exists == 0) {
-    tryCatch({
-      RSQLite::dbAppendTable(my_db, table_name, new_record, overwrite = FALSE, append = TRUE)
-    }, error = function(e) {
-      print(paste("Error inserting record with primary key", paste(pk_values, collapse = ", "), "into table", table_name))
-      print(e)
-    })
+for (table_name in names(tables)) {
+  for (file_path in file_paths[[table_name]]) {
+    table_data <- read_csv(file_path)  # Assuming you are using readr to read CSV files
+    for (i in seq_along(table_data)) {
+      new_record <- table_data[i, ]
+      pk_columns <- tables[[table_name]]
+      pk_values <- new_record[pk_columns]
+      conditions <- paste(pk_columns, "=", paste0("'", pk_values, "'"), collapse = " AND ")
+      
+      key_exists <- dbGetQuery(my_db, paste("SELECT COUNT(*) FROM", table_name, "WHERE", conditions))
+      
+      if (key_exists == 0) {
+        tryCatch({
+          RSQLite::dbAppendTable(my_db, table_name, new_record, overwrite = FALSE, append = TRUE)
+        }, error = function(e) {
+          print(paste("Error inserting record with primary key", paste(pk_values, collapse = ", "), "into table", table_name))
+          print(e)
+        })
+      }
+    }
   }
 }
+
