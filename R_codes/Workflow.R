@@ -30,27 +30,20 @@ tables <- list(
   "ORDERS" = c("ORDER_ID", "PRODUCT_ID", "CUSTOMER_ID")
 )
 
-
-# Read each CSV file separately
-for (table_name in names(file_paths)) {
-  for (file_path in file_paths[[table_name]]) {
-    table_data <- read.csv(file_path)
-    
-    # Check primary key existence before loading new data
-    for (i in seq_along(table_data)) {
-      new_record <- table_data[i, ]
-      
-      condition <- paste(
-        paste(names(new_record), collapse = " = "),
-        collapse = " AND "
-      )
-      
-      key_exists <- dbGetQuery(my_db, paste("SELECT COUNT(*) FROM", table_name, "WHERE", condition))
-      
-      if (key_exists == 0) {
-        # Primary key does not exist, proceed with loading
-        RSQLite::dbWriteTable(my_db, table_name, new_record, overwrite = FALSE, append = TRUE)
-      }
-    }
+for (i in seq_along(table_data)) {
+  new_record <- table_data[i, ]
+  pk_columns <- tables[[table_name]]
+  pk_values <- new_record[pk_columns]
+  conditions <- paste(pk_columns, "=", paste0("'", pk_values, "'"), collapse = " AND ")
+  
+  key_exists <- dbGetQuery(my_db, paste("SELECT COUNT(*) FROM", table_name, "WHERE", conditions))
+  
+  if (key_exists == 0) {
+    tryCatch({
+      RSQLite::dbAppendTable(my_db, table_name, new_record, overwrite = FALSE, append = TRUE)
+    }, error = function(e) {
+      print(paste("Error inserting record with primary key", paste(pk_values, collapse = ", "), "into table", table_name))
+      print(e)
+    })
   }
 }
