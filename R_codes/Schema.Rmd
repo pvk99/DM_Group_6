@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS CUSTOMERS(
 );
 ```
 
-### PRODUCT
+### SKU
 ```{sql connection=my_db}
 CREATE TABLE IF NOT EXISTS SKU(
     COLOR TEXT,
