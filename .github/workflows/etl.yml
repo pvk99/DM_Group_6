@@ -1,8 +1,6 @@
 name: ETL workflow
 
 on:
-#  schedule:
-#    - cron: '0 */12 * * *' # Run every 12 hours
   push:
     branches: [ main ]
 
@@ -30,15 +28,19 @@ jobs:
       - name: Execute R script
         run: |
           Rscript R_codes/Workflow.R
-      - name: Add files
+      - name: Check for changes in ecommerce.db
+        id: check_changes
+        run: |
+          git diff --quiet ecommerce.db || echo "Changes found"
+      - name: Add files and commit changes
+        if: steps.check_changes.outputs.stdout != 'Changes found'
         run: |
           git config --global user.email "Teng-Yi.Chen@warwick.ac.uk"
           git config --global user.name "DylanCTY"
-      - name: Commit files
-        run: |
           git add ecommerce.db
-          git commit -m "Update database"
+          git commit -m "Update database" || echo "No changes to commit"
       - name: Push changes
+        if: steps.check_changes.outputs.stdout != 'Changes found'
         uses: ad-m/github-push-action@v0.6.0
         with:
             github_token: ${{ secrets.GITHUB_TOKEN }}

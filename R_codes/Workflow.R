@@ -30,9 +30,57 @@ tables <- list(
   "ORDERS" = c("ORDER_ID", "PRODUCT_ID", "CUSTOMER_ID")
 )
 
+# Define write_errors function with folder path argument
+write_errors <- function(errors, folder_path, file_name) {
+  # Ensure the folder exists, if not, create it
+  if (!dir.exists(folder_path)) {
+    dir.create(folder_path, recursive = TRUE)
+  }
+  
+  file_path <- file.path(folder_path, file_name)
+  
+  if (length(errors) > 0) {
+    cat("Errors:\n", file = file_path)
+    for (error in errors) {
+      cat(error, "\n", file = file_path, append = TRUE)
+    }
+    cat("\n", file = file_path, append = TRUE)
+  }
+}
+
+# List to store errors
+error_list <- c()
+
+# Function to check if data entries exist and load new entries
 for (table_name in names(tables)) {
   for (file_path in file_paths[[table_name]]) {
-    table_data <- read_csv(file_path)  # Assuming you are using readr to read CSV files
+    table_data <- read_csv(file_path)  
+    
+    ## Apply specific rules for attributes based on the table
+    if (table_name == "ADS") {
+      ### Convert AD_START_DATE and AD_END_DATE to character
+      table_data$AD_START_DATE <- as.character(table_data$AD_START_DATE)
+      table_data$AD_END_DATE <- as.character(table_data$AD_END_DATE)
+    }
+    
+    ## Apply specific rules for attributes based on the table
+    if (table_name == "ADS") {
+      ### Convert AD_START_DATE and AD_END_DATE to character
+      table_data$AD_START_DATE <- as.character(table_data$AD_START_DATE)
+      table_data$AD_END_DATE <- as.character(table_data$AD_END_DATE)
+    }
+    if (table_name == "CUSTOMERS") {
+      ### Convert DATE_OF_BIRTH to character
+      table_data$DATE_OF_BIRTH <- as.character(table_data$DATE_OF_BIRTH)
+    }
+    if (table_name == "ORDERS") {
+      ### Convert ORDER_DATE, DELIVERY_DATE, RETURN_DATE to character
+      table_data$ORDER_DATE <- as.character(table_data$ORDER_DATE)
+      table_data$DELIVERY_DATE <- as.character(table_data$DELIVERY_DATE)
+      table_data$RETURN_DATE <- as.character(table_data$RETURN_DATE)
+    }  
+    
+    ## Check for primary key duplication
     for (i in seq_along(table_data)) {
       new_record <- table_data[i, ]
       pk_columns <- tables[[table_name]]
@@ -45,11 +93,16 @@ for (table_name in names(tables)) {
         tryCatch({
           RSQLite::dbAppendTable(my_db, table_name, new_record, overwrite = FALSE, append = TRUE)
         }, error = function(e) {
+          error_list <- c(error_list, paste("Error inserting record with primary key", paste(pk_values, collapse = ", "), "into table", table_name))
           print(paste("Error inserting record with primary key", paste(pk_values, collapse = ", "), "into table", table_name))
           print(e)
         })
+      } else {
+        print(paste("Record with primary key", paste(pk_values, collapse = ", "), "already exists in table", table_name))
       }
     }
   }
 }
 
+# Save errors to a folder named "Error logs" within the current directory
+write_errors(error_list, "Error logs", "error_log.txt")
