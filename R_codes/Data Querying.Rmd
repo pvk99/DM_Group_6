@@ -20,44 +20,340 @@ my_db <- RSQLite::dbConnect(RSQLite::SQLite(),"/cloud/project/ecommerce.db")
 
 # Reading the Generated Data
 ```{r}
-ads <- readr::read_csv('/cloud/project/Data/ADS.csv')
+ads <- readr::read_csv('/cloud/project/Data/ADS.1.csv')
 ads$AD_START_DATE <- as.character(ads$AD_START_DATE)
 ads$AD_END_DATE <- as.character(ads$AD_START_DATE)
 
-category <- readr::read_csv('/cloud/project/Data/CATEGORY.csv')
+category <- readr::read_csv('/cloud/project/Data/CATEGORY.1.csv')
 
-customers <- readr::read_csv('/cloud/project/Data/CUSTOMERS.csv')
+customers <- readr::read_csv('/cloud/project/Data/CUSTOMERS.1.csv')
 customers$DATE_OF_BIRTH <- as.character(customers$DATE_OF_BIRTH)
 
-order_shipment <- readr::read_csv('/cloud/project/Data/ORDER_SHIPMENT.csv')
+order_shipment <- readr::read_csv('/cloud/project/Data/ORDER_SHIPMENT.1.csv')
 
-orders <- readr::read_csv('/cloud/project/Data/ORDERS.csv')
+orders <- readr::read_csv('/cloud/project/Data/ORDERS.1.csv')
 orders$ORDER_DATE <- as.character(orders$ORDER_DATE)
 orders$DELIVERY_DATE <- as.character(orders$DELIVERY_DATE)
 orders$RETURN_DATE <- as.character(orders$RETURN_DATE)
 
-promotion <- readr::read_csv('/cloud/project/Data/PROMOTION.csv')
+promotion <- readr::read_csv('/cloud/project/Data/PROMOTION.1.csv')
 promotion$PROMOTION_START_DATE <- as.character(promotion$PROMOTION_START_DATE)
 promotion$PROMOTION_END_DATE <- as.character(promotion$PROMOTION_END_DATE)
 
-sku <- readr::read_csv('/cloud/project/Data/SKU.csv')
+sku <- readr::read_csv('/cloud/project/Data/SKU.1.csv')
 
-supplier <- readr::read_csv('/cloud/project/Data/SUPPLIER.csv')
+supplier <- readr::read_csv('/cloud/project/Data/SUPPLIER.1.csv')
 
-transactions <- readr::read_csv('/cloud/project/Data/TRANSACTIONS.csv')
+transactions <- readr::read_csv('/cloud/project/Data/TRANSACTIONS.1.csv')
 ```
+
+# Data Validation Snippets
+# Validating the data present in customers table
+```{r}
+
+## In this, we check that all values of the CUSTOMER_ID (PK) attribute are present and unique
+
+# Checking the unique constraint
+unique_values <- customers %>% 
+  pull(CUSTOMER_ID) %>% 
+  n_distinct()
+
+total_rows <- nrow(customers)
+
+if(unique_values == total_rows) {
+  print("PK data are all unique")
+} else {
+  print("Not all values in the column are unique")
+}
+
+# Checking none of the values are null
+null_values <- sum(is.na(customers$CUSTOMER_ID))
+
+if(null_values > 0) {
+  print("Null value found in PK attribute")
+} else {
+  print("No Null Value found in PK attribute")
+}
+
+# Validating if any of the mobile numbers provided is not of length 10
+## Converting the phone numbers to type string for validation
+customers$PHONE_NUMBER <- as.character(customers$PHONE_NUMBER)
+
+## Defining a function to check if phone number are of length 10
+validate_phone_numbers <- function(phone) {
+  if (nchar(phone) == 10 & !any(!is.na(as.numeric(phone)))) {
+    return(TRUE)  # Phone number is valid
+  } else {
+    return(FALSE) # Phone number is not valid
+  }
+}
+
+# Apply validation function to the phone numbers column
+valid_numbers <- sapply(customers$PHONE_NUMBER, validate_phone_numbers)
+
+if(length(valid_numbers) == total_rows) {
+  print("All phone numbers are valid")
+} else {
+  print("Not all phone numbers are of length 10")
+}
+
+## Checking if the email provided is valid using regular expressions
+email_pattern <- "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+
+# Function to validate email addresses
+validate_emails <- function(email) {
+  grepl(email_pattern, email)
+}
+
+# Apply validation function to the emails column
+valid_emails <- customers$CUSTOMER_EMAIL[sapply(customers$CUSTOMER_EMAIL, validate_emails)]
+
+if(length(valid_emails) == total_rows) {
+  print("All emails are valid")
+} else {
+  print("Not all emails are valid")
+}
+```
+
+
+# Validating Data present in the Suppliers Table
+```{r}
+
+# Checking the unique constraint
+unique_values <- supplier %>% 
+  pull(SUPPLIER_ID) %>% 
+  n_distinct()
+
+total_rows <- nrow(supplier)
+
+if(unique_values == total_rows) {
+  print("PK data are all unique")
+} else {
+  print("Not all values in the column are unique")
+}
+
+# Checking none of the values are null
+null_values <- sum(is.na(supplier$SUPPLIER_ID))
+
+if(null_values > 0) {
+  print("Null value found in PK attribute")
+} else {
+  print("No Null Value found in PK attribute")
+}
+
+# Validating if any of the mobile numbers provided is not of length 10
+## Converting the phone numbers to type string for validation
+supplier$SUPPLIER_PHONE <- as.character(supplier$SUPPLIER_PHONE)
+
+## Defining a function to check if phone number are of length 10
+validate_phone_numbers <- function(phone) {
+  if (nchar(phone) == 10 & !any(!is.na(as.numeric(phone)))) {
+    return(TRUE)  # Phone number is valid
+  } else {
+    return(FALSE) # Phone number is not valid
+  }
+}
+
+# Apply validation function to the phone numbers column
+valid_numbers <- sapply(supplier$SUPPLIER_PHONE, validate_phone_numbers)
+
+if(length(valid_numbers) == total_rows) {
+  print("All phone numbers are valid")
+} else {
+  print("Not all phone numbers are of length 10")
+}
+
+## Checking if the email provided is valid using regular expressions
+email_pattern <- "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+
+# Function to validate email addresses
+validate_emails <- function(email) {
+  grepl(email_pattern, email)
+}
+
+# Apply validation function to the emails column
+valid_emails <- supplier$SUPPLIER_EMAIL[sapply(supplier$SUPPLIER_EMAIL, validate_emails)]
+
+if(length(valid_emails) == total_rows) {
+  print("All emails are valid")
+} else {
+  print("Not all emails are valid")
+}
+```
+
+# Validating Data Present in Category Table
+```{r}
+## In this we check that all the values in the CATEGORY_ID(PK) attribute are present
+
+# Checking the unique constraint
+unique_values <- category %>% 
+  pull(CATEGORY_ID) %>% 
+  n_distinct()
+
+total_rows <- nrow(category)
+
+if(unique_values == total_rows) {
+  print("PK data are all unique")
+} else {
+  print("Not all values in the column are unique")
+}
+
+# Checking none of the values are null
+null_values <- sum(is.na(category$CATEGORY_ID))
+
+if(null_values > 0) {
+  print("Null value found in PK attribute")
+} else {
+  print("No Null Value found in PK attribute")
+}
+
+```
+
+# Validating data in order_shipment
+```{r}
+# Checking the unique constraint
+unique_values <- order_shipment %>% 
+  pull(SHIPPING_ID) %>% 
+  n_distinct()
+
+total_rows <- nrow(order_shipment)
+
+if(unique_values == total_rows) {
+  print("PK data are all unique")
+} else {
+  print("Not all values in the column are unique")
+}
+
+# Checking none of the values are null
+null_values <- sum(is.na(order_shipment$SHIPPING_ID))
+
+if(null_values > 0) {
+  print("Null value found in PK attribute")
+} else {
+  print("No Null Value found in PK attribute")
+}
+```
+
+# Validating data in the SKU table
+```{r}
+# Checking the unique constraint
+unique_values <- sku %>% 
+  pull(PRODUCT_ID) %>% 
+  n_distinct()
+
+total_rows <- nrow(sku)
+
+if(unique_values == total_rows) {
+  print("PK data are all unique")
+} else {
+  print("Not all values in the column are unique")
+}
+
+# Checking none of the values are null
+null_values <- sum(is.na(sku$PRODUCT_ID))
+
+if(null_values > 0) {
+  print("Null value found in PK attribute")
+} else {
+  print("No Null Value found in PK attribute")
+}
+```
+
+# Validating data in transactions table
+```{r}
+# Checking the unique constraint
+unique_values <- transactions %>% 
+  pull(TRANSACTION_ID) %>% 
+  n_distinct()
+
+total_rows <- nrow(transactions)
+
+if(unique_values == total_rows) {
+  print("PK data are all unique")
+} else {
+  print("Not all values in the column are unique")
+}
+
+# Checking none of the values are null
+null_values <- sum(is.na(transactions$TRANSACTION_ID))
+
+if(null_values > 0) {
+  print("Null value found in PK attribute")
+} else {
+  print("No Null Value found in PK attribute")
+}
+```
+
+# Validating data in the orders table
+```{r}
+# Creating a new vector which the primary key of the table
+pk <- paste(orders$ORDER_ID, orders$CUSTOMER_ID, orders$PRODUCT_ID, sep = "_")
+
+# Checking the unique constraint
+unique_values <- pk %>% 
+  n_distinct()
+
+total_rows <- nrow(orders)
+
+if(unique_values == total_rows) {
+  print("PK data in Ads table are all unique")
+} else {
+  print("Not all values in the column are unique")
+}
+
+# Checking none of the values are null
+null_values <- sum(is.na(pk))
+
+if(null_values > 0) {
+  print("Null value found in PK attribute")
+} else {
+  print("No Null Value found in PK attribute")
+}
+
+```
+
+
+# Validating the data present in ADs Table
+```{r}
+## In this we check that all the values in the AD_ID (PK) attribute are present
+
+# Checking the unique constraint
+unique_values <- ads %>% 
+  pull(AD_ID) %>% 
+  n_distinct()
+
+total_rows <- nrow(ads)
+
+if(unique_values == total_rows) {
+  print("PK data in Ads table are all unique")
+} else {
+  print("Not all values in the column are unique")
+}
+
+# Checking none of the values are null
+null_values <- sum(is.na(ads$AD_ID))
+
+if(null_values > 0) {
+  print("Null value found in PK attribute")
+} else {
+  print("No Null Value found in PK attribute")
+}
+
+```
+
+
 
 # Writing the files to e-commerce DB
 ```{r}
-RSQLite::dbWriteTable(my_db,"ADS",ads,overwrite=FALSE,append=TRUE)
-RSQLite::dbWriteTable(my_db,"CATEGORY",category,overwrite=FALSE,append=TRUE)
-RSQLite::dbWriteTable(my_db,"CUSTOMERS",customers,overwrite=FALSE,append=TRUE)
-RSQLite::dbWriteTable(my_db,"ORDER_SHIPMENT",order_shipment,overwrite=FALSE,append=TRUE)
-RSQLite::dbWriteTable(my_db,"ORDERS",orders,overwrite=FALSE,append=TRUE)
-RSQLite::dbWriteTable(my_db,"PROMOTION",promotion,overwrite=FALSE,append=TRUE)
-RSQLite::dbWriteTable(my_db,"SKU",sku,overwrite=FALSE,append=TRUE)
-RSQLite::dbWriteTable(my_db,"SUPPLIER",supplier,overwrite=FALSE,append=TRUE)
-RSQLite::dbWriteTable(my_db,"TRANSACTIONS",transactions,overwrite=FALSE,append=TRUE)
+#RSQLite::dbWriteTable(my_db,"ADS",ads,overwrite=FALSE,append=TRUE)
+#RSQLite::dbWriteTable(my_db,"CATEGORY",category,overwrite=FALSE,append=TRUE)
+#RSQLite::dbWriteTable(my_db,"CUSTOMERS",customers,overwrite=FALSE,append=TRUE)
+#RSQLite::dbWriteTable(my_db,"ORDER_SHIPMENT",order_shipment,overwrite=FALSE,append=TRUE)
+#RSQLite::dbWriteTable(my_db,"ORDERS",orders,overwrite=FALSE,append=TRUE)
+#RSQLite::dbWriteTable(my_db,"PROMOTION",promotion,overwrite=FALSE,append=TRUE)
+#RSQLite::dbWriteTable(my_db,"SKU",sku,overwrite=FALSE,append=TRUE)
+#RSQLite::dbWriteTable(my_db,"SUPPLIER",supplier,overwrite=FALSE,append=TRUE)
+#RSQLite::dbWriteTable(my_db,"TRANSACTIONS",transactions,overwrite=FALSE,append=TRUE)
 ```
 
 ## Query table for long-term analysis (Por Part)
