@@ -167,7 +167,6 @@ if(length(valid_numbers) == total_rows) {
 
 supplier$SUPPLIER_PHONE <- as.numeric(supplier$SUPPLIER_PHONE)
 
-
 ## Checking if the email provided is valid using regular expressions
 email_pattern <- "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
 
