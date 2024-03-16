@@ -164,7 +164,6 @@ if(length(valid_numbers) == total_rows) {
 } else {
   print("Not all phone numbers are of length 10")
 }
-
 supplier$SUPPLIER_PHONE <- as.numeric(supplier$SUPPLIER_PHONE)
 
 ## Checking if the email provided is valid using regular expressions
