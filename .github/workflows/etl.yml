@@ -23,6 +23,8 @@ jobs:
           key: ${{ runner.os }}-r-${{ hashFiles('**/lockfile') }}
           restore-keys: |
             ${{ runner.os }}-r-
+      - name: Create figures directory
+        run: mkdir -p figures
       - name: Install packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
@@ -44,8 +46,6 @@ jobs:
           git config --global user.name "DylanCTY"
           git add ecommerce.db
           git commit -m "Update database" || echo "No changes to commit"
-          # Create the 'figures' folder if it doesn't exist
-          mkdir -p figures
           git add --all figures/
           # Check if error logs exist
           if [ -d "Error logs" ] && [ "$(ls -A Error\ logs)" ]; then
