@@ -60,6 +60,7 @@ jobs:
           git config --global user.email "Teng-Yi.Chen@warwick.ac.uk"
           git config --global user.name "DylanCTY"
           git add ecommerce.db
+          git add --all figures/
           git commit -m "Update database" || echo "No changes to commit"
           
     
