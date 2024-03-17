@@ -47,21 +47,17 @@ jobs:
         run: |
           git diff --quiet ecommerce.db || echo "Changes found"
           
-      - name: Add files and commit changes
+      - name: Add database changes and commit
         if: steps.check_changes.outputs.stdout != 'Changes found'
         run: |
           git config --global user.email "Teng-Yi.Chen@warwick.ac.uk"
           git config --global user.name "DylanCTY"
           git add ecommerce.db
           git commit -m "Update database" || echo "No changes to commit"
-          # Add figures directory if it exists and contains files
-          if [ -d "figures" ] && [ "$(ls -A figures)" ]; then
-            git add figures/
-            echo "Figures directory added."
-          else
-            echo "No figures directory found or it's empty."
-          fi
           
+      - name: Add figures and commit
+        if: steps.check_changes.outputs.stdout != 'Changes found'
+        run: |
           # Move untracked files to figures directory
           untracked_files=$(git ls-files --others --exclude-standard)
           if [ -n "$untracked_files" ]; then
