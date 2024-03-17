@@ -26,7 +26,7 @@ jobs:
       - name: Install packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          Rscript -e 'install.packages(c("ggplot2", "dplyr", "readr", "RSQLite", "DBI"))'
+          Rscript -e 'install.packages(c("ggplot2", "dplyr", "readr", "RSQLite", "DBI","rmarkdown"))'
       - name: Execute R script
         run: |
           Rscript R_codes/Workflow.R
