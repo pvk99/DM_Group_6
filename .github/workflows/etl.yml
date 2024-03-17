@@ -12,10 +12,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        
       - name: Setup R environment
         uses: r-lib/actions/setup-r@v2
         with:
           r-version: '4.2.0'
+          
       - name: Cache R packages
         uses: actions/cache@v2
         with:
@@ -23,22 +25,28 @@ jobs:
           key: ${{ runner.os }}-r-${{ hashFiles('**/lockfile') }}
           restore-keys: |
             ${{ runner.os }}-r-
+          
       - name: Create figures directory
         run: mkdir -p figures
+          
       - name: Install packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
           Rscript -e 'install.packages(c("ggplot2", "dplyr", "readr", "RSQLite", "DBI"))'
+          
       - name: Execute R script
         run: |
           Rscript R_codes/Workflow.R
+          
       - name: Execute Data Analysis
         run: |
           Rscript R_codes/Query_workflow.R
+          
       - name: Check for changes in ecommerce.db
         id: check_changes
         run: |
           git diff --quiet ecommerce.db || echo "Changes found"
+          
       - name: Add files and commit changes
         if: steps.check_changes.outputs.stdout != 'Changes found'
         run: |
@@ -47,6 +55,7 @@ jobs:
           git add ecommerce.db
           git commit -m "Update database" || echo "No changes to commit"
           git add --all figures/
+          
           # Check if error logs exist
           if [ -d "Error logs" ] && [ "$(ls -A Error\ logs)" ]; then
             echo "Error logs exist"
@@ -65,6 +74,7 @@ jobs:
           else
             echo "No error logs found"
           fi
+          
       - name: Push changes
         if: steps.check_changes.outputs.stdout != 'Changes found'
         uses: ad-m/github-push-action@v0.6.0
