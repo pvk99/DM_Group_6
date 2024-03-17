@@ -4,7 +4,7 @@ on:
   push:
     branches: [ main ]
   schedule:
-    - cron: '0 */1 * * *' # Runs every 1 hours
+    - cron: '0 */24 * * *' # Runs every 24 hours
 
 jobs:
   build:
