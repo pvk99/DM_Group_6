@@ -62,13 +62,13 @@ jobs:
           untracked_files=$(git ls-files --others --exclude-standard)
           if [ -n "$untracked_files" ]; then
             mkdir -p figures
-            mv $untracked_files figures/
-            echo "Untracked files moved to figures directory."
-          fi
-
+            if mv $untracked_files figures/; then
+              echo "Untracked files moved to figures directory."
           # Add moved files to staging area
-          if [ -d "figures" ]; then
-            git add figures/
+              git add figures/
+            else
+              echo "Failed to move untracked files to figures directory."
+            fi
           fi
           # Check if error logs exist
           if [ -d "Error logs" ] && [ "$(ls -A Error\ logs)" ]; then
