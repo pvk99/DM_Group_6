@@ -291,17 +291,29 @@ CUSTOMER$DATE_OF_BIRTH <- sample(seq(start_DOB, end_DOB, by = "day"), nrow(CUSTO
 CUSTOMER$DATE_OF_BIRTH <- as.character(CUSTOMER$DATE_OF_BIRTH)
 
 # Create name
-## Generate random full names
-random_full_names <- randomNames(nrow(CUSTOMER))  
+## Filter out names with apostrophes
+filtered_names <- randomNames(nrow(CUSTOMER))
+filtered_names <- filtered_names[!grepl("'", filtered_names)]
 
-## Split full names into first and last names
+## If the number of filtered names is less than the number of rows in CUSTOMER, generate additional names
+if (length(filtered_names) < nrow(CUSTOMER)) {
+  additional_names <- randomNames(nrow(CUSTOMER) - length(filtered_names))
+  additional_names <- additional_names[!grepl("'", additional_names)]
+  filtered_names <- c(filtered_names, additional_names)
+}
+
+## Generate random full names
+random_full_names <- sample(filtered_names, nrow(CUSTOMER), replace = TRUE)
+
+#W Split full names into first and last names
 split_names <- strsplit(random_full_names, ",")
 
 ## Extract first names
-CUSTOMER$FIRST_NAME <- sapply(strsplit(random_full_names, ","), "[",2)
+CUSTOMER$FIRST_NAME <- sapply(split_names, "[", 2)
 
 ## Extract last names
-CUSTOMER$LAST_NAME <- sapply(strsplit(random_full_names, ","), "[",1)
+CUSTOMER$LAST_NAME <- sapply(split_names, "[", 1)
+
 
 # Create EMAIL_ADDRESS
 generate_personal_email <- function(name) {

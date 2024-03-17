@@ -5,12 +5,14 @@ library(DBI)
 
 # Define a function to check if phone numbers are of length 10 and contain only numeric characters
 validate_phone_numbers <- function(phone) {
-  if (!is.na(phone) && nchar(phone) == 10 && !any(!is.na(as.numeric(phone)))) {
+  phone <- as.character(phone)  # Convert integer to character
+  if (!is.na(phone) && nchar(phone) == 10 && !any(is.na(as.numeric(phone)))) {
     return(TRUE)  # Phone number is valid
   } else {
     return(FALSE) # Phone number is not valid
   }
 }
+
 
 
 # Function to validate email addresses
@@ -77,92 +79,159 @@ error_list <- c()
 # Function to check if data entries exist and load new entries
 for (table_name in names(tables)) {
   for (file_path in file_paths[[table_name]]) {
-    table_data <- read_csv(file_path)  
+    table_data <- read_csv(file_path,n_max = Inf)  
     
     ## Apply specific rules for attributes based on the table
     if (table_name == "ADS") {
-      ### Convert AD_START_DATE and AD_END_DATE to character
+      # Initialize error list
+      error_list <- vector("list")
+      
+      # Convert AD_START_DATE and AD_END_DATE to character
       table_data$AD_START_DATE <- as.character(table_data$AD_START_DATE)
       table_data$AD_END_DATE <- as.character(table_data$AD_END_DATE)
-      ### Ensure numeric attributes are non-negative
+      
+      # Initialize vector to store indices of invalid rows
+      invalid_rows <- vector("numeric")
+      
+      # Ensure numeric attributes are non-negative
       numeric_attrs <- c("COST_PER_CLICK", "CLICK_THROUGH_RATE", "NUMBER_OF_CLICK")
       for (attr in numeric_attrs) {
         if (any(table_data[[attr]] < 0)) {
           error_list <- c(error_list, paste("Negative values found in", attr, "column of ADS table."))
-          table_data <- table_data[table_data[[attr]] >= 0, ]
+          invalid_rows <- c(invalid_rows, which(table_data[[attr]] < 0))
         }
+      }
+      
+      # Remove invalid rows from table_data
+      if (length(invalid_rows) > 0) {
+        table_data <- table_data[-invalid_rows, ]
       }
     }
     if (table_name == "CUSTOMERS") {
-      ### Convert DATE_OF_BIRTH to character
+      # Initialize error list
+      error_list <- vector("list")
+      
+      # Convert DATE_OF_BIRTH to character
       table_data$DATE_OF_BIRTH <- as.character(table_data$DATE_OF_BIRTH)
-      ### Check phone numbers and emails
+      
+      # Initialize vector to store indices of invalid rows
+      invalid_rows <- vector("numeric")
+      
+      # Check phone numbers and emails
       for (i in 1:nrow(table_data)) {
         if (!validate_phone_numbers(table_data$PHONE_NUMBER[i])) {
           error_list <- c(error_list, paste("Invalid phone number in CUSTOMERS table:", table_data$PHONE_NUMBER[i]))
-          table_data <- table_data[-i, ]
+          invalid_rows <- c(invalid_rows, i)
         }
         
         if (!validate_emails(table_data$CUSTOMER_EMAIL[i])) {
           error_list <- c(error_list, paste("Invalid email in CUSTOMERS table:", table_data$CUSTOMER_EMAIL[i]))
-          table_data <- table_data[-i, ]
+          invalid_rows <- c(invalid_rows, i)
         }
+      }
+      
+      # Remove invalid rows from table_data
+      if (length(invalid_rows) > 0) {
+        table_data <- table_data[-invalid_rows, ]
       }
     }
     if (table_name == "SKU") {
-      ### Ensure numeric attributes are non-negative
+      # Initialize error list
+      error_list <- vector("list")
+      
+      # Ensure numeric attributes are non-negative
       numeric_attrs <- c("MARKUP", "PRODUCT_PURCHASING_PRICE")
       for (attr in numeric_attrs) {
         if (any(table_data[[attr]] < 0)) {
           error_list <- c(error_list, paste("Negative values found in", attr, "column of SKU table."))
-          table_data <- table_data[table_data[[attr]] >= 0, ]
+          invalid_rows <- c(invalid_rows, which(table_data[[attr]] < 0))
         }
+      }
+      
+      # Remove invalid rows from table_data
+      if (length(invalid_rows) > 0) {
+        table_data <- table_data[-invalid_rows, ]
       }
     }
     if (table_name == "PROMOTION") {
-      ### Convert PROMOTION_START_DATE and PROMOTION_END_DATE to character
+      # Initialize error list
+      error_list <- vector("list")
+      
+      # Convert PROMOTION_START_DATE and PROMOTION_END_DATE to character
       table_data$PROMOTION_START_DATE <- as.character(table_data$PROMOTION_START_DATE)
       table_data$PROMOTION_END_DATE <- as.character(table_data$PROMOTION_END_DATE)
-      ### Ensure numeric attributes are non-negative
+      
+      # Initialize vector to store indices of invalid rows
+      invalid_rows <- vector("numeric")
+      
+      # Ensure numeric attributes are non-negative
       numeric_attrs <- c("MINIMUM_PURCHASE_AMOUNT")
       for (attr in numeric_attrs) {
         if (any(table_data[[attr]] < 0)) {
           error_list <- c(error_list, paste("Negative values found in", attr, "column of PROMOTION table."))
-          table_data <- table_data[table_data[[attr]] >= 0, ]
+          invalid_rows <- c(invalid_rows, which(table_data[[attr]] < 0))
         }
+      }
+      
+      # Remove invalid rows from table_data
+      if (length(invalid_rows) > 0) {
+        table_data <- table_data[-invalid_rows, ]
       }
     }
     if (table_name == "SUPPLIER") {
-      ### Check phone numbers and emails
+      # Initialize error list
+      error_list <- vector("list")
+      
+      # Initialize vector to store indices of invalid rows
+      invalid_rows <- vector("numeric")
+      
+      # Check phone numbers and emails
       for (i in 1:nrow(table_data)) {
         if (!validate_phone_numbers(table_data$SUPPLIER_PHONE[i])) {
-          error_list <- c(error_list, paste("Invalid phone number in SUPPLIER table:", table_data$PHONE_NUMBER[i]))
-          table_data <- table_data[-i, ]
+          error_list <- c(error_list, paste("Invalid phone number in SUPPLIER table:", table_data$SUPPLIER_PHONE[i]))
+          invalid_rows <- c(invalid_rows, i)
         }
         
         if (!validate_emails(table_data$SUPPLIER_EMAIL[i])) {
-          error_list <- c(error_list, paste("Invalid email in SUPPLIER table:", table_data$CUSTOMER_EMAIL[i]))
-          table_data <- table_data[-i, ]
+          error_list <- c(error_list, paste("Invalid email in SUPPLIER table:", table_data$SUPPLIER_EMAIL[i]))
+          invalid_rows <- c(invalid_rows, i)
         }
+      }
+      
+      # Remove invalid rows from table_data
+      if (length(invalid_rows) > 0) {
+        table_data <- table_data[-invalid_rows, ]
       }
     }
     if (table_name == "ORDERS") {
-      ### Convert ORDER_DATE, DELIVERY_DATE, RETURN_DATE to character
+      # Initialize error list
+      error_list <- vector("list")
+      
+      # Convert ORDER_DATE, DELIVERY_DATE, RETURN_DATE to character
       table_data$ORDER_DATE <- as.character(table_data$ORDER_DATE)
       table_data$DELIVERY_DATE <- as.character(table_data$DELIVERY_DATE)
       table_data$RETURN_DATE <- as.character(table_data$RETURN_DATE)
-      ### Ensure numeric attributes are non-negative
+      
+      # Initialize vector to store indices of invalid rows
+      invalid_rows <- vector("numeric")
+      
+      # Check numeric attributes for non-negativity
       numeric_attrs <- c("ORDER_QUANTITY", "RETURN_QUANTITY")
       for (attr in numeric_attrs) {
         if (any(!is.na(table_data[[attr]]) & table_data[[attr]] < 0)) {
           error_list <- c(error_list, paste("Invalid or negative values found in", attr, "column of ORDERS table."))
-          table_data <- table_data[!(is.na(table_data[[attr]]) & table_data[[attr]] < 0), ]
+          invalid_rows <- c(invalid_rows, which(!is.na(table_data[[attr]]) & table_data[[attr]] < 0))
         }
+      }
+      
+      # Remove invalid rows from table_data
+      if (length(invalid_rows) > 0) {
+        table_data <- table_data[-invalid_rows, ]
       }
     }
     
     ## Check for primary key duplication
-    for (i in seq_along(table_data)) {
+    for (i in seq(nrow(table_data))) {
       new_record <- table_data[i, ]
       pk_columns <- tables[[table_name]]
       pk_values <- new_record[pk_columns]
@@ -178,7 +247,7 @@ for (table_name in names(tables)) {
       
       if (key_exists == 0) {
         tryCatch({
-          RSQLite::dbAppendTable(my_db, table_name, new_record, overwrite = FALSE, append = TRUE)
+          RSQLite::dbAppendTable(my_db, table_name, new_record)
         }, error = function(e) {
           error_list <- c(error_list, paste("Error inserting record with primary key", paste(pk_values, collapse = ", "), "into table", table_name))
           print(paste("Error inserting record with primary key", paste(pk_values, collapse = ", "), "into table", table_name))
