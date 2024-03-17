@@ -41,14 +41,6 @@ jobs:
       - name: Execute Data Analysis
         run: |
           Rscript R_codes/Query_workflow.R
-          
-      - name: Add database changes and commit
-        run: |
-          git config --global user.email "Teng-Yi.Chen@warwick.ac.uk"
-          git config --global user.name "DylanCTY"
-          git add ecommerce.db
-          git commit -m "Update database" || echo "No changes to commit"
-          
       - name: Add figures and commit
         run: |
           # Move untracked files to figures directory
@@ -63,6 +55,14 @@ jobs:
               echo "Failed to move untracked files to figures directory."
             fi
           fi
+      - name: Add database changes and commit
+        run: |
+          git config --global user.email "Teng-Yi.Chen@warwick.ac.uk"
+          git config --global user.name "DylanCTY"
+          git add ecommerce.db
+          git commit -m "Update database" || echo "No changes to commit"
+          
+    
       - name: Add figures and commit
         run: |
           # Move untracked files to figures directory
