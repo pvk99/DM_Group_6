@@ -30,6 +30,9 @@ jobs:
       - name: Execute R script
         run: |
           Rscript R_codes/Workflow.R
+      - name: Execute Data Analysis
+        run: |
+          Rscript R_codes/Data_Querying.Rmd
       - name: Check for changes in ecommerce.db
         id: check_changes
         run: |
@@ -41,6 +44,25 @@ jobs:
           git config --global user.name "DylanCTY"
           git add ecommerce.db
           git commit -m "Update database" || echo "No changes to commit"
+          git add --all figures/
+      # Check if error logs exist
+          if [ -d "Error logs" ] && [ "$(ls -A Error\ logs)" ]; then
+            echo "Error logs exist"
+            # Create error logs folder
+            mkdir -p "Error logs"
+            # Write error_log.txt
+            echo "Errors:" > "Error logs/error_log.txt"
+            # Append each error to the error_log.txt file
+            for error in Error logs/*; do
+              cat "$error" >> "Error logs/error_log.txt"
+              echo "" >> "Error logs/error_log.txt"  # Add a newline after each error
+            done
+            # Commit error logs
+            git add "Error logs/error_log.txt"
+            git commit -m "Add error log" || echo "No error log changes to commit"
+          else
+            echo "No error logs found"
+          fi
       - name: Push changes
         if: steps.check_changes.outputs.stdout != 'Changes found'
         uses: ad-m/github-push-action@v0.6.0
