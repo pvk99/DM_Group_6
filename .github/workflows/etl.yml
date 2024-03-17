@@ -44,6 +44,8 @@ jobs:
           git config --global user.name "DylanCTY"
           git add ecommerce.db
           git commit -m "Update database" || echo "No changes to commit"
+          # Create the 'figures' folder if it doesn't exist
+          mkdir -p figures
           git add --all figures/
           # Check if error logs exist
           if [ -d "Error logs" ] && [ "$(ls -A Error\ logs)" ]; then
@@ -53,7 +55,7 @@ jobs:
             # Write error_log.txt
             echo "Errors:" > "Error logs/error_log.txt"
             # Append each error to the error_log.txt file
-            for error in Error logs/*; do
+            for error in Error\ logs/*; do
               cat "$error" >> "Error logs/error_log.txt"
               echo "" >> "Error logs/error_log.txt"  # Add a newline after each error
             done
