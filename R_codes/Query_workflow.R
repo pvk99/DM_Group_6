@@ -51,7 +51,7 @@ filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
 ggsave(paste0("figures/Short-Term-Report_1_",
               filename_date,"_",
-              filename_time,".png"))
+              filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
 Short_Term_Plot1
 
@@ -104,7 +104,7 @@ filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
 ggsave(paste0("figures/Short-Term-Report_2_",
               filename_date,"_",
-              filename_time,".png"))
+              filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
 Short_Term_Plot2
 
@@ -164,7 +164,7 @@ filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
 ggsave(paste0("figures/Short-Term-Report_3_",
               filename_date,"_",
-              filename_time,".png"))
+              filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
 Short_Term_Plot3
 
@@ -216,7 +216,7 @@ filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
 ggsave(paste0("figures/Long-Term-Report_1_",
               filename_date,"_",
-              filename_time,".png"))
+              filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
 Long_Term_Plot1
 
@@ -291,7 +291,7 @@ filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
 ggsave(paste0("figures/Long-Term-Report_2_",
               filename_date,"_",
-              filename_time,".png"))
+              filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
 Long_Term_Plot2
 
@@ -349,7 +349,7 @@ filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
 ggsave(paste0("figures/Long-Term-Report_3_",
               filename_date,"_",
-              filename_time,".png"))
+              filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
 Long_Term_Plot3
 
@@ -403,7 +403,7 @@ filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
 ggsave(paste0("figures/Long-Term-Report_4_",
               filename_date,"_",
-              filename_time,".png"))
+              filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
 Long_Term_Plot4
 
