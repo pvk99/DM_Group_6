@@ -32,7 +32,7 @@ jobs:
           Rscript R_codes/Workflow.R
       - name: Execute Data Analysis
         run: |
-          Rscript R_codes/Data_Querying.Rmd
+          Rscript -e 'rmarkdown::render("R_codes/Data_Querying.Rmd")'
       - name: Check for changes in ecommerce.db
         id: check_changes
         run: |
