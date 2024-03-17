@@ -62,6 +62,18 @@ jobs:
             echo "No figures directory found or it's empty."
           fi
           
+          # Move untracked files to figures directory
+          untracked_files=$(git ls-files --others --exclude-standard)
+          if [ -n "$untracked_files" ]; then
+            mkdir -p figures
+            mv $untracked_files figures/
+            echo "Untracked files moved to figures directory."
+          fi
+
+          # Add moved files to staging area
+          if [ -d "figures" ]; then
+            git add figures/
+          fi
           # Check if error logs exist
           if [ -d "Error logs" ] && [ "$(ls -A Error\ logs)" ]; then
             echo "Error logs exist"
