@@ -42,13 +42,7 @@ jobs:
         run: |
           Rscript R_codes/Query_workflow.R
           
-      - name: Check for changes in ecommerce.db
-        id: check_changes
-        run: |
-          git diff --quiet ecommerce.db || echo "Changes found"
-          
       - name: Add database changes and commit
-        if: steps.check_changes.outputs.stdout != 'Changes found'
         run: |
           git config --global user.email "Teng-Yi.Chen@warwick.ac.uk"
           git config --global user.name "DylanCTY"
@@ -70,7 +64,6 @@ jobs:
             fi
           fi
       - name: Add figures and commit
-        if: steps.check_changes.outputs.stdout != 'Changes found'
         run: |
           # Move untracked files to figures directory
           untracked_files=$(git ls-files --others --exclude-standard)
@@ -104,7 +97,6 @@ jobs:
           fi
       
       - name: Push changes
-        if: steps.check_changes.outputs.stdout != 'Changes found'
         uses: ad-m/github-push-action@v0.6.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
