@@ -6,7 +6,6 @@ library(ggplot2)
 
 my_db <- RSQLite::dbConnect(RSQLite::SQLite(),"ecommerce.db")
 
-
 # Short Term Analysis - Performance of the Organisation in the last 30 days
 
 ## Top 10 Most Selling SKU and their corresponding revenue generated
