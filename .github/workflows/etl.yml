@@ -41,20 +41,6 @@ jobs:
       - name: Execute Data Analysis
         run: |
           Rscript R_codes/Query_workflow.R
-      - name: Add figures and commit
-        run: |
-          # Move untracked files to figures directory
-          untracked_files=$(git ls-files --others --exclude-standard)
-          if [ -n "$untracked_files" ]; then
-            mkdir -p figures
-            if mv $untracked_files figures/; then
-              echo "Untracked files moved to figures directory."
-          # Add moved files to staging area
-              git add figures/
-            else
-              echo "Failed to move untracked files to figures directory."
-            fi
-          fi
       - name: Add database changes and commit
         run: |
           git config --global user.email "Teng-Yi.Chen@warwick.ac.uk"
@@ -62,22 +48,6 @@ jobs:
           git add ecommerce.db
           git add --all figures/
           git commit -m "Update database" || echo "No changes to commit"
-          
-    
-      - name: Add figures and commit
-        run: |
-          # Move untracked files to figures directory
-          untracked_files=$(git ls-files --others --exclude-standard)
-          if [ -n "$untracked_files" ]; then
-            mkdir -p figures
-            if mv $untracked_files figures/; then
-              echo "Untracked files moved to figures directory."
-          # Add moved files to staging area
-              git add figures/
-            else
-              echo "Failed to move untracked files to figures directory."
-            fi
-          fi
           # Check if error logs exist
           if [ -d "Error logs" ] && [ "$(ls -A Error\ logs)" ]; then
             echo "Error logs exist"
