@@ -201,6 +201,8 @@ start_date <- as.Date("2023-01-01")
 end_date <- as.Date("2024-03-08")
 PROMOTION$PROMOTION_START_DATE <- sort(sample(seq(start_date, end_date, by = "day"), nrow(PROMOTION), replace = TRUE))
 PROMOTION$PROMOTION_END_DATE <- PROMOTION$PROMOTION_START_DATE + sample(15, nrow(PROMOTION),replace=TRUE)
+PROMOTION$PROMOTION_END_DATE <- as.character(PROMOTION$PROMOTION_END_DATE)
+PROMOTION$PROMOTION_START_DATE <- as.character(PROMOTION$PROMOTION_START_DATE)
 
 # Create MINIMUM_PURCHASE_AMOUNT
 PROMOTION$MINIMUM_PURCHASE_AMOUNT <- sample(20:50,nrow(PROMOTION),replace=TRUE)
@@ -237,8 +239,8 @@ ad_start <- as.Date("2023-01-01")
 ad_end <- as.Date("2023-12-31")
 ADS$AD_START_DATE <- sort(sample(seq(ad_start, ad_end, by = "day"), nrow(ADS), replace = TRUE))
 ADS$AD_END_DATE <- ADS$AD_START_DATE + sample(10,nrow(ADS),replace=TRUE)
-ADS$AD_START_DATE <- (ADS$AD_START_DATE)
-ADS$AD_END_DATE <- (ADS$AD_END_DATE)
+ADS$AD_START_DATE <- as.character(ADS$AD_START_DATE)
+ADS$AD_END_DATE <- as.character(ADS$AD_END_DATE)
 
 # Create COST_PER_CLICK
 ADS$COST_PER_CLICK <- round(runif(nrow(ADS), min = 0, max = 10),2)
@@ -286,6 +288,7 @@ CUSTOMER$CUSTOMER_GENDER <- sample(genders, size = nrow(CUSTOMER), replace = TRU
 start_DOB <- as.Date("1980-01-01")
 end_DOB <- as.Date("2006-12-31")
 CUSTOMER$DATE_OF_BIRTH <- sample(seq(start_DOB, end_DOB, by = "day"), nrow(CUSTOMER), replace = TRUE)
+CUSTOMER$DATE_OF_BIRTH <- as.character(CUSTOMER$DATE_OF_BIRTH)
 
 # Create name
 ## Generate random full names
@@ -439,6 +442,11 @@ ORDER$RETURN_QUANTITY <- ifelse(ORDER$ORDER_STATUS=="Returned", mapply(function(
 # Add RETURN_DATE
 ORDER$RETURN_DATE <- ORDER$ORDER_DATE + sample(9:30,nrow(ORDER),replace=TRUE)
 ORDER$RETURN_DATE[ORDER$ORDER_STATUS != "Returned"] <- ""
+
+# Change DATE to CHARACTER
+ORDER$ORDER_DATE <- as.character(ORDER$ORDER_DATE)
+ORDER$RETURN_DATE <- as.character(ORDER$RETURN_DATE)
+ORDER$DELIVERY_DATE <- as.character(ORDER$DELIVERY_DATE)
 
 #Save to csv 
 write.csv(ORDER[1:15,], file = file.path("/cloud/project/Data","ORDERS.1.csv"), row.names = FALSE)
