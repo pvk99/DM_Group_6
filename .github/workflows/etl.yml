@@ -56,6 +56,20 @@ jobs:
           git commit -m "Update database" || echo "No changes to commit"
           
       - name: Add figures and commit
+        run: |
+          # Move untracked files to figures directory
+          untracked_files=$(git ls-files --others --exclude-standard)
+          if [ -n "$untracked_files" ]; then
+            mkdir -p figures
+            if mv $untracked_files figures/; then
+              echo "Untracked files moved to figures directory."
+          # Add moved files to staging area
+              git add figures/
+            else
+              echo "Failed to move untracked files to figures directory."
+            fi
+          fi
+      - name: Add figures and commit
         if: steps.check_changes.outputs.stdout != 'Changes found'
         run: |
           # Move untracked files to figures directory
@@ -88,7 +102,7 @@ jobs:
           else
             echo "No error logs found"
           fi
-          
+      
       - name: Push changes
         if: steps.check_changes.outputs.stdout != 'Changes found'
         uses: ad-m/github-push-action@v0.6.0
