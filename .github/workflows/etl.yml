@@ -26,13 +26,13 @@ jobs:
       - name: Install packages
         if: steps.cache.outputs.cache-hit != 'true'
         run: |
-          Rscript -e 'install.packages(c("ggplot2", "dplyr", "readr", "RSQLite", "DBI","rmarkdown"))'
+          Rscript -e 'install.packages(c("ggplot2", "dplyr", "readr", "RSQLite", "DBI"))'
       - name: Execute R script
         run: |
           Rscript R_codes/Workflow.R
       - name: Execute Data Analysis
         run: |
-          Rscript -e 'rmarkdown::render("R_codes/Data_Querying.Rmd")'
+          Rscript R_codes/Query_workflow.R
       - name: Check for changes in ecommerce.db
         id: check_changes
         run: |
@@ -45,7 +45,6 @@ jobs:
           git add ecommerce.db
           git commit -m "Update database" || echo "No changes to commit"
           git add --all figures/
-          git add --all /
           # Check if error logs exist
           if [ -d "Error logs" ] && [ "$(ls -A Error\ logs)" ]; then
             echo "Error logs exist"
