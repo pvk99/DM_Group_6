@@ -49,7 +49,7 @@ Short_Term_Plot1 <- ggplot(top_10_SKUs, aes(x = reorder(PRODUCT_ID, REVENUE), y 
 
 filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
-ggsave(paste0("figures/Short-Term-Report_1_",
+ggsave(paste0("figures/01_Top10_Sold_SKUs_",
               filename_date,"_",
               filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
@@ -102,7 +102,7 @@ Short_Term_Plot2 <- ggplot(top_10_returned_SKUs, aes(x = reorder(PRODUCT_ID, REV
 
 filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
-ggsave(paste0("figures/Short-Term-Report_2_",
+ggsave(paste0("figures/02_Top10_Returned_SKUs_",
               filename_date,"_",
               filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
@@ -162,7 +162,7 @@ Short_Term_Plot3 <-  ggplot(faulty_suppliers, aes(x = reorder(SUPPLIER_NAME, COS
 
 filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
-ggsave(paste0("figures/Short-Term-Report_3_",
+ggsave(paste0("figures/03_Top_Returned_Supplier_",
               filename_date,"_",
               filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
@@ -214,7 +214,7 @@ Long_Term_Plot1 <-  ggplot(data= Revenue_analysis_df %>% slice_max(TOTAL_REVENUE
 
 filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
-ggsave(paste0("figures/Long-Term-Report_1_",
+ggsave(paste0("figures/04_Yearly_Revenue_by_SKU_",
               filename_date,"_",
               filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
@@ -289,7 +289,7 @@ Long_Term_Plot2 <- ggplot(data= Category_Analysis_df %>% slice_max(TOTAL_REVENUE
 
 filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
-ggsave(paste0("figures/Long-Term-Report_2_",
+ggsave(paste0("figures/05_Yearly_Revenue_by_Category_",
               filename_date,"_",
               filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
@@ -347,7 +347,7 @@ Long_Term_Plot3 <- ggplot(Customer_Acquisition_df, aes(x = factor(QUARTER_AD, le
 
 filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
-ggsave(paste0("figures/Long-Term-Report_3_",
+ggsave(paste0("figures/06_Customer_by_ADS_",
               filename_date,"_",
               filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
@@ -401,7 +401,7 @@ Long_Term_Plot4 <- ggplot(ADS_Customer_Demographic_df, aes(x= reorder(PLATFORM, 
 
 filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
-ggsave(paste0("figures/Long-Term-Report_4_",
+ggsave(paste0("figures/07_Customer_Gender_by_ADS_",
               filename_date,"_",
               filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
