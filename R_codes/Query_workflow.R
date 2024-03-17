@@ -4,7 +4,7 @@ library(RSQLite)
 library(dplyr)
 library(ggplot2)
 
-my_db <- RSQLite::dbConnect(RSQLite::SQLite(),"/cloud/project/ecommerce.db")
+my_db <- RSQLite::dbConnect(RSQLite::SQLite(),"ecommerce.db")
 
 
 # Short Term Analysis - Performance of the Organisation in the last 30 days
@@ -50,7 +50,7 @@ Short_Term_Plot1 <- ggplot(top_10_SKUs, aes(x = reorder(PRODUCT_ID, REVENUE), y 
 
 filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
-ggsave(paste0("/cloud/project/figures/Short-Term-Report_1_",
+ggsave(paste0("figures/Short-Term-Report_1_",
               filename_date,"_",
               filename_time,".png"))
 
@@ -103,7 +103,7 @@ Short_Term_Plot2 <- ggplot(top_10_returned_SKUs, aes(x = reorder(PRODUCT_ID, REV
 
 filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
-ggsave(paste0("/cloud/project/figures/Short-Term-Report_2_",
+ggsave(paste0("figures/Short-Term-Report_2_",
               filename_date,"_",
               filename_time,".png"))
 
@@ -163,7 +163,7 @@ Short_Term_Plot3 <-  ggplot(faulty_suppliers, aes(x = reorder(SUPPLIER_NAME, COS
 
 filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
-ggsave(paste0("/cloud/project/figures/Short-Term-Report_3_",
+ggsave(paste0("figures/Short-Term-Report_3_",
               filename_date,"_",
               filename_time,".png"))
 
@@ -215,7 +215,7 @@ Long_Term_Plot1 <-  ggplot(data= Revenue_analysis_df %>% slice_max(TOTAL_REVENUE
 
 filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
-ggsave(paste0("/cloud/project/figures/Long-Term-Report_1_",
+ggsave(paste0("figures/Long-Term-Report_1_",
               filename_date,"_",
               filename_time,".png"))
 
@@ -290,7 +290,7 @@ Long_Term_Plot2 <- ggplot(data= Category_Analysis_df %>% slice_max(TOTAL_REVENUE
 
 filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
-ggsave(paste0("/cloud/project/figures/Long-Term-Report_2_",
+ggsave(paste0("figures/Long-Term-Report_2_",
               filename_date,"_",
               filename_time,".png"))
 
@@ -348,7 +348,7 @@ Long_Term_Plot3 <- ggplot(Customer_Acquisition_df, aes(x = factor(QUARTER_AD, le
 
 filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
-ggsave(paste0("/cloud/project/figures/Long-Term-Report_3_",
+ggsave(paste0("figures/Long-Term-Report_3_",
               filename_date,"_",
               filename_time,".png"))
 
@@ -402,7 +402,7 @@ Long_Term_Plot4 <- ggplot(ADS_Customer_Demographic_df, aes(x= reorder(PLATFORM, 
 
 filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
-ggsave(paste0("/cloud/project/figures/Long-Term-Report_4_",
+ggsave(paste0("figures/Long-Term-Report_4_",
               filename_date,"_",
               filename_time,".png"))
 
