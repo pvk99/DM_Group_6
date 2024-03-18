@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.550">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>group-6---report</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="GROUP 6 - REPORT_files/libs/clipboard/clipboard.min.js"></script>
+<script src="GROUP 6 - REPORT_files/libs/quarto-html/quarto.js"></script>
+<script src="GROUP 6 - REPORT_files/libs/quarto-html/popper.min.js"></script>
+<script src="GROUP 6 - REPORT_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="GROUP 6 - REPORT_files/libs/quarto-html/anchor.min.js"></script>
+<link href="GROUP 6 - REPORT_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="GROUP 6 - REPORT_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="GROUP 6 - REPORT_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="GROUP 6 - REPORT_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="GROUP 6 - REPORT_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml code-with-copy"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">title</span><span class="kw">:</span><span class="at"> </span><span class="st">"Group6_IB9HP0"</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">output</span><span class="kw">:</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="at">  quarto:</span><span class="fu">:quarto_pdf</span><span class="kw">:</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="at">    </span><span class="fu">toc</span><span class="kw">:</span><span class="at"> </span><span class="ch">true</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="group6_ib9hp0" class="level1">
+<h1>Group6_IB9HP0</h1>
+</section>
+<section id="content-of-table" class="level1">
+<h1>Content of Table</h1>
+<p>{toc}</p>
+<div style="page-break-after: always;"></div>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>This project undertook a comprehensive approach to data management for an apparel e-commerce retailer based in the UK, encompassing database design, data analysis, and reporting. The database architecture was structured around eight entities including products, customers, shipments, promotions, advertisements, suppliers, categories, and transactions, depicted through an Entity-Relationship (ER) diagram. An SQL schema was then implemented to substantiate this design. R was employed to generate synthetic data aligned with our schema to simulate real-world retail transactions. Rigorous data quality assurance was conducted before writing the data into the database. Subsequently, Quarto with R was utilised for data analysis to offer practical insights for strategic decision-making. Automation of data validation, loading, and analysis processes was achieved through a GitHub workflow, ensuring collaborative oversight and accountability throughout the project lifecycle.</p>
+</section>
+<section id="part-1-database-design-and-implementation" class="level1">
+<h1>Part 1: Database Design and Implementation</h1>
+<section id="e-r-diagram-design" class="level2">
+<h2 class="anchored" data-anchor-id="e-r-diagram-design"><strong>1.1: E-R Diagram Design</strong></h2>
+<p>The E-R diagram contained eight entities and relationships, depicting the operational structure of an apparel e-commerce retailer based in the UK. It illustrated the journey of an order starting from a registered customer selecting a product (SKU), through to the order’s delivery, and handling of any subsequent returns. It also covered the process of customer acquisition through three main channels, organic, advertisement and referrals. Please refer to Appendix 1 for the definition of each attribute of each entity.<br>
+</p>
+<p>We made the following assumptions:</p>
+<ul>
+<li><p>Product is tracked at the SKU level.</p></li>
+<li><p>Promotion codes are applied at SKU level.</p></li>
+<li><p>Customers must register before placing orders.</p></li>
+<li><p>Third-party analytics (e.g., Apps flyer) is used for marketing and customer attribution, thus we can track paid customers are acquired from which ads.</p></li>
+<li><p>One order can be paid by only one transaction.</p></li>
+<li><p>One new customer can be referred by only one existing customer.</p></li>
+<li><p>Customers can only return the order within 30 days from order placement date.</p></li>
+<li><p>Every order will be delivered in one shipment.</p></li>
+</ul>
+<p><strong>Relationships Between Entities:</strong></p>
+<p>Our E-R diagram had three types of relationships between different entities, one-to-one, many-to-one, and many-to-many.</p>
+<p><strong>One-to-one:</strong></p>
+<ul>
+<li>CUSTOMERS refers CUSTOMERS: A self-recursive relationship, in which one customer can refer another customer.</li>
+</ul>
+<p><strong>One-to-many:</strong></p>
+<ul>
+<li><p>SUPPLIERS supply SKU: One supplier can supply many products while one SKU is only provided by only one supplier.</p></li>
+<li><p>CUSTOMERS acquired through ADS: One advertisement can be used to acquire many customers whilst one customer can only be acquired through one advertisement.</p></li>
+<li><p>SKU belongs to CATEGORY: Many products can belong to one category.</p></li>
+<li><p>PROMOTIONS apply to SKU: One promotion can be applied to many products.</p></li>
+<li><p>CUSTOMERS pay TRANSACTIONS: one transaction can only be paid by one customer while one customer can pay multiple transactions.</p></li>
+</ul>
+<p><strong>Many-to-many:</strong></p>
+<ul>
+<li><p>CUSTOMERS order SKU: One customer can order many products and one product can be ordered multiple times.</p></li>
+<li><p>SKU delivered through ORDER_SHIPMENT: Many products can have multiple order shipments.</p></li>
+</ul>
+</section>
+<section id="sql-database-schema-creation" class="level2">
+<h2 class="anchored" data-anchor-id="sql-database-schema-creation"><strong>1.2: SQL Database Schema Creation</strong></h2>
+<p>In creating logical and physical schema, to satisfy 3NF normalisation, we ensured that (1) each attribute was single-value, (2) each table had its unique primary key, (3) all attributes in all tables represented distinctive information, (4) no inferred data was stored (e.g.&nbsp;calculated field), (5) in a table, except for the primary key, other attributes were not dependent on each other. Subsequently, considerations were made for data volume and performance requirements, selecting appropriate data types and indexes to optimise query performance. Based on these designs, the physical schema was created using the SQL, including table structures, indexes, and constraints. Notably, as ORDER is a many-to-many relationship, an ORDERS table was created in the logical and physical schema.</p>
+<p><strong>Derivation of Physical Schema</strong></p>
+<p>To derive the physical schema of the database, entity-relationship modeling and normalization were conducted initially. This involved identifying entities, attributes, and relationships, ensuring that the data model adhered to third normal form (3NF). Subsequently, considerations were made for data volume and performance requirements, selecting appropriate data types and indexes to optimize qu ery performance. Finally, based on these designs, the physical schema was created using the SQL language, including table structures, indexes, and constraints.</p>
+<p><strong>Logical Schema</strong></p>
+<p><img src="images/clipboard-550212820.png" class="img-fluid"></p>
+<p><strong>Physical Schema</strong></p>
+<div class="cell">
+<pre class="code cell-code"><code>rm(list=ls())
+library(readr)
+library(RSQLite)
+library(dplyr)</code></pre>
+</div>
+<p><br>
+Creating a connection to a database</p>
+<div class="cell">
+<pre class="code cell-code"><code>my_db &lt;- RSQLite::dbConnect(RSQLite::SQLite(),"/cloud/project/ecommerce.db")</code></pre>
+</div>
+<ul>
+<li>ADS</li>
+</ul>
+<div class="cell">
+<pre class="code cell-code"><code>CREATE TABLE ADS(
+  AD_ID VARCHAR(30) PRIMARY KEY,
+  PLATFORM VARCHAR(255),
+  AD_TITLE VARCHAR(255),
+  AD_TYPE VARCHAR(70),
+  AD_START_DATE VARCHAR(15),
+  AD_END_DATE VARCHAR(15),
+  COST_PER_CLICK FLOAT,
+  CLICK_THROUGH_RATE FLOAT,
+  NUMBER_OF_CLICK FLOAT
+);</code></pre>
+</div>
+<ul>
+<li>CATEGORY</li>
+</ul>
+<div class="cell">
+<pre class="code cell-code"><code>CREATE TABLE CATEGORY(
+  CATEGORY_NAME TEXT NOT NULL,
+  GENDER TEXT,
+  AGE_GROUP VARCHAR(30),
+  CATEGORY_ID VARCHAR(30) PRIMARY KEY
+);</code></pre>
+</div>
+<ul>
+<li>SUPPLIER</li>
+</ul>
+<div class="cell">
+<pre class="code cell-code"><code>CREATE TABLE SUPPLIER (
+    SUPPLIER_NAME VARCHAR(50),
+    SUPPLIER_EMAIL VARCHAR(30),
+    SUPPLIER_PHONE NUMERIC(10),
+    POST_CODE VARCHAR(30),
+    SUPPLIER_ID VARCHAR(30) PRIMARY KEY
+);</code></pre>
+</div>
+<ul>
+<li>CUSTOMERS</li>
+</ul>
+<div class="cell">
+<pre class="code cell-code"><code>CREATE TABLE IF NOT EXISTS CUSTOMERS(
+  CUSTOMER_ID VARCHAR(30) PRIMARY KEY,
+  ACQUISITION_TYPE TEXT,
+  REFERENCE_ID VARCHAR(30),
+  PHONE_NUMBER NUMERIC(10),
+  CUSTOMER_GENDER TEXT,
+  DATE_OF_BIRTH VARCHAR(15),
+  FIRST_NAME TEXT,
+  LAST_NAME TEXT,
+  CUSTOMER_EMAIL VARCHAR(30),
+  POST_CODE VARCHAR(30),
+  HOUSE_NUMBER INT,
+  AD_ID VARCHAR(30),
+  FOREIGN KEY (AD_ID) REFERENCES ADS (AD_ID)
+  FOREIGN KEY (REFERENCE_ID) REFERENCES CUSTOMER(CUSTOMER_ID)
+);</code></pre>
+</div>
+<ul>
+<li>PRODUCT</li>
+</ul>
+<div class="cell">
+<pre class="code cell-code"><code>CREATE TABLE IF NOT EXISTS SKU(
+    COLOR TEXT,
+    SIZE TEXT,
+    PRODUCT_NAME TEXT,
+    PRODUCT_ID VARCHAR(30) PRIMARY KEY,
+    PRODUCT_PURCHASING_PRICE FLOAT,
+    MARKUP FLOAT,
+    SUPPLIER_ID VARCHAR(30),
+    CATEGORY_ID VARCHAR(30),
+    FOREIGN KEY (SUPPLIER_ID) REFERENCES SUPPLIER(SUPPLIER_ID),
+    FOREIGN KEY (CATEGORY_ID) REFERENCES CATEGORY(CATEGORY_ID)
+);</code></pre>
+</div>
+<ul>
+<li>PROMOTION</li>
+</ul>
+<div class="cell">
+<pre class="code cell-code"><code>CREATE TABLE PROMOTION (
+  PROMOTION_ID VARCHAR(30) PRIMARY KEY,
+  PROMOTION_VALUE FLOAT,
+  PROMOTION_START_DATE VARCHAR(15),
+  PROMOTION_END_DATE VARCHAR(15),
+  MINIMUM_PURCHASE_AMOUNT FLOAT,
+  PRODUCT_ID VARCHAR(30),
+  FOREIGN KEY (PRODUCT_ID) REFERENCES SKU(PRODUCT_ID)
+);</code></pre>
+</div>
+<ul>
+<li>TRANSACTION</li>
+</ul>
+<div class="cell">
+<pre class="code cell-code"><code>CREATE TABLE TRANSACTIONS (
+  TRANSACTION_ID VARCHAR(30) PRIMARY KEY,
+  PAYMENT_METHOD VARCHAR(50),
+  TRANSACTION_STATUS VARCHAR(50)
+);</code></pre>
+</div>
+<ul>
+<li>ORDER_SHIPMENT</li>
+</ul>
+<div class="cell">
+<pre class="code cell-code"><code>CREATE TABLE ORDER_SHIPMENT(
+  SHIPPING_ID VARCHAR(30) PRIMARY KEY,
+  POST_CODE VARCHAR(30),
+  CARRIER TEXT
+);</code></pre>
+</div>
+<ul>
+<li>ORDERS</li>
+</ul>
+<div class="cell">
+<pre class="code cell-code"><code>CREATE TABLE ORDERS (
+  ORDER_ID VARCHAR(30),
+  CUSTOMER_ID VARCHAR(30),
+  ORDER_DATE VARCHAR(15),
+  ORDER_STATUS TEXT,
+  SHIPPING_ID VARCHAR(30),
+  DELIVERY_DATE VARCHAR(15),
+  TRANSACTION_ID VARCHAR(30),
+  PRODUCT_ID VARCHAR(30),
+  ORDER_QUANTITY INTEGER,
+  RETURN_QUANTITY INTEGER,
+  RETURN_DATE VARCHAR(15),
+  PRIMARY KEY (ORDER_ID, PRODUCT_ID, CUSTOMER_ID),
+  FOREIGN KEY (PRODUCT_ID) REFERENCES SKU(PRODUCT_ID),
+  FOREIGN KEY (CUSTOMER_ID) REFERENCES CUSTOMERS(CUSTOMER_ID),
+  FOREIGN KEY (TRANSACTION_ID) REFERENCES TRANSACTIONS(TRANSACTION_ID)
+  FOREIGN KEY (SHIPPING_ID) REFERENCES SHIPMENT(SHIPPING_ID)
+);</code></pre>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="part-2-data-generation-and-management" class="level1">
+<h1>Part 2: Data Generation and Management</h1>
+<section id="synthetic-data-generation" class="level2">
+<h2 class="anchored" data-anchor-id="synthetic-data-generation">2.1: Synthetic Data Generation</h2>
+<p>All synthetic data generation was conducted solely in R and saved into csv files before pushed to GitHub, ensuring adherence to attribute conditionalities and inter-entity connections with the support of LLM. Initially, Mockaroo was explored for data generation, but its high level of randomisation proved more complex compared to R for setting precise rules to control data values (see Figure 1).</p>
+<p><img src="images/Picture%201.jpg" class="img-fluid"></p>
+<p>Figure 1 - Customising data values in Mockaroo</p>
+<p>In R, independent entities such as CATEGORY, SUPPLIER, PROMOTION, ADS, SKU and CUSTOMERS were created first. We asked LLM to generate values for CATEGORY_NAME, PRODUCT_NAME, SUPPLIER_NAME, AD_TITLE, tailored to the fashion retail industry (Figure 2 and 3). The generation of SUPPLIER_EMAIL and CUSTOMER_EMAIL utlised a function suggested by LLM (Figure 4). Postal codes were randomly generated from UK postcodes using “PostcodesioR” package drawing on data from Office for National Statistic (Walczak, E., 2021). Customer names were randomly created employing “randomNames” package (Betebenner, D.W., 2021). All numerical fields such PRODUCT_PURCHASING_PRICE, MARKUP, etc were randomised using either “runif” or “sample” functions to ensure realistic value distributions. Furthermore, for CUSTOMERS, REFERENCE_ID, denoting CUSTOMER_ID of the referees, was conditioned such that the referred customers were only included in our database after their referees. REFERENCE_ID was exclusively limited to customers with an ACQUISITION_TYPE of “Referral” while AD_ID was randomly assigned from ADS table for customers with an ACQUISITION_TYPE of “Paid”.</p>
+<p>Please refer to Appendix 2 for the full prompt sequences in LLM.</p>
+<div class="cell">
+<pre class="code cell-code"><code># Create name
+## Filter out names with apostrophes
+filtered_names &lt;- randomNames(nrow(CUSTOMER))
+filtered_names &lt;- filtered_names[!grepl("'", filtered_names)]
+
+## If the number of filtered names is less than the number of rows in CUSTOMER, generate additional names
+if (length(filtered_names) &lt; nrow(CUSTOMER)) {
+  additional_names &lt;- randomNames(nrow(CUSTOMER) - length(filtered_names))
+  additional_names &lt;- additional_names[!grepl("'", additional_names)]
+  filtered_names &lt;- c(filtered_names, additional_names)
+}
+
+## Generate random full names
+random_full_names &lt;- sample(filtered_names, nrow(CUSTOMER), replace = TRUE)
+
+#W Split full names into first and last names
+split_names &lt;- strsplit(random_full_names, ",")
+
+## Extract first names
+CUSTOMER$FIRST_NAME &lt;- sapply(split_names, "[", 2)
+
+## Extract last names
+CUSTOMER$LAST_NAME &lt;- sapply(split_names, "[", 1)
+
+# CREATE CUSTOMER_POST_CODE
+CUSTOMER$POST_CODE &lt;- sapply(1:nrow(CUSTOMER), function(x) random_postcode()$postcode)</code></pre>
+</div>
+<p><img src="images/clipboard-4290294969.png" class="img-fluid"></p>
+<p>Figure 2 - LLM prompts for product name by category</p>
+<p><img src="images/clipboard-2858169503.png" class="img-fluid"></p>
+<p>Figure 3 - LLM prompts for supplier names.</p>
+<p><img src="images/clipboard-2858113168.png" class="img-fluid"></p>
+<p>Figure 4 - LLM prompt for email generation</p>
+<p>Subsequently, dependent tables including ORDERS, ORDER_SHIPMENT and TRANSACTIONS were created based on the data from the previous tables. Specifically, in ORDERS, combinations of CUSTOMER_ID and PRODUCT_ID were randomly selected from SKU and CUSTOMERS tables so that a customer can purchase multiple products in an order. The generation of DELIVERY_DATE and RETURN_DATE adhered to constraints derived from ORDER_DATE, ensuring that DELIVERY_DATE fell within a maximum of 7 days after order placement, and RETURN_DATE occurred after DELIVERY_DATE while remaining within 30 days from ORDER_DATE. ORDER_STATUS was randomised to reflect an authentic distribution encompassing “Returned”, “Delivered” and “In transit”. RETURN_QUANTITY and RETURN_DATE was exclusively assigned to orders marked as “Returned”, with RETURN_QUANTITY restricted not to exceed ORDER_QUANTITY. Moreover, for TRANSACTIONS table, we also ensured that all orders have matching successful transactions, with the proportion of failed transaction set to 6% of total transaction numbers.</p>
+<div class="cell">
+<pre class="code cell-code"><code># Create ORDER dataframe
+ORDER &lt;- data.frame(ORDER_ID = paste0("OD", seq_len(1000) + 10000),
+  stringsAsFactors = TRUE
+)
+
+# Add CUSTOMER_ID
+ORDER$CUSTOMER_ID &lt;- sample(CUSTOMER$CUSTOMER_ID,nrow(ORDER),replace=TRUE)
+
+
+# Add ORDER_DATE
+ORDER$ORDER_DATE &lt;- sample(seq(start_date, end_date, by = "day"), nrow(ORDER), replace = TRUE)
+
+# Add ORDER_STATUS:
+order_status &lt;- c("Delivered", "Returned")
+proportions &lt;- c("Delivered" = 0.8, "Returned" = 0.2)
+
+# Sample proportionally with replacement and assign to ORDER$ORDER_STATUS
+ORDER$ORDER_STATUS &lt;- sample(order_status, size = nrow(ORDER), replace = TRUE, prob = proportions)
+ORDER$ORDER_STATUS[ORDER$ORDER_DATE&gt;'2024-03-05'] = "In transit" 
+
+# Add SHIPPING_ID
+ORDER$SHIPPING_ID &lt;- ORDER_SHIPMENT$SHIPPING_ID
+
+# Add DELIVERY_DATE
+
+ORDER$DELIVERY_DATE &lt;- ORDER$ORDER_DATE + sample(7,nrow(ORDER),replace=TRUE)
+ORDER$DELIVERY_DATE[ORDER$ORDER_STATUS %in% c("Order placed", "In transit")] &lt;- NULL
+
+# Add TRANSACTION_ID
+ORDER$TRANSACTION_ID &lt;- TRANSACTION$TRANSACTION_ID[TRANSACTION$TRANSACTION_STATUS == "Successful"]
+  
+# Create an empty dataframe to store order-product mappings
+order_product_mapping &lt;- data.frame(ORDER_ID = character(), PRODUCT_ID = character(), stringsAsFactors = FALSE)
+
+# Define the number of products per order
+products_per_order &lt;- round(runif(nrow(ORDER), min = 1, max = 10))
+
+# Loop through each order ID and sample products
+for (i in 1:nrow(ORDER)) {
+  order_id &lt;- ORDER$ORDER_ID[i]
+  product_ids &lt;- sample(SKU$PRODUCT_ID, size = products_per_order[i], replace = FALSE)
+  order_product_mapping &lt;- rbind(order_product_mapping, data.frame(ORDER_ID = rep(order_id, length(product_ids)), PRODUCT_ID = product_ids))
+}
+
+# Merge order_product_mapping with ORDER dataframe to retain other order details
+ORDER &lt;- merge(ORDER, order_product_mapping, by = "ORDER_ID", all.x = TRUE)
+
+# Add ORDER_QUANTITY
+ORDER$ORDER_QUANTITY &lt;-round(runif(nrow(ORDER),min=1,max=5),0)
+
+# Add RETURN_QUANTITY
+ORDER$RETURN_QUANTITY &lt;- ifelse(ORDER$ORDER_STATUS=="Returned", mapply(function(x) sample(1:x, 1), ORDER$ORDER_QUANTITY),"")
+
+# Add RETURN_DATE
+ORDER$RETURN_DATE &lt;- ORDER$ORDER_DATE + sample(9:30,nrow(ORDER),replace=TRUE)
+ORDER$RETURN_DATE[ORDER$ORDER_STATUS != "Returned"] &lt;- ""
+
+# Change DATE to CHARACTER
+ORDER$ORDER_DATE &lt;- as.character(ORDER$ORDER_DATE)
+ORDER$RETURN_DATE &lt;- as.character(ORDER$RETURN_DATE)
+ORDER$DELIVERY_DATE &lt;- as.character(ORDER$DELIVERY_DATE)
+
+#Save to csv 
+write.csv(ORDER[1:15,], file = file.path("/cloud/project/Data","ORDERS.1.csv"), row.names = FALSE)
+write.csv(ORDER[16:nrow(ORDER),], file = file.path("/cloud/project/Data","ORDERS.2.csv"), row.names = FALSE)</code></pre>
+</div>
+</section>
+<section id="data-import-and-quality-assurance" class="level2">
+<h2 class="anchored" data-anchor-id="data-import-and-quality-assurance">2.2: Data Import and Quality Assurance</h2>
+<p>An R script was developed to load all data files in their respective corresponding tables within our database, ensuring robust data quality and integrity. This process involved connecting to the database and iteratively validating data entries against predefined criteria.</p>
+<p>The script employed a loop cross-checking primary key values to prevent duplications and enforcing strict validation rules on a row by row basis. Entries were scrutinised for null values, adherence to formatting standards for phone numbers and emails, and non-negativity in numeric fields. For formatting check, we defined functions to automatically validate. Data entries satisfying these validation criteria were then appended to the database whilst problematic entries were recorded in “error_log.txt” file for further reviews.</p>
+<div class="cell">
+<pre class="code cell-code"><code>library(readr)
+library(RSQLite)
+library(dplyr)
+library(DBI)
+
+# Define a function to check if phone numbers are of length 10 and contain only numeric characters
+validate_phone_numbers &lt;- function(phone) {
+  phone &lt;- as.character(phone)  # Convert integer to character
+  if (!is.na(phone) &amp;&amp; nchar(phone) == 10 &amp;&amp; !any(is.na(as.numeric(phone)))) {
+    return(TRUE)  # Phone number is valid
+  } else {
+    return(FALSE) # Phone number is not valid
+  }
+}
+
+
+
+# Function to validate email addresses
+email_pattern &lt;- "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$"
+validate_emails &lt;- function(email) {
+  grepl(email_pattern, email)
+}
+
+# Function to validate that numeric attributes are non-negative
+check_non_negative_numeric &lt;- function(data) {
+  numeric_cols &lt;- sapply(data, is.numeric)
+  negative_values &lt;- sapply(data[numeric_cols], function(col) any(col &lt; 0))
+  return(!any(negative_values))
+}
+
+# Establishing the connection to db
+my_db &lt;- RSQLite::dbConnect(RSQLite::SQLite(), "ecommerce.db")
+
+file_paths &lt;- list(
+  "ADS" = list.files(path = "Data", pattern = "ADS.*\\.csv$", full.names = TRUE),
+  "CATEGORY" = list.files(path = "Data", pattern = "CATEGORY.*\\.csv$", full.names = TRUE),
+  "SUPPLIER" = list.files(path = "Data", pattern = "SUPPLIER.*\\.csv$", full.names = TRUE),
+  "CUSTOMERS" = list.files(path = "Data", pattern = "CUSTOMERS.*\\.csv$", full.names = TRUE),
+  "SKU" = list.files(path = "Data", pattern = "SKU.*\\.csv$", full.names = TRUE),
+  "PROMOTION" = list.files(path = "Data", pattern = "PROMOTION.*\\.csv$", full.names = TRUE),
+  "TRANSACTIONS" = list.files(path = "Data", pattern = "TRANSACTIONS.*\\.csv$", full.names = TRUE),
+  "ORDER_SHIPMENT" = list.files(path = "Data", pattern = "ORDER_SHIPMENT.*\\.csv$", full.names = TRUE),
+  "ORDERS" = list.files(path = "Data", pattern = "ORDERS.*\\.csv$", full.names = TRUE)
+)
+
+tables &lt;- list(
+  "ADS" = "AD_ID",
+  "CATEGORY" = "CATEGORY_ID",
+  "SUPPLIER" = "SUPPLIER_ID",
+  "CUSTOMERS" = "CUSTOMER_ID",
+  "SKU" = "PRODUCT_ID",
+  "PROMOTION" = "PROMOTION_ID",
+  "TRANSACTIONS" = "TRANSACTION_ID",
+  "ORDER_SHIPMENT" = "SHIPPING_ID",
+  "ORDERS" = c("ORDER_ID", "PRODUCT_ID", "CUSTOMER_ID")
+)
+
+# Define write_errors function with folder path argument
+write_errors &lt;- function(errors, folder_path, file_name) {
+  # Ensure the folder exists, if not, create it
+  if (!dir.exists(folder_path)) {
+    dir.create(folder_path, recursive = TRUE)
+  }
+  
+  file_path &lt;- file.path(folder_path, file_name)
+  
+  if (length(errors) &gt; 0) {
+    cat("Errors:\n", file = file_path)
+    for (error in errors) {
+      cat(error, "\n", file = file_path, append = TRUE)
+    }
+    cat("\n", file = file_path, append = TRUE)
+  }
+}
+
+# List to store errors
+error_list &lt;- c()
+
+# Function to check if data entries exist and load new entries
+for (table_name in names(tables)) {
+  for (file_path in file_paths[[table_name]]) {
+    table_data &lt;- read_csv(file_path,n_max = Inf)  
+    
+    ## Apply specific rules for attributes based on the table
+    if (table_name == "ADS") {
+      # Initialize error list
+      error_list &lt;- vector("list")
+      
+      # Convert AD_START_DATE and AD_END_DATE to character
+      table_data$AD_START_DATE &lt;- as.character(table_data$AD_START_DATE)
+      table_data$AD_END_DATE &lt;- as.character(table_data$AD_END_DATE)
+      
+      # Initialize vector to store indices of invalid rows
+      invalid_rows &lt;- vector("numeric")
+      
+      # Ensure numeric attributes are non-negative
+      numeric_attrs &lt;- c("COST_PER_CLICK", "CLICK_THROUGH_RATE", "NUMBER_OF_CLICK")
+      for (attr in numeric_attrs) {
+        if (any(table_data[[attr]] &lt; 0)) {
+          error_list &lt;- c(error_list, paste("Negative values found in", attr, "column of ADS table."))
+          invalid_rows &lt;- c(invalid_rows, which(table_data[[attr]] &lt; 0))
+        }
+      }
+      
+      # Remove invalid rows from table_data
+      if (length(invalid_rows) &gt; 0) {
+        table_data &lt;- table_data[-invalid_rows, ]
+      }
+    }
+    if (table_name == "CUSTOMERS") {
+      # Initialize error list
+      error_list &lt;- vector("list")
+      
+      # Convert DATE_OF_BIRTH to character
+      table_data$DATE_OF_BIRTH &lt;- as.character(table_data$DATE_OF_BIRTH)
+      
+      # Initialize vector to store indices of invalid rows
+      invalid_rows &lt;- vector("numeric")
+      
+      # Check phone numbers and emails
+      for (i in 1:nrow(table_data)) {
+        if (!validate_phone_numbers(table_data$PHONE_NUMBER[i])) {
+          error_list &lt;- c(error_list, paste("Invalid phone number in CUSTOMERS table:", table_data$PHONE_NUMBER[i]))
+          invalid_rows &lt;- c(invalid_rows, i)
+        }
+        
+        if (!validate_emails(table_data$CUSTOMER_EMAIL[i])) {
+          error_list &lt;- c(error_list, paste("Invalid email in CUSTOMERS table:", table_data$CUSTOMER_EMAIL[i]))
+          invalid_rows &lt;- c(invalid_rows, i)
+        }
+      }
+      
+      # Remove invalid rows from table_data
+      if (length(invalid_rows) &gt; 0) {
+        table_data &lt;- table_data[-invalid_rows, ]
+      }
+    }
+    if (table_name == "SKU") {
+      # Initialize error list
+      error_list &lt;- vector("list")
+      
+      # Ensure numeric attributes are non-negative
+      numeric_attrs &lt;- c("MARKUP", "PRODUCT_PURCHASING_PRICE")
+      for (attr in numeric_attrs) {
+        if (any(table_data[[attr]] &lt; 0)) {
+          error_list &lt;- c(error_list, paste("Negative values found in", attr, "column of SKU table."))
+          invalid_rows &lt;- c(invalid_rows, which(table_data[[attr]] &lt; 0))
+        }
+      }
+      
+      # Remove invalid rows from table_data
+      if (length(invalid_rows) &gt; 0) {
+        table_data &lt;- table_data[-invalid_rows, ]
+      }
+    }
+    if (table_name == "PROMOTION") {
+      # Initialize error list
+      error_list &lt;- vector("list")
+      
+      # Convert PROMOTION_START_DATE and PROMOTION_END_DATE to character
+      table_data$PROMOTION_START_DATE &lt;- as.character(table_data$PROMOTION_START_DATE)
+      table_data$PROMOTION_END_DATE &lt;- as.character(table_data$PROMOTION_END_DATE)
+      
+      # Initialize vector to store indices of invalid rows
+      invalid_rows &lt;- vector("numeric")
+      
+      # Ensure numeric attributes are non-negative
+      numeric_attrs &lt;- c("MINIMUM_PURCHASE_AMOUNT")
+      for (attr in numeric_attrs) {
+        if (any(table_data[[attr]] &lt; 0)) {
+          error_list &lt;- c(error_list, paste("Negative values found in", attr, "column of PROMOTION table."))
+          invalid_rows &lt;- c(invalid_rows, which(table_data[[attr]] &lt; 0))
+        }
+      }
+      
+      # Remove invalid rows from table_data
+      if (length(invalid_rows) &gt; 0) {
+        table_data &lt;- table_data[-invalid_rows, ]
+      }
+    }
+    if (table_name == "SUPPLIER") {
+      # Initialize error list
+      error_list &lt;- vector("list")
+      
+      # Initialize vector to store indices of invalid rows
+      invalid_rows &lt;- vector("numeric")
+      
+      # Check phone numbers and emails
+      for (i in 1:nrow(table_data)) {
+        if (!validate_phone_numbers(table_data$SUPPLIER_PHONE[i])) {
+          error_list &lt;- c(error_list, paste("Invalid phone number in SUPPLIER table:", table_data$SUPPLIER_PHONE[i]))
+          invalid_rows &lt;- c(invalid_rows, i)
+        }
+        
+        if (!validate_emails(table_data$SUPPLIER_EMAIL[i])) {
+          error_list &lt;- c(error_list, paste("Invalid email in SUPPLIER table:", table_data$SUPPLIER_EMAIL[i]))
+          invalid_rows &lt;- c(invalid_rows, i)
+        }
+      }
+      
+      # Remove invalid rows from table_data
+      if (length(invalid_rows) &gt; 0) {
+        table_data &lt;- table_data[-invalid_rows, ]
+      }
+    }
+    if (table_name == "ORDERS") {
+      # Initialize error list
+      error_list &lt;- vector("list")
+      
+      # Convert ORDER_DATE, DELIVERY_DATE, RETURN_DATE to character
+      table_data$ORDER_DATE &lt;- as.character(table_data$ORDER_DATE)
+      table_data$DELIVERY_DATE &lt;- as.character(table_data$DELIVERY_DATE)
+      table_data$RETURN_DATE &lt;- as.character(table_data$RETURN_DATE)
+      
+      # Initialize vector to store indices of invalid rows
+      invalid_rows &lt;- vector("numeric")
+      
+      # Check numeric attributes for non-negativity
+      numeric_attrs &lt;- c("ORDER_QUANTITY", "RETURN_QUANTITY")
+      for (attr in numeric_attrs) {
+        if (any(!is.na(table_data[[attr]]) &amp; table_data[[attr]] &lt; 0)) {
+          error_list &lt;- c(error_list, paste("Invalid or negative values found in", attr, "column of ORDERS table."))
+          invalid_rows &lt;- c(invalid_rows, which(!is.na(table_data[[attr]]) &amp; table_data[[attr]] &lt; 0))
+        }
+      }
+      
+      # Remove invalid rows from table_data
+      if (length(invalid_rows) &gt; 0) {
+        table_data &lt;- table_data[-invalid_rows, ]
+      }
+    }
+    
+    ## Check for primary key duplication
+    for (i in seq(nrow(table_data))) {
+      new_record &lt;- table_data[i, ]
+      pk_columns &lt;- tables[[table_name]]
+      pk_values &lt;- new_record[pk_columns]
+      # Check if primary key values are non-null
+      if (any(is.na(pk_values))) {
+        error_list &lt;- c(error_list, paste("Null primary key value found in", table_name, "table."))
+        next  # Skip to the next record if primary key is null
+      }
+      
+      conditions &lt;- paste(pk_columns, "=", paste0("'", pk_values, "'"), collapse = " AND ")
+      
+      key_exists &lt;- dbGetQuery(my_db, paste("SELECT COUNT(*) FROM", table_name, "WHERE", conditions))
+      
+      if (key_exists == 0) {
+        tryCatch({
+          RSQLite::dbAppendTable(my_db, table_name, new_record)
+        }, error = function(e) {
+          error_list &lt;- c(error_list, paste("Error inserting record with primary key", paste(pk_values, collapse = ", "), "into table", table_name))
+          print(paste("Error inserting record with primary key", paste(pk_values, collapse = ", "), "into table", table_name))
+          print(e)
+        })
+      } else {
+        print(paste("Record with primary key", paste(pk_values, collapse = ", "), "already exists in table", table_name))
+      }
+    }
+  }
+}
+
+# Save errors to a folder named "Error logs" within the current directory
+write_errors(error_list, "Error logs", "error_log.txt")</code></pre>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="part-3-data-pipeline-generation" class="level1">
+<h1>Part 3: Data Pipeline Generation</h1>
+<section id="github-repository-and-workflow-setup" class="level2">
+<h2 class="anchored" data-anchor-id="github-repository-and-workflow-setup">3.1: GitHub Repository and Workflow Setup</h2>
+<p>We initiated our project by creating a new Git repository, connecting Posit Cloud/ RStudio to the repository and uploading essential files, including (1) database, (2) data schema, (3) synthetic data generation, (4) data validation and database writing, (5) data query and analysis scripts. This setup allows us to efficiently track changes and revert to previous versions as needed.</p>
+</section>
+<section id="github-actions-for-continuous-integration" class="level2">
+<h2 class="anchored" data-anchor-id="github-actions-for-continuous-integration">3.2: GitHub Actions for Continuous Integration</h2>
+<p>To automate our project’s operations, we implemented a GitHub Actions workflow, detailed through the following key components:</p>
+<ul>
+<li><p>Trigger: Activated by either a push event to the main branch or a scheduled run every 24 hours, ensuring real-time integration of contributions.</p></li>
+<li><p>Runner: Utilise the most recent Ubuntu environment to execute the job.</p></li>
+<li><p>Steps: Comprising eight sequential tasks, each step executes a specific operation within the job:</p></li>
+<li><p>Repository Checkout: Clone the project’s code into the runner, providing a foundation for subsequent tasks.</p></li>
+<li><p>R Environment Setup: Prepare the R environment, ensuring all R-based operations can be performed without hitches.</p></li>
+<li><p>R Package Caching: Preserve installed R packages between runs, significantly reducing setup time by bypassing redundant installations.</p></li>
+<li><p>Package Installation: Engage only if the cache does not contain the necessary packages, ensuring all dependencies are available for the script execution.</p></li>
+<li><p>Script Execution: Run our R scripts from the repository to validate and load satisfying data entries to the database, subsequently creating analyses.</p></li>
+<li><p>Add Changes: Scans the project’s database for any changes following the script’s execution and notifies with a “Changes found” message if updates are identified. Meanwhile, new analyses are automatically generated and saved to folder “figures”.</p></li>
+<li><p>Commit Changes: If changes are detected, this step prepares and commits the updated files, maintaining a current state within the repository.</p></li>
+<li><p>Push Updates: Conclude the workflow by uploading the latest commit to the repository, ensuring all changes are synchronised and stored.</p></li>
+</ul>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="part-4-data-analysis-and-reporting-with-quarto-in-r" class="level1">
+<h1>Part 4: Data Analysis and Reporting with Quarto in R</h1>
+<p>The analyses comprised two parts, a short-term analysis for monitoring current performance in the last thirty days and a long-term analysis on annual performance. To prepare for the analyses, R packages dplyr, GGplot2, and tidyr in conjunction with the SQL DQL command were utilised to manipulate the data from the database, which was updated via GitHub automation. The procedure entailed retrieving the data and converting it into a format suitable for subsequent analysis. The complete procedure is outlined below.</p>
+<section id="data-query" class="level3">
+<h3 class="anchored" data-anchor-id="data-query">Data Query</h3>
+<p>The data from the database was obtained using a SQL Data Query Language (DQL) statement. By utilising the calculated function and aggregate command, the data were converted into a format and value suitable for analysis. The following example is a query demonstrating the top 10 revenue earned by product SKUs in the previous 30 days, calculated by multiplying unit sales with the selling price.</p>
+<div class="cell">
+<pre class="code cell-code"><code># Query data from database and save into R data frame using RSQLite::dbGetQuery
+Query_1 &lt;- "WITH PRODUCTS AS(
+    SELECT PRODUCT_ID, SALES
+    FROM
+    (
+    SELECT
+        *,
+        ROW_NUMBER() OVER (ORDER BY SALES DESC) AS row_num
+    FROM   
+    (
+        SELECT PRODUCT_ID, sum(order_quantity) as SALES
+        FROM ORDERS
+        WHERE DATE(ORDER_DATE) &gt;= date('now','-30 days')
+              AND ORDER_STATUS = 'Delivered'
+        GROUP BY PRODUCT_ID
+    ) T1
+    ) T2
+    WHERE T2.row_num &lt;= 10
+)
+SELECT T1.PRODUCT_ID, T2.PRODUCT_NAME, T1.SALES, T1.SALES*T2.SELLING_PRICE AS REVENUE
+FROM PRODUCTS T1
+LEFT JOIN (
+SELECT DISTINCT PRODUCT_ID, PRODUCT_NAME, MARKUP * PRODUCT_PURCHASING_PRICE + PRODUCT_PURCHASING_PRICE AS SELLING_PRICE 
+FROM SKU ) T2 
+on T1.PRODUCT_ID = T2.PRODUCT_ID"
+
+top_10_SKUs &lt;- RSQLite::dbGetQuery(my_db, Query_1)</code></pre>
+</div>
+</section>
+<section id="data-manipulation" class="level3">
+<h3 class="anchored" data-anchor-id="data-manipulation">Data Manipulation</h3>
+<p>Once the data was imported into a R data frame, data manipulation was carried out using R to prepare the data for visualisation. The following code example generates a new column containing the SKU description, followed by a reordering by unit sold.</p>
+<div class="cell">
+<pre class="code cell-code"><code># Create product description name of each product_ID for using in analysis
+top_10_SKUs$name_sku &lt;- paste(top_10_SKUs$PRODUCT_NAME, top_10_SKUs$PRODUCT_ID, sep = "_")
+
+top_10_SKUs$PRODUCT_ID &lt;- factor(top_10_SKUs$PRODUCT_ID, 
+levels = top_10_SKUs$PRODUCT_ID[order(top_10_SKUs$SALES)])</code></pre>
+</div>
+</section>
+<section id="data-visualisation" class="level3">
+<h3 class="anchored" data-anchor-id="data-visualisation">Data visualisation</h3>
+<p>Finally, once we retrieved and formatted the data for analysis, we used the ggplot2 package to create visual representations of the data. The code snippet shown below demonstrates a bar chart that visually represents the top 10 SKUs with the highest sales in the past 30 days, as obtained from the preceding phases of our query.</p>
+<div class="cell">
+<pre class="code cell-code"><code>ggplot(top_10_returned_SKUs, aes(x = PRODUCT_ID, y = as.numeric(SALES))) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  labs(x = "Product Names", y = "Units Returned", title = "Top 10 Most Returned SKUs", 
+  subtitle = "Labels indicate the money to be refunded back to the customers") + 
+  coord_flip() + 
+  theme(axis.text.x = element_text(hjust = 1)) + 
+  scale_x_discrete(labels =top_10_returned_SKUs$name_sku) +   
+  scale_y_continuous(breaks = seq(0, max(as.numeric(top_10_returned_SKUs$SALES)), 
+  by = 1)) + 
+  geom_text(aes(label = paste("£",round(REVENUE),sep="")), hjust = -0.2)</code></pre>
+</div>
+<p><strong>Short-Term Analysis</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GROUP-6---REPORT_files/figure-html/unnamed-chunk-18-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GROUP-6---REPORT_files/figure-html/unnamed-chunk-19-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GROUP-6---REPORT_files/figure-html/unnamed-chunk-20-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Long-Term Analysis</strong></p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GROUP-6---REPORT_files/figure-html/unnamed-chunk-21-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GROUP-6---REPORT_files/figure-html/unnamed-chunk-22-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GROUP-6---REPORT_files/figure-html/unnamed-chunk-23-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="GROUP-6---REPORT_files/figure-html/unnamed-chunk-24-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion" class="level1">
+<h1>Conclusion:</h1>
+</section>
+<section id="appendix" class="level1">
+<h1>Appendix:</h1>
+<section id="data-dictionary" class="level2">
+<h2 class="anchored" data-anchor-id="data-dictionary">1. Data Dictionary</h2>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
