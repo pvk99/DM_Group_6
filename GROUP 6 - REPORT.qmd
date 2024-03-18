@@ -356,7 +356,6 @@ write.csv(ORDER[1:15,], file = file.path("/cloud/project/Data","ORDERS.1.csv"), 
 write.csv(ORDER[16:nrow(ORDER),], file = file.path("/cloud/project/Data","ORDERS.2.csv"), row.names = FALSE)
 ```
 
-
 ## 2.2: Data Import and Quality Assurance
 
 An R script was developed to load all data files in their respective corresponding tables within our database, ensuring robust data quality and integrity. This process involved connecting to the database and iteratively validating data entries against predefined criteria.
@@ -630,7 +629,6 @@ for (table_name in names(tables)) {
 write_errors(error_list, "Error logs", "error_log.txt")
 ```
 
-
 \newpage
 
 # Part 3: Data Pipeline Generation
@@ -664,6 +662,7 @@ To automate our project's operations, we implemented a GitHub Actions workflow, 
 -   Commit Changes: If changes are detected, this step prepares and commits the updated files, maintaining a current state within the repository.
 
 -   Push Updates: Conclude the workflow by uploading the latest commit to the repository, ensuring all changes are synchronised and stored.
+
 ```{code}
 
 name: ETL workflow
