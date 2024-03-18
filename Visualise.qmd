@@ -1,27 +1,88 @@
----
-title: "Sample"
-output: html_document
-date: "2024-03-09"
----
+### 4.1: Advanced Data Analysis in R
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+Once the database was updated with the newly generated data via GitHub automation, the data was analysed utilising the R package packages dplyr, GGplot2, and tidyr in conjunction with the SQL DQL command. The procedure entailed retrieving the data and converting it into a format suitable for subsequent analysis. The complete procedure is outlined below.
 
-rm(list=ls())
+**Data Query**
+
+The data from the database was obtained using a SQL Data Query Language (DQL) statement. By utilising the calculated function and aggregate command, the data were converted into a format and value suitable for analysis. The following example is a query that displays the top 10 revenue earned by product SKUs in the previous 30 days, calculated by multiplying unit sales with the selling price.
+
+```{code}
+Revenue_analysis_df <- RSQLite::dbGetQuery(my_db, 
+"SELECT T1.PRODUCT_ID AS PRODUCT_ID,
+       T2.PRODUCT_NAME AS PRODUCT_NAME,
+       T2.SIZE AS SIZE,
+       T2.COLOR AS COLOR,
+       T1.UNIT_SOLD AS UNIT_SOLD,
+       T2.SELLING_PRICE_PER_UNIT AS SELLING_PRICE,
+       T1.UNIT_SOLD * T2.SELLING_PRICE_PER_UNIT AS TOTAL_REVENUE
+FROM
+( SELECT ORDERS.PRODUCT_ID AS PRODUCT_ID,
+         ORDERS.ORDER_DATE AS ORDER_DATE,
+       SUM(ORDERS.ORDER_QUANTITY) AS UNIT_SOLD
+FROM ORDERS
+WHERE cast(julianday('now') - julianday(ORDERS.ORDER_DATE) AS INTEGER ) <= 365
+GROUP BY ORDERS.PRODUCT_ID
+   
+) AS T1 
+
+LEFT JOIN 
+
+( SELECT SKU.PRODUCT_ID AS PRODUCT_ID,
+         SKU.PRODUCT_NAME AS PRODUCT_NAME,
+         SKU.SIZE AS SIZE,
+         SKU.COLOR AS COLOR,
+      SKU.PRODUCT_PURCHASING_PRICE * (1 + SKU.MARKUP) AS 
+      SELLING_PRICE_PER_UNIT
+FROM SKU
+) AS T2 
+
+ON T1.PRODUCT_ID = T2.PRODUCT_ID"
+)
+```
+
+**Data Manipulation**
+
+Once the data was imported into a R data frame, data manipulation was carried out using R to prepare the data for visualisation. The following code example generates a new column containing the SKU description, followed by a reordering by unit sold.
+
+```{code}
+# Create product description name of each product_ID for using in analysis
+Revenue_analysis_df$PRODUCT_DESCRIPTION <- paste(Revenue_analysis_df$PRODUCT_ID,
+Revenue_analysis_df$PRODUCT_NAME, Revenue_analysis_df$SIZE, 
+Revenue_analysis_df$COLOR, sep = " ")
+```
+
+**Data visualisation**
+
+Finally, once we retrieved and formatted the data for analysis, we used the ggplot2 package to create visual representations of the data. The code snippet shown below demonstrates a bar chart that visually represents the top 10 SKUs with the highest sales in the past 30 days, as obtained from the preceding phases of our query.
+
+```{code}
+ggplot(data= Revenue_analysis_df %>% slice_max(TOTAL_REVENUE, n = 10)  ,
+       aes(x = TOTAL_REVENUE,  
+       y = reorder( PRODUCT_DESCRIPTION, TOTAL_REVENUE ))) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.75), 
+  aes(fill=TOTAL_REVENUE), show.legend = FALSE) + 
+  labs(x = "Revenue", y = "Product ID and Description", 
+  title = "10 Best Selling Products in Last 1 Year ", 
+  subtitle = "Labels indicate the revenue in GBP 
+  generating from each product") + 
+  geom_text(aes(label = paste("£", round(TOTAL_REVENUE),
+  sep="")), color='white', hjust = 1) + 
+  theme(axis.text.x = element_text(hjust = 1))
+```
+
+### 4.2: Comprehensive Reporting with Quarto
+
+To present the data analysis, we use the R Quarto report, which can be easily changed to reflect the latest dataset. The analysis was divided into two parts. The first is a short-term analysis for monitoring current performance in the last thirty days. The second is performing long-term analysis, where we analyse changes on a yearly basis to demonstrate long-term progress.
+
+**Short-Term Analysis**
+
+```{r echo = FALSE, message = FALSE}
 library(readr)
 library(RSQLite)
 library(dplyr)
 library(ggplot2)
-```
 
-# Establishing the connection to db
-```{r connect}
 my_db <- RSQLite::dbConnect(RSQLite::SQLite(),"/cloud/project/ecommerce.db")
-```
-
-# Short Term Analysis - Performance of the Organisation in the last 30 days
-## Top 10 Most Selling SKU and their corresponding revenue generated
-```{r}
 Query_1 <- "WITH PRODUCTS AS(
     SELECT PRODUCT_ID, SALES
     FROM
@@ -48,10 +109,9 @@ FROM SKU ) T2
 on T1.PRODUCT_ID = T2.PRODUCT_ID"
 
 top_10_SKUs <- RSQLite::dbGetQuery(my_db, Query_1)
-top_10_SKUs$name_sku <- paste(top_10_SKUs$PRODUCT_NAME, top_10_SKUs$PRODUCT_ID, sep = "_")
+top_10_SKUs$name_sku <- paste(top_10_SKUs$PRODUCT_NAME, top_10_SKUs$PRODUCT_ID, sep = " ")
 
 top_10_SKUs$PRODUCT_ID <- factor(top_10_SKUs$PRODUCT_ID, levels = top_10_SKUs$PRODUCT_ID[order(top_10_SKUs$SALES)])
-
 
 Short_Term_Plot1 <- ggplot(top_10_SKUs, aes(x = reorder(name_sku, REVENUE), y = SALES)) +
   geom_bar(stat = "identity", aes(fill = REVENUE), show.legend = FALSE) +
@@ -68,11 +128,9 @@ ggsave(paste0("/cloud/project/figures/01_Top10_Sold_SKUs_",
               filename_time,".png"))
 
 Short_Term_Plot1
-
 ```
 
-## Top 10 most returned SKUs
-```{r Top10ReturnedSKUs}
+```{r echo = FALSE, message = FALSE}
 
 Query_2 <- "WITH PRODUCTS AS(
     SELECT PRODUCT_ID, SALES
@@ -101,7 +159,7 @@ on T1.PRODUCT_ID = T2.PRODUCT_ID"
 
 top_10_returned_SKUs <- RSQLite::dbGetQuery(my_db,Query_2)
 
-top_10_returned_SKUs$name_sku <- paste(top_10_returned_SKUs$PRODUCT_NAME,top_10_returned_SKUs$PRODUCT_ID, sep = "_")
+top_10_returned_SKUs$name_sku <- paste(top_10_returned_SKUs$PRODUCT_NAME,top_10_returned_SKUs$PRODUCT_ID, sep = " ")
 
 
 top_10_returned_SKUs$PRODUCT_ID <- factor(top_10_returned_SKUs$PRODUCT_ID, levels = top_10_returned_SKUs$PRODUCT_ID[order(top_10_returned_SKUs$SALES)])
@@ -126,8 +184,8 @@ ggsave(paste0("/cloud/project/figures/02_Top10_Returned_SKUs_",
 Short_Term_Plot2
 ```
 
-## Suppliers who are responsible for the most returned SKUs
-```{r FaultySuppliers}
+```{r echo = FALSE, message = FALSE}
+
 faulty_suppliers <- RSQLite::dbGetQuery(my_db,"WITH RankedData as (
 SELECT PRODUCT_ID, QUANTITY_RETURNED
 FROM
@@ -188,13 +246,10 @@ Short_Term_Plot3
 
 ```
 
+**Long-Term Analysis**
 
+```{r echo = FALSE, message = FALSE}
 
-# Long Term Analysis - Performance of the Organisation in one year period.
-
-## Revenue Generate by product in last 1 year
-
-```{r Revenue Analysis Table}
 # Query table from database and store in data frame for visualisation
 Revenue_analysis_df <- RSQLite::dbGetQuery(my_db, 
 "SELECT T1.PRODUCT_ID AS PRODUCT_ID,
@@ -248,9 +303,7 @@ Long_Term_Plot1
 
 ```
 
-## Revenue Generate by Category in last 1 year
-
-```{r Category Revenue Analysis Table}
+```{r echo = FALSE, message = FALSE}
 # Query table from database and store in data frame for visualisation
 Category_Analysis_df <- RSQLite::dbGetQuery(my_db, 
 "SELECT T4.CATEGORY_ID AS CATEGORY_ID,
@@ -328,9 +381,7 @@ ggsave(paste0("/cloud/project/figures/05_Yearly_Revenue_by_Category_",
 Long_Term_Plot2
 ```
 
-## ADS Platform a (Number of customer acquired by each Platform in last 1 year, separate by quarter)
-
-```{r Customer by ADS Analysis Table}
+```{r echo = FALSE, message = FALSE}
 # Query table from database and store in data frame for visualisation
 Customer_Acquisition_df <- RSQLite::dbGetQuery(my_db, 
 "SELECT  T3.PLATFORM AS PLATFORM,
@@ -390,9 +441,7 @@ ggsave(paste0("/cloud/project/figures/06_Customer_by_ADS_",
 Long_Term_Plot3
 ```
 
-## Customer acquisition analysis by each ADS platform categorised by gender in last 1 year
-
-```{r Customer Acquisition Demographic Analysis Table}
+```{r echo = FALSE, message = FALSE}
 # Query table from database and store in data frame for visualisation
 ADS_Customer_Demographic_df <- RSQLite::dbGetQuery(my_db, 
 "SELECT T3.PLATFORM AS PLATFORM,
@@ -446,4 +495,4 @@ ggsave(paste0("/cloud/project/figures/07_Customer_Gender_by_ADS_",
               filename_time,".png"))
 
 Long_Term_Plot4
-```   
+```
