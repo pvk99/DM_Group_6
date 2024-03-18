@@ -337,8 +337,8 @@ CUSTOMER$HOUSE_NUMBER <- as.character(sample(1:50, size=nrow(CUSTOMER),replace=T
 CUSTOMER$AD_ID <- ifelse(CUSTOMER$ACQUISITION_TYPE=="Paid", sample(ADS$AD_ID, size = nrow(CUSTOMER), replace = TRUE),"")
 
 #Save to csv 
-write.csv(CUSTOMER[1:15,], file = file.path("/cloud/project/Data","CUSTOMERS.1.csv"), row.names = FALSE)
-write.csv(CUSTOMER[16:nrow(CUSTOMER),], file = file.path("/cloud/project/Data","CUSTOMERS.2.csv"), row.names = FALSE)
+write.csv(CUSTOMER[1:100,], file = file.path("/cloud/project/Data","CUSTOMERS.1.csv"), row.names = FALSE)
+write.csv(CUSTOMER[101:nrow(CUSTOMER),], file = file.path("/cloud/project/Data","CUSTOMERS.2.csv"), row.names = FALSE)
 ```
 
 # Create ORDER_SHIPMENT data
@@ -461,7 +461,7 @@ ORDER$RETURN_DATE <- as.character(ORDER$RETURN_DATE)
 ORDER$DELIVERY_DATE <- as.character(ORDER$DELIVERY_DATE)
 
 #Save to csv 
-write.csv(ORDER[1:15,], file = file.path("/cloud/project/Data","ORDERS.1.csv"), row.names = FALSE)
-write.csv(ORDER[16:nrow(ORDER),], file = file.path("/cloud/project/Data","ORDERS.2.csv"), row.names = FALSE)
+write.csv(ORDER[1:2000,], file = file.path("/cloud/project/Data","ORDERS.1.csv"), row.names = FALSE)
+write.csv(ORDER[2001:nrow(ORDER),], file = file.path("/cloud/project/Data","ORDERS.2.csv"), row.names = FALSE)
 ```
 

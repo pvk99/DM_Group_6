@@ -101,6 +101,10 @@ on T1.PRODUCT_ID = T2.PRODUCT_ID"
 
 top_10_returned_SKUs <- RSQLite::dbGetQuery(my_db,Query_2)
 
+if(nrow(top_10_returned_SKUs)==0){
+  print("No returned product in the last 30 days")
+  } else {
+
 top_10_returned_SKUs$name_sku <- paste(top_10_returned_SKUs$PRODUCT_NAME,top_10_returned_SKUs$PRODUCT_ID, sep = "_")
 
 
@@ -124,6 +128,7 @@ ggsave(paste0("/cloud/project/figures/02_Top10_Returned_SKUs_",
               filename_time,".png"))
 
 Short_Term_Plot2
+}
 ```
 
 ## Suppliers who are responsible for the most returned SKUs
@@ -166,6 +171,10 @@ ON T1.PRODUCT_ID = T2.PRODUCT_ID
 GROUP BY SUPPLIER_NAME
 ORDER BY COST_INCURRED DESC")
 
+if(nrow(faulty_suppliers)==0){
+  print("No returned product in the last 30 days, No faulty supplier")
+} else {
+
 faulty_suppliers$SUPPLIER_NAME <- factor(faulty_suppliers$SUPPLIER_NAME, levels = faulty_suppliers$SUPPLIER_NAME[order(faulty_suppliers$QUANTITY_RETURNED)])
 
 Short_Term_Plot3 <-  ggplot(faulty_suppliers, aes(x = reorder(SUPPLIER_NAME, COST_INCURRED), y = QUANTITY_RETURNED)) +
@@ -185,7 +194,7 @@ ggsave(paste0("/cloud/project/figures/03_Top_Returned_Supplier_",
               filename_time,".png"))
 
 Short_Term_Plot3
-
+}
 ```
 
 
