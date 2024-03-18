@@ -83,8 +83,12 @@ SELECT DISTINCT PRODUCT_ID, PRODUCT_NAME, MARKUP * PRODUCT_PURCHASING_PRICE + PR
 FROM SKU ) T2 
 on T1.PRODUCT_ID = T2.PRODUCT_ID"
 
+
 top_10_returned_SKUs <- RSQLite::dbGetQuery(my_db,Query_2)
 
+if(nrow(top_10_returned_SKUs)==0){
+  print("No returned product in the last 30 days")
+  } else {
 top_10_returned_SKUs$name_sku <- paste(top_10_returned_SKUs$PRODUCT_NAME,top_10_returned_SKUs$PRODUCT_ID, sep = "_")
 
 
@@ -96,7 +100,7 @@ Short_Term_Plot2 <- ggplot(top_10_returned_SKUs, aes(x = reorder(PRODUCT_ID, REV
   coord_flip() + 
   theme(axis.text.x = element_text(hjust = 1)) + 
   scale_x_discrete(labels =top_10_returned_SKUs$name_sku) +   
-  scale_y_continuous(breaks = seq(0, max(as.numeric(top_10_returned_SKUs$SALES) ) , by = 1)) + 
+  scale_y_continuous(breaks = seq(0, max(as.numeric(top_10_returned_SKUs$SALES),0 ) , by = 1)) + 
   geom_text(aes(label = paste("£",round(REVENUE),sep="")), color='white', hjust = 1.05)
 
 
@@ -107,7 +111,7 @@ ggsave(paste0("figures/02_Top10_Returned_SKUs_",
               filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
 Short_Term_Plot2
-
+}
 
 # Suppliers who are responsible for the most returned SKUs
 faulty_suppliers <- RSQLite::dbGetQuery(my_db,"WITH RankedData as (
@@ -147,6 +151,9 @@ ON T1.PRODUCT_ID = T2.PRODUCT_ID
 ) T3
 GROUP BY SUPPLIER_NAME
 ORDER BY COST_INCURRED DESC")
+if(nrow(faulty_suppliers)==0){
+  print("No returned product in the last 30 days, No faulty supplier")
+} else {
 
 faulty_suppliers$SUPPLIER_NAME <- factor(faulty_suppliers$SUPPLIER_NAME, levels = faulty_suppliers$SUPPLIER_NAME[order(faulty_suppliers$QUANTITY_RETURNED)])
 
@@ -167,7 +174,7 @@ ggsave(paste0("figures/03_Top_Returned_Supplier_",
               filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
 Short_Term_Plot3
-
+}
 # Revenue Generate by product in last 1 year
 Revenue_analysis_df <- RSQLite::dbGetQuery(my_db, 
                                            "SELECT T1.PRODUCT_ID AS PRODUCT_ID,
