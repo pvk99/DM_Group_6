@@ -87,7 +87,7 @@ on T1.PRODUCT_ID = T2.PRODUCT_ID"
 top_10_returned_SKUs <- RSQLite::dbGetQuery(my_db,Query_2)
 
 if(nrow(top_10_returned_SKUs)==0){
-  print("No returned product in the last 30 days")
+  error <- "no returned SKU"
   } else {
 top_10_returned_SKUs$name_sku <- paste(top_10_returned_SKUs$PRODUCT_NAME,top_10_returned_SKUs$PRODUCT_ID, sep = "_")
 
@@ -152,7 +152,7 @@ ON T1.PRODUCT_ID = T2.PRODUCT_ID
 GROUP BY SUPPLIER_NAME
 ORDER BY COST_INCURRED DESC")
 if(nrow(faulty_suppliers)==0){
-  print("No returned product in the last 30 days, No faulty supplier")
+  error <- "No returned product in the last 30 days, No faulty supplier"
 } else {
 
 faulty_suppliers$SUPPLIER_NAME <- factor(faulty_suppliers$SUPPLIER_NAME, levels = faulty_suppliers$SUPPLIER_NAME[order(faulty_suppliers$QUANTITY_RETURNED)])
