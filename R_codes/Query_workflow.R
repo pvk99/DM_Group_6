@@ -87,10 +87,6 @@ on T1.PRODUCT_ID = T2.PRODUCT_ID"
 
 top_10_returned_SKUs <- RSQLite::dbGetQuery(my_db,Query_2)
 
-if(nrow(top_10_returned_SKUs)==0){
-<<<<<<< HEAD
-  error <- "no returned SKU"
-  } else {
 top_10_returned_SKUs$name_sku <- paste(top_10_returned_SKUs$PRODUCT_NAME,top_10_returned_SKUs$PRODUCT_ID, sep = "_")
 
 
@@ -113,39 +109,11 @@ ggsave(paste0("figures/02_Top10_Returned_SKUs_",
               filename_time,".png"), dpi = 300, height = 5, width = 7, unit = 'in')
 
 Short_Term_Plot2
-=======
-  print("No returned product in the last 30 days")
-} else {
-  
-  top_10_returned_SKUs$name_sku <- paste(top_10_returned_SKUs$PRODUCT_NAME,top_10_returned_SKUs$PRODUCT_ID, sep = "_")
-  
-  
-  top_10_returned_SKUs$PRODUCT_ID <- factor(top_10_returned_SKUs$PRODUCT_ID, levels = top_10_returned_SKUs$PRODUCT_ID[order(top_10_returned_SKUs$SALES)])
-  
-  Short_Term_Plot2 <- ggplot(top_10_returned_SKUs, aes(x = reorder(PRODUCT_ID, REVENUE), y = as.numeric(SALES))) +
-    geom_bar(stat = "identity", aes(fill = REVENUE), show.legend = FALSE) +
-    labs(x = "Product Names", y = "Units Returned", title = "Top 10 Most Returned SKUs", subtitle = "Labels indicate the refunded amount to the customers") + 
-    coord_flip() + 
-    theme(axis.text.x = element_text(hjust = 1)) + 
-    scale_x_discrete(labels =top_10_returned_SKUs$name_sku) +   
-    scale_y_continuous(breaks = seq(0, max(as.numeric(top_10_returned_SKUs$SALES) ) , by = 1)) + 
-    geom_text(aes(label = paste("£",round(REVENUE),sep="")), color='white', hjust = 1.05) +
-    theme(axis.text.x = element_text(hjust = 1 , vjust = 1), axis.text.y = element_text(angle = 45, size = 6) )
-  
-  
-  filename_date <- as.character(Sys.Date())
-  filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
-  ggsave(paste0("figures/02_Top10_Returned_SKUs_",
-                filename_date,"_",
-                filename_time,".png"))
-  
-  Short_Term_Plot2
->>>>>>> 06a1040df1b216c67a119c53ea75b3e70b2b1a2e
-}
+
 
 
 ## Suppliers who are responsible for the most returned SKUs
-```{r FaultySuppliers}
+
 faulty_suppliers <- RSQLite::dbGetQuery(my_db,"WITH RankedData as (
 SELECT PRODUCT_ID, QUANTITY_RETURNED
 FROM
@@ -184,10 +152,6 @@ ON T1.PRODUCT_ID = T2.PRODUCT_ID
 GROUP BY SUPPLIER_NAME
 ORDER BY COST_INCURRED DESC")
 
-if(nrow(faulty_suppliers)==0){
-  error <- "No returned product in the last 30 days, No faulty supplier"
-} else {
-  
   faulty_suppliers$SUPPLIER_NAME <- factor(faulty_suppliers$SUPPLIER_NAME, levels = faulty_suppliers$SUPPLIER_NAME[order(faulty_suppliers$QUANTITY_RETURNED)])
   
   Short_Term_Plot3 <-  ggplot(faulty_suppliers, aes(x = reorder(SUPPLIER_NAME, COST_INCURRED), y = QUANTITY_RETURNED)) +
@@ -207,8 +171,6 @@ if(nrow(faulty_suppliers)==0){
                 filename_time,".png"))
   
   Short_Term_Plot3
-}
-
 
 
 

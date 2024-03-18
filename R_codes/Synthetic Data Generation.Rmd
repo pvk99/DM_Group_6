@@ -461,7 +461,7 @@ ORDER$RETURN_DATE <- as.character(ORDER$RETURN_DATE)
 ORDER$DELIVERY_DATE <- as.character(ORDER$DELIVERY_DATE)
 
 #Save to csv 
-write.csv(ORDER[1:15,], file = file.path("/cloud/project/Data","ORDERS.1.csv"), row.names = FALSE)
-write.csv(ORDER[16:nrow(ORDER),], file = file.path("/cloud/project/Data","ORDERS.2.csv"), row.names = FALSE)
+write.csv(ORDER[1:1000,], file = file.path("/cloud/project/Data","ORDERS.1.csv"), row.names = FALSE)
+write.csv(ORDER[1001:nrow(ORDER),], file = file.path("/cloud/project/Data","ORDERS.2.csv"), row.names = FALSE)
 ```
 
