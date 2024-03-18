@@ -43,8 +43,8 @@ CATEGORY <- CATEGORY[!(CATEGORY$CATEGORY_NAME == 'Dress' & CATEGORY$GENDER == 'M
 CATEGORY$CATEGORY_ID <- paste0("CAT", seq_len(nrow(CATEGORY)) + 10000)
 
 #Save to 2 csv files
-write.csv(CATEGORY[1:15,], file = file.path("/cloud/project/Data","CATEGORY.1.csv"), row.names = FALSE)
-write.csv(CATEGORY[16:nrow(CATEGORY),], file = file.path("/cloud/project/Data","CATEGORY.2.csv"), row.names = FALSE)
+write.csv(CATEGORY[1:nrow(CATEGORY),], file = file.path("/cloud/project/Data","CATEGORY.1.csv"), row.names = FALSE)
+
 ```
 
 # Create SUPPLIER data
@@ -110,8 +110,8 @@ SUPPLIER$POST_CODE <- sapply(1:nrow(SUPPLIER), function(x) random_postcode()$pos
 SUPPLIER$SUPPLIER_ID = paste0("SP", seq_len(nrow(SUPPLIER)) + 10000)
 
 #Save to csv 
-write.csv(SUPPLIER[1:15,], file = file.path("/cloud/project/Data","SUPPLIER.1.csv"), row.names = FALSE)
-write.csv(SUPPLIER[16:nrow(SUPPLIER),], file = file.path("/cloud/project/Data","SUPPLIER.2.csv"), row.names = FALSE)
+write.csv(SUPPLIER[1:nrow(SUPPLIER),], file = file.path("/cloud/project/Data","SUPPLIER.1.csv"), row.names = FALSE)
+
 ```
 
 
@@ -180,8 +180,8 @@ SKU$AGE_GROUP <- NULL
 SKU$CATEGORY_NAME <- NULL
 
 #Save to csv 
-write.csv(SKU[1:15,], file = file.path("/cloud/project/Data","SKU.1.csv"), row.names = FALSE)
-write.csv(SKU[16:nrow(SKU),], file = file.path("/cloud/project/Data","SKU.2.csv"), row.names = FALSE)
+write.csv(SKU[1:nrow(SKU),], file = file.path("/cloud/project/Data","SKU.1.csv"), row.names = FALSE)
+
 ```
 
 # Create data for PROMOTION
@@ -198,7 +198,7 @@ PROMOTION$PROMOTION_VALUE <- sample(seq(0.05,0.3,0.05),nrow(PROMOTION),replace =
 
 # Create PROMOTION_START_DATE
 start_date <- as.Date("2023-01-01")
-end_date <- as.Date("2024-03-08")
+end_date <- as.Date("2023-12-31")
 PROMOTION$PROMOTION_START_DATE <- sort(sample(seq(start_date, end_date, by = "day"), nrow(PROMOTION), replace = TRUE))
 PROMOTION$PROMOTION_END_DATE <- PROMOTION$PROMOTION_START_DATE + sample(15, nrow(PROMOTION),replace=TRUE)
 PROMOTION$PROMOTION_END_DATE <- as.character(PROMOTION$PROMOTION_END_DATE)
@@ -211,8 +211,8 @@ PROMOTION$MINIMUM_PURCHASE_AMOUNT <- sample(20:50,nrow(PROMOTION),replace=TRUE)
 PROMOTION$PRODUCT_ID <- sample(SKU$PRODUCT_ID,nrow(PROMOTION),replace = TRUE)
 
 #Save to csv file
-write.csv(PROMOTION[1:15,], file = file.path("/cloud/project/Data","PROMOTION.1.csv"), row.names = FALSE)
-write.csv(PROMOTION[16:nrow(PROMOTION),], file = file.path("/cloud/project/Data","PROMOTION.2.csv"), row.names = FALSE)
+write.csv(PROMOTION[1:nrow(PROMOTION),], file = file.path("/cloud/project/Data","PROMOTION.1.csv"), row.names = FALSE)
+
 ```
 
 # Create data for ADS table
@@ -252,8 +252,8 @@ ADS$CLICK_THROUGH_RATE <- round(runif(nrow(ADS), min = 0, max = 1),2)
 ADS$NUMBER_OF_CLICK <- round(runif(nrow(ADS), min = 1, max = 10000),0)
 
 #Save to csv 
-write.csv(ADS[1:15,], file = file.path("/cloud/project/Data","ADS.1.csv"), row.names = FALSE)
-write.csv(ADS[16:nrow(ADS),], file = file.path("/cloud/project/Data","ADS.2.csv"), row.names = FALSE)
+write.csv(ADS[1:nrow(ADS),], file = file.path("/cloud/project/Data","ADS.1.csv"), row.names = FALSE)
+
 ```
 
 
@@ -261,7 +261,7 @@ write.csv(ADS[16:nrow(ADS),], file = file.path("/cloud/project/Data","ADS.2.csv"
 ```{r}
 # Create ORDER dataframe
 CUSTOMER <- data.frame(
-  CUSTOMER_ID = paste0("C", seq_len(200)),
+  CUSTOMER_ID = paste0("C", seq_len(100)),
   stringsAsFactors = TRUE
 )
 # Create acquisition type
@@ -337,8 +337,8 @@ CUSTOMER$HOUSE_NUMBER <- as.character(sample(1:50, size=nrow(CUSTOMER),replace=T
 CUSTOMER$AD_ID <- ifelse(CUSTOMER$ACQUISITION_TYPE=="Paid", sample(ADS$AD_ID, size = nrow(CUSTOMER), replace = TRUE),"")
 
 #Save to csv 
-write.csv(CUSTOMER[1:100,], file = file.path("/cloud/project/Data","CUSTOMERS.1.csv"), row.names = FALSE)
-write.csv(CUSTOMER[101:nrow(CUSTOMER),], file = file.path("/cloud/project/Data","CUSTOMERS.2.csv"), row.names = FALSE)
+write.csv(CUSTOMER[1:nrow(CUSTOMER),], file = file.path("/cloud/project/Data","CUSTOMERS.1.csv"), row.names = FALSE)
+
 ```
 
 # Create ORDER_SHIPMENT data
@@ -357,8 +357,7 @@ carrier <- c("UPS","FedEx", "DHL","Royal Mail", "Evri")
 ORDER_SHIPMENT$CARRIER <- sample(carrier, nrow(ORDER_SHIPMENT),replace=TRUE)
 
 #Save to csv 
-write.csv(ORDER_SHIPMENT[1:15,], file = file.path("/cloud/project/Data","ORDER_SHIPMENT.1.csv"), row.names = FALSE)
-write.csv(ORDER_SHIPMENT[16:nrow(ORDER_SHIPMENT),], file = file.path("/cloud/project/Data","ORDER_SHIPMENT.2.csv"), row.names = FALSE)
+write.csv(ORDER_SHIPMENT[1:nrow(ORDER_SHIPMENT),], file = file.path("/cloud/project/Data","ORDER_SHIPMENT.1.csv"), row.names = FALSE)
 ```
 
 # Create data for TRANSACTION table
@@ -390,8 +389,7 @@ shuffled_status <- sample(status_vector)
 TRANSACTION$TRANSACTION_STATUS <- as.factor(shuffled_status)
 
 #Save to csv 
-write.csv(TRANSACTION[1:15,], file = file.path("/cloud/project/Data","TRANSACTIONS.1.csv"), row.names = FALSE)
-write.csv(TRANSACTION[16:nrow(TRANSACTION),], file = file.path("/cloud/project/Data","TRANSACTIONS.2.csv"), row.names = FALSE)
+write.csv(TRANSACTION[1:nrow(TRANSACTION),], file = file.path("/cloud/project/Data","TRANSACTIONS.1.csv"), row.names = FALSE)
 ```
 
 
@@ -461,7 +459,280 @@ ORDER$RETURN_DATE <- as.character(ORDER$RETURN_DATE)
 ORDER$DELIVERY_DATE <- as.character(ORDER$DELIVERY_DATE)
 
 #Save to csv 
-write.csv(ORDER[1:2000,], file = file.path("/cloud/project/Data","ORDERS.1.csv"), row.names = FALSE)
-write.csv(ORDER[2001:nrow(ORDER),], file = file.path("/cloud/project/Data","ORDERS.2.csv"), row.names = FALSE)
+write.csv(ORDER[1:nrow(ORDER),], file = file.path("/cloud/project/Data","ORDERS.1.csv"), row.names = FALSE)
+
 ```
 
+# Generate 2 batch of data
+# Create data for PROMOTION
+
+```{r}
+# Create PROMOTION dataframe
+PROMOTION_2 <- data.frame(
+  PROMOTION_ID = paste0("PR", seq_len(20 + nrow(PROMOTION)) + 1000),
+  stringsAsFactors = TRUE
+)
+
+# Create PROMOTION_VALUE
+PROMOTION_2$PROMOTION_VALUE <- sample(seq(0.05,0.3,0.05),nrow(PROMOTION_2),replace = TRUE)
+
+# Create PROMOTION_START_DATE
+start_date_2 <- as.Date("2024-01-01")
+end_date_2 <- as.Date("2024-03-31")
+PROMOTION_2$PROMOTION_START_DATE <- sort(sample(seq(start_date, end_date, by = "day"), nrow(PROMOTION_2), replace = TRUE))
+PROMOTION_2$PROMOTION_END_DATE <- PROMOTION_2$PROMOTION_START_DATE + sample(15, nrow(PROMOTION_2),replace=TRUE)
+PROMOTION_2$PROMOTION_END_DATE <- as.character(PROMOTION_2$PROMOTION_END_DATE)
+PROMOTION_2$PROMOTION_START_DATE <- as.character(PROMOTION_2$PROMOTION_START_DATE)
+
+# Create MINIMUM_PURCHASE_AMOUNT
+PROMOTION_2$MINIMUM_PURCHASE_AMOUNT <- sample(20:50,nrow(PROMOTION_2),replace=TRUE)
+
+# Create PRODUCT_ID
+PROMOTION_2$PRODUCT_ID <- sample(SKU$PRODUCT_ID,nrow(PROMOTION_2),replace = TRUE)
+
+PROMOTION_2 <-  tail(PROMOTION_2, -(nrow(PROMOTION)))
+
+#Save to csv file
+write.csv(PROMOTION_2[1:nrow(PROMOTION_2),], file = file.path("/cloud/project/Data","PROMOTION.2.csv"), row.names = FALSE)
+
+#Merge batch 2 into batch 1
+PROMOTION <- rbind(PROMOTION, PROMOTION_2)
+
+#Delete batch 2
+rm(PROMOTION_2)
+
+```
+
+
+# Create data for CUSTOMER table
+```{r}
+# Create ORDER dataframe
+CUSTOMER_2 <- data.frame(
+  CUSTOMER_ID = paste0("C", seq_len(50 + nrow(CUSTOMER))),
+  stringsAsFactors = TRUE
+)
+# Create acquisition type
+acquisition_type <- c("Organic", "Paid", "Referral")
+probabilities_acquisition <- c(0.5, 0.4, 0.1)
+
+# Assuming CUSTOMER is your dataframe containing customer data
+CUSTOMER_2$ACQUISITION_TYPE <- as.factor(sample(acquisition_type, size = nrow(CUSTOMER_2), replace = TRUE, prob = probabilities_acquisition))
+
+# Create reference ID
+CUSTOMER_2$REFERENCE_ID <- ifelse(CUSTOMER_2$ACQUISITION_TYPE=="Referral",paste0("C", (seq_len(200)-sample(10))),"")
+
+# Create phone number
+CUSTOMER_2$PHONE_NUMBER <- paste0(round(runif(nrow(CUSTOMER_2), min = 1000000000, max = 9999999999)))
+
+# Create GENDER
+CUSTOMER_2$CUSTOMER_GENDER <- sample(genders, size = nrow(CUSTOMER_2), replace = TRUE)
+
+# Create DOB
+start_DOB <- as.Date("1980-01-01")
+end_DOB <- as.Date("2006-12-31")
+CUSTOMER_2$DATE_OF_BIRTH <- sample(seq(start_DOB, end_DOB, by = "day"), nrow(CUSTOMER_2), replace = TRUE)
+CUSTOMER_2$DATE_OF_BIRTH <- as.character(CUSTOMER_2$DATE_OF_BIRTH)
+
+# Create name
+## Filter out names with apostrophes
+filtered_names <- randomNames(nrow(CUSTOMER_2))
+filtered_names <- filtered_names[!grepl("'", filtered_names)]
+
+## If the number of filtered names is less than the number of rows in CUSTOMER, generate additional names
+if (length(filtered_names) < nrow(CUSTOMER_2)) {
+  additional_names <- randomNames(nrow(CUSTOMER_2) - length(filtered_names))
+  additional_names <- additional_names[!grepl("'", additional_names)]
+  filtered_names <- c(filtered_names, additional_names)
+}
+
+## Generate random full names
+random_full_names <- sample(filtered_names, nrow(CUSTOMER_2), replace = TRUE)
+
+#W Split full names into first and last names
+split_names <- strsplit(random_full_names, ",")
+
+## Extract first names
+CUSTOMER_2$FIRST_NAME <- sapply(split_names, "[", 2)
+
+## Extract last names
+CUSTOMER_2$LAST_NAME <- sapply(split_names, "[", 1)
+
+
+# Create EMAIL_ADDRESS
+generate_personal_email <- function(name) {
+  # Convert company name to lowercase and remove spaces
+  name <- gsub(" ", "", tolower(name))
+  # Generate a random domain
+  domain <- sample(c("gmail.com", "yahoo.com", "hotmail.com", "outlook.com"), 1)
+  # Generate email address
+  email <- paste0(name, "@", domain)
+  return(email)
+}
+CUSTOMER_2$CUSTOMER_EMAIL <- sapply(paste(CUSTOMER_2$FIRST_NAME,CUSTOMER_2$LAST_NAME,sep='_'), generate_email)
+
+# CREATE CUSTOMER_POST_CODE
+CUSTOMER_2$POST_CODE <- sapply(1:nrow(CUSTOMER_2), function(x) random_postcode()$postcode)
+
+# CREATE HOUSE_NUMBER
+CUSTOMER_2$HOUSE_NUMBER <- as.character(sample(1:50, size=nrow(CUSTOMER_2),replace=TRUE))
+
+# CREATE AD_ID
+CUSTOMER_2$AD_ID <- ifelse(CUSTOMER_2$ACQUISITION_TYPE=="Paid", sample(ADS$AD_ID, size = nrow(CUSTOMER_2), replace = TRUE),"")
+
+# Remove Existed Key
+CUSTOMER_2 <-  tail(CUSTOMER_2, -(nrow(CUSTOMER)))
+
+#Save to csv 
+write.csv(CUSTOMER_2[1:nrow(CUSTOMER_2),], file = file.path("/cloud/project/Data","CUSTOMERS.2.csv"), row.names = FALSE)
+
+#Merge batch 2 into batch 1
+CUSTOMER <- rbind(CUSTOMER, CUSTOMER_2)
+
+#Delete batch 2
+rm(CUSTOMER_2)
+
+```
+
+
+```{r}
+# Create ORDER_SHIPMENT dataframe
+ORDER_SHIPMENT_2 <- data.frame(
+  SHIPPING_ID = paste0("SH", seq_len(1000 + nrow(ORDER_SHIPMENT)) + 10000),
+  stringsAsFactors = TRUE
+)
+
+# Create SHIPPING_POST_CODE
+ORDER_SHIPMENT_2$POST_CODE <- sapply(1:nrow(ORDER_SHIPMENT_2), function(x) random_postcode()$postcode)
+
+# Create CARRIER
+carrier <- c("UPS","FedEx", "DHL","Royal Mail", "Evri")
+ORDER_SHIPMENT_2$CARRIER <- sample(carrier, nrow(ORDER_SHIPMENT_2),replace=TRUE)
+
+# Remove Existed Key
+ORDER_SHIPMENT_2 <-  tail(ORDER_SHIPMENT_2, -(nrow(ORDER_SHIPMENT)))
+
+#Save to csv 
+write.csv(ORDER_SHIPMENT_2[1:nrow(ORDER_SHIPMENT_2),], file = file.path("/cloud/project/Data","ORDER_SHIPMENT.2.csv"), row.names = FALSE)
+
+#Merge batch 2 into batch 1
+ORDER_SHIPMENT <- rbind(ORDER_SHIPMENT, ORDER_SHIPMENT_2)
+
+
+```
+
+
+```{r}
+# Create TRANSACTION dataframe
+TRANSACTION_2 <- data.frame(
+  TRANSACTION_ID = paste0("TR", seq(11060, 12120)),
+  stringsAsFactors = TRUE
+)
+
+# Add PAYMENT_METHOD
+payment_method <- c("Credit card","Debit card","Paypal","Gift Card")
+probabilities_payment_method <- c(0.45, 0.35, 0.175, 0.025)
+TRANSACTION_2$PAYMENT_METHOD <- as.factor(sample(payment_method, size = nrow(TRANSACTION_2), replace = TRUE,prob = probabilities_payment_method))
+
+# Add PAYMENT_STATUS
+## Determine the number of successful transactions
+n_successful <- 1000
+
+## Create a vector representing "Successful" and "Declined" statuses
+status_vector <- c(rep("Successful", n_successful), 
+                   rep("Declined", nrow(TRANSACTION_2) - n_successful))
+
+## Shuffle the status_vector randomly
+shuffled_status <- sample(status_vector)
+
+## Assign shuffled status to TRANSACTION_STATUS column
+TRANSACTION_2$TRANSACTION_STATUS <- as.factor(shuffled_status)
+
+#Save to csv 
+
+write.csv(TRANSACTION_2[1:nrow(TRANSACTION_2),], file = file.path("/cloud/project/Data","TRANSACTIONS.2.csv"), row.names = FALSE)
+
+#Merge batch 2 into batch 1
+TRANSACTION <- rbind(TRANSACTION, TRANSACTION_2)
+
+```
+
+
+```{r}
+# Create ORDER dataframe
+ORDER_2 <- data.frame(ORDER_ID = paste0("OD", seq(11001 , 12000) ),
+  stringsAsFactors = TRUE
+)
+
+# Add CUSTOMER_ID
+ORDER_2$CUSTOMER_ID <- sample(CUSTOMER$CUSTOMER_ID,nrow(ORDER_2),replace=TRUE)
+
+# Add ORDER_DATE
+ORDER_2$ORDER_DATE <- sample(seq(start_date_2, end_date_2, by = "day"), nrow(ORDER_2), replace = TRUE)
+
+# Add ORDER_STATUS:
+order_status <- c("Delivered", "Returned")
+proportions <- c("Delivered" = 0.8, "Returned" = 0.2)
+
+# Sample proportionally with replacement and assign to ORDER$ORDER_STATUS
+ORDER_2$ORDER_STATUS <- sample(order_status, size = nrow(ORDER_2), replace = TRUE, prob = proportions)
+ORDER_2$ORDER_STATUS[ORDER_2$ORDER_DATE>'2024-03-05'] = "In transit" 
+
+# Add SHIPPING_ID
+ORDER_2$SHIPPING_ID <- ORDER_SHIPMENT_2$SHIPPING_ID
+
+# Add DELIVERY_DATE
+
+ORDER_2$DELIVERY_DATE <- ORDER_2$ORDER_DATE + sample(7,nrow(ORDER_2),replace=TRUE)
+ORDER_2$DELIVERY_DATE[ORDER_2$ORDER_STATUS %in% c("Order placed", "In transit")] <- NULL
+
+# Add TRANSACTION_ID
+ORDER_2$TRANSACTION_ID <- TRANSACTION_2$TRANSACTION_ID[TRANSACTION_2$TRANSACTION_STATUS == "Successful"]
+  
+# Create an empty dataframe to store order-product mappings
+order_product_mapping <- data.frame(ORDER_ID = character(), PRODUCT_ID = character(), stringsAsFactors = FALSE)
+
+# Define the number of products per order
+products_per_order <- round(runif(nrow(ORDER_2), min = 1, max = 10))
+
+# Loop through each order ID and sample products
+for (i in 1:nrow(ORDER_2)) {
+  order_id <- ORDER_2$ORDER_ID[i]
+  product_ids <- sample(SKU$PRODUCT_ID, size = products_per_order[i], replace = FALSE)
+  order_product_mapping <- rbind(order_product_mapping, data.frame(ORDER_ID = rep(order_id, length(product_ids)), PRODUCT_ID = product_ids))
+}
+
+# Merge order_product_mapping with ORDER dataframe to retain other order details
+ORDER_2 <- merge(ORDER_2, order_product_mapping, by = "ORDER_ID", all.x = TRUE)
+
+# Add ORDER_QUANTITY
+ORDER_2$ORDER_QUANTITY <-round(runif(nrow(ORDER_2),min=1,max=5),0)
+
+# Add RETURN_QUANTITY
+ORDER_2$RETURN_QUANTITY <- ifelse(ORDER_2$ORDER_STATUS=="Returned", mapply(function(x) sample(1:x, 1), ORDER_2$ORDER_QUANTITY),"")
+
+# Add RETURN_DATE
+ORDER_2$RETURN_DATE <- ORDER_2$ORDER_DATE + sample(9:30,nrow(ORDER),replace=TRUE)
+ORDER_2$RETURN_DATE[ORDER_2$ORDER_STATUS != "Returned"] <- ""
+
+# Change DATE to CHARACTER
+ORDER_2$ORDER_DATE <- as.character(ORDER_2$ORDER_DATE)
+ORDER_2$RETURN_DATE <- as.character(ORDER_2$RETURN_DATE)
+ORDER_2$DELIVERY_DATE <- as.character(ORDER_2$DELIVERY_DATE)
+
+
+
+#Save to csv 
+write.csv(ORDER_2, file = file.path("/cloud/project/Data","ORDERS.2.csv"), row.names = FALSE)
+
+
+
+#Delete batch 2 of Transaction
+rm(TRANSACTION_2)
+
+#Delete batch 2 of Order Shipment
+rm(ORDER_SHIPMENT_2)
+
+#Delete batch 2 of Orders
+rm(ORDER_2)
+
+```
