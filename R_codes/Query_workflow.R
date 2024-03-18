@@ -339,10 +339,9 @@ GROUP BY T3.PLATFORM, T3.Quarter_AD"
 
 Long_Term_Plot3 <- ggplot(Customer_Acquisition_df, aes(x = factor(QUARTER_AD, levels = c( "Last 90 days", "90 to 180 days", "180 to 270 days", "270 to 365 days", "More than one year"  )), y = CUSTOMER_ACQUIRED_IN_LAST_YEAR, fill=factor(PLATFORM, levels = c( "Facebook", "Google Ads", "Instagram", "TikTok", "X"  )  ) )) +
   geom_bar(stat = "identity", position = position_dodge(width = 0.75), show.legend = TRUE) +
-  geom_text(aes(label = CUSTOMER_ACQUIRED_IN_LAST_YEAR, y = CUSTOMER_ACQUIRED_IN_LAST_YEAR), vjust = -0.2) + 
   labs(x = "Acquisition Channel", y = "New Customers", title = "New Customer Acquisition through advertisment platforms in Last 1 Year", subtitle = "Labels indicate the number of new customer from each platform") +
-  guides(fill = guide_legend(title = "PLATFORM")) + 
-  scale_fill_manual(values = c( "#316FF6", "#FBBC05", "#d62976" , "#000000", "#1DA1F2"))
+  guides(fill = guide_legend(title = "PLATFORM"))
+  
 
 
 filename_date <- as.character(Sys.Date())
@@ -395,10 +394,8 @@ GROUP BY T3.PLATFORM, T3.CUSTOMER_GENDER"
 
 Long_Term_Plot4 <- ggplot(ADS_Customer_Demographic_df, aes(x= reorder(PLATFORM, desc(TOTAL_CUSTOMER)), y=TOTAL_CUSTOMER, fill=as.factor(GENDER)))+
   geom_bar(stat = "identity", position = position_dodge(width = 0.75)) + 
-  geom_text(aes(label = TOTAL_CUSTOMER, y = TOTAL_CUSTOMER), vjust = -0.1) + 
-  labs(x = "Acquisition Channel", y = "New Customers", title = "New Customer Acquisition through advertisment platforms by Gender in Last 1 Year", subtitle = "Labels indicate the number of new customer from each platform", fill="GENDER") + 
-  scale_fill_manual(values=c("lightblue","steelblue"))
-
+  labs(x = "Acquisition Channel", y = "New Customers", title = "New Customer Acquisition through advertisment platforms by Gender in Last 1 Year", subtitle = "Labels indicate the number of new customer from each platform", fill="GENDER")
+  
 filename_date <- as.character(Sys.Date())
 filename_time <- as.character(format(Sys.time(), format = "%H_%M"))
 ggsave(paste0("figures/07_Customer_Gender_by_ADS_",
