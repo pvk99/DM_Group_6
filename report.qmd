@@ -796,8 +796,6 @@ jobs:
 
 ## **Part 4: Advanced Data Analysis**
 
-### 4.1: Advanced Data Analysis in R
-
 Once the database was updated with the newly generated data via GitHub automation, the data was analysed utilising the R package packages dplyr, GGplot2, and tidyr in conjunction with the SQL DQL command. The procedure entailed retrieving the data and converting it into a format suitable for subsequent analysis. The complete procedure is outlined below.
 
 **Data Query**
@@ -866,9 +864,8 @@ ggplot(data= Revenue_analysis_df %>% slice_max(TOTAL_REVENUE, n = 10)  ,
   geom_text(aes(label = paste("£", round(TOTAL_REVENUE),
   sep="")), color='white', hjust = 1) + 
   theme(axis.text.x = element_text(hjust = 1))
+  
 ```
-
-### 4.2: Comprehensive Reporting with Quarto
 
 To present the data analysis, we use the R Quarto report, which can be easily changed to reflect the latest dataset. The analyses show short-term analysis for monitoring current performance in the last thirty days and long-term analysis, where we analyse changes on a yearly basis to demonstrate long-term progress.
 
