@@ -17,7 +17,7 @@ This project undertook a comprehensive approach to data management for an appare
 
 ### 1.1: E-R Diagram Design
 
-![](images/clipboard-1512420071.png)
+![](images/clipboard-2548644980.png)
 
 The E-R diagram contained eight entities and relationships, depicting the operational structure of an apparel e-commerce retailer based in the UK. It illustrated the journey of an order starting from a registered customer selecting a product (SKU), through to the order's delivery, and handling of any subsequent returns. It also covered the process of customer acquisition through three main channels, organic, advertisement and referrals. Please refer to Appendix 1 for the definition of each attribute of each entity.
 
@@ -41,15 +41,13 @@ We made the following assumptions:
 
 **Relationships Between Entities:**
 
-Our E-R diagram had three types of relationships between different entities, one-to-one, many-to-one, and many-to-many.
-
-**One-to-one:**
-
--   CUSTOMERS refers CUSTOMERS: A self-recursive relationship, in which one customer can refer another customer.
-
-![](images/clipboard-3233749365.png){width="300"}
+Our E-R diagram had two types of relationships between different entities, many-to-one and many-to-many.
 
 **One-to-many:**
+
+-   CUSTOMERS refers CUSTOMERS: A self-recursive relationship, in which one existing customer can refer many new customer, but one new customer can only be refered by one existing customer.
+
+![](images/clipboard-2193275668.png){width="300"}
 
 -   SUPPLIERS supply SKU: One supplier can supply many products while one SKU is only provided by only one supplier.
 
